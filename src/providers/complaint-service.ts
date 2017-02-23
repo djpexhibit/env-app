@@ -14,12 +14,15 @@ export class ComplaintService {
 	data = null;
   pollutionTypes = null;
   complain = null;
+  expectedActions = null;
+  success = null;
+  comments = null;
 
   constructor(public http: Http) {
     console.log('Hello ComplaintService Provider');
   }
 
-  load() {
+  load(id) {
   	if (this.data) {
   		// already loaded data
   		return Promise.resolve(this.data);
@@ -31,7 +34,7 @@ export class ComplaintService {
   		// then on the response, it'll map the JSON data to a parsed JS object.
   		// Next, we process the data and resolve the promise with the new data.
   		//this.http.get('https://randomuser.me/api/?results=10')
-      this.http.get('http://139.59.58.196:3000/loadComplains')
+      this.http.post('http://139.59.58.196:3000/loadComplains',{user_id:id})
   			.map(res => res.json())
   			.subscribe(data => {
   				// we've got back the raw data, now generate the core schedule data
@@ -59,6 +62,21 @@ export class ComplaintService {
       });
     }
 
+  loadExpectedActions(){
+    if (this.expectedActions){
+      return Promise.resolve(this.expectedActions);
+    }
+
+    return new Promise(resolve => {
+      this.http.get('http://139.59.58.196:3000/loadExpectedActions')
+        .map(res => res.json())
+        .subscribe(data => {
+          this.expectedActions = data;
+          resolve(this.expectedActions);
+        });
+      });
+    }
+
 
 
 
@@ -67,8 +85,25 @@ export class ComplaintService {
       this.http.post('http://139.59.58.196:3000/loadComplain',{comp_id:comp_id})
         .map(res => res.json())
         .subscribe(data => {
+          console.log("CCCC"); console.log(data);
           this.complain = data;
           resolve(this.complain);
+        }, err=> {
+          console.log("CCCC 1");
+          this.complain = null;
+          resolve(this.complain);
+        });
+    });
+  }
+
+  loadComments(comp_id){
+    return new Promise(resolve => {
+      this.http.post('http://139.59.58.196:3000/loadComments',{comp_id:comp_id})
+        .map(res => res.json())
+        .subscribe(data => {
+          console.log(JSON.stringify(data));
+          this.comments = data;
+          resolve(this.comments);
         });
     });
   }
@@ -84,7 +119,21 @@ export class ComplaintService {
       this.http.post('http://139.59.58.196:3000/addComplain',{details:toSend})
         .map(res => res.json())
         .subscribe(data => {
-          console.log(data)
+          console.log(data);
+          this.success = data;
+          resolve(this.success);
+        })
+    });
+  }
+
+  addComment(comment){
+    return new Promise( resolve => {
+      this.http.post('http://139.59.58.196:3000/addComment',{details:comment})
+        .map(res => res.json())
+        .subscribe(data => {
+          console.log(data);
+          this.success = data;
+          resolve(this.success);
         })
     });
   }

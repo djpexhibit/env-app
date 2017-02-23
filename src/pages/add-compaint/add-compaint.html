@@ -5,89 +5,83 @@
   Ionic pages and navigation.
 -->
 <ion-header>
-
-  <ion-navbar>
-    <ion-title>Add Compaint</ion-title>
+  <ion-navbar color="dark">
+    <ion-title>
+      Add Complain
+    </ion-title>
+    <ion-buttons end>
+      <button ion-button (click)="logout()">
+        <ion-icon name="log-out"></ion-icon>
+      </button>
+    </ion-buttons>
   </ion-navbar>
-
 </ion-header>
 
 
-<ion-content padding class="about">
-  <form (ngSubmit)="addComplain()" #complainForm="ngForm">
-	<ion-row>
-		<ion-col width-80>
+<ion-content padding class="addComplain">
+  
+	
 			<ion-item>
   				<ion-label stacked>Select type of violation</ion-label>
   				<ion-select [(ngModel)]="complaint.type" name="type" >
     				<ion-option *ngFor="let pollutionType of pollutionTypes" value={{pollutionType.id}} >{{pollutionType.type}}</ion-option>
   				</ion-select>
 			</ion-item>
-		</ion-col>
 		
-	</ion-row>
-
-	<ion-row>
-		<ion-col>
 			<ion-item>
 				<ion-label stacked>Person/Firm</ion-label>
 				 <ion-input type="text" placeholder="Enter Details" name="person" [(ngModel)]="complaint.person" required></ion-input>
 			</ion-item>
-		</ion-col>
-	</ion-row>
+		
 
 
-	<ion-row>
-		<ion-col>
+	
 			<ion-item>
 				<ion-label stacked>Details</ion-label>
 				<ion-textarea [(ngModel)]="complaint.details" name="details"></ion-textarea>
 			</ion-item>
-		</ion-col>
-	</ion-row>
+		
+
+  <ion-row *ngIf="imageCounter < 3">
+      <ion-col>
+          <button ion-button color="dark" type="button" (click)="takePicture()">Take a Picture</button>
+      </ion-col>
+  </ion-row>
+  <ion-row *ngFor="let base64Image of base64Images" >
+      <ion-col width-50>
+            <img [src]="base64Image"  *ngIf="base64Image" />
+      </ion-col>
+  </ion-row>
+
+ 
+      <ion-item>
+          <ion-label stacked>Action Expected</ion-label>
+          <ion-select [(ngModel)]="complaint.action" name="action" >
+            <ion-option *ngFor="let expectedAction of expectedActions" value={{expectedAction.id}} >{{expectedAction.action}}</ion-option>
+          </ion-select>
+      </ion-item>
+  
+
+ 
+      <ion-item>
+        <ion-label stacked>Location</ion-label>
+        <ion-textarea [(ngModel)]="complaint.location" name="location"></ion-textarea>
+      </ion-item>
 
 
-
-  	<ion-row>
-  		<ion-col>
-  			ico
-  		</ion-col>
-  		<ion-col>
-  			Use GPS to find location or enter location manually
-  		</ion-col>
-  	</ion-row>
-
+  <ion-buttons end>
+    <button ion-button  color="dark" (click)="addMarker()"><ion-icon name="add"></ion-icon>Mark Location</button>
+  </ion-buttons>
+  <div width="50%" #map id="map"></div> 
   	
-  	<ion-row>
-		<ion-col>
-			<ion-item>
-  				<ion-label stacked>Action Expected</ion-label>
-  				<ion-select [(ngModel)]="complaint.action" name="action">
-    				<ion-option value="f" selected="true">Female</ion-option>
-    				<ion-option value="m">Male</ion-option>
-  				</ion-select>
-			</ion-item>
-		</ion-col>
-	</ion-row>
 
   <ion-row>
     <ion-col>
-      <button ion-button class="submit-btn" full type="submit" [disabled]="!complainForm.form.valid">Save</button>
+      <button ion-button class="submit-btn" full type="button" (click)="addComplain()" >Save</button>
     </ion-col>
   </ion-row>
 
-  </form>
-
-  <ion-row>
-      <ion-col>
-            <button type="button" (click)="takePicture()">Take a Picture</button>
-      </ion-col>
-    </ion-row>
-    <ion-row *ngFor="let base64Image of base64Images" >
-      <ion-col>
-            <img [src]="base64Image"  *ngIf="base64Image" />
-      </ion-col>
-    </ion-row>
+ 
 
 </ion-content>
 

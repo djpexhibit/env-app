@@ -4,29 +4,62 @@
     <ion-title>
       Complains
     </ion-title>
+    <ion-buttons start>
+      <button ion-button icon-only [navPush]="addComplaint">
+        <ion-icon name="add"></ion-icon>
+      </button>
+    </ion-buttons>
     <ion-buttons end>
       <button ion-button (click)="logout()">
         <ion-icon name="log-out"></ion-icon>
       </button>
     </ion-buttons>
   </ion-navbar>
+
 </ion-header>
  
-<ion-content class="home" padding>
+<ion-content class="cards-bg">
   <h3>Welcome, {{username}}!</h3>
   Your Email is: {{email}}
 
-  <ion-row>
-    <ion-col>
-      <button [navPush]="complaint" [navParams]={id:2} > TEST  </button>
-    </ion-col>
-  </ion-row>
+  <ion-list class="list-bak" no-padding *ngIf="complaints && complaints.length > 0" >
+    <div  [navPush]="complaint"  ion-item *ngFor="let complain of complaints" [navParams]={id:complain.id} >
+      <ion-card>
 
-  <ion-list inset>
-    <button [navPush]="complaint"  ion-item *ngFor="let complain of complaints" (click)="itemSelected(item)" [navParams]={id:complain.id} >
-      <h2>{{complain.type}}</h2>
-      <p>{{complain.res_person}}</p>
-    </button>
+         <ion-card-header>
+          <p>Reported By : {{complain.user }} </p>
+          <p>On : {{ complain.date}} </p>
+
+        </ion-card-header>
+
+       <ion-col>
+      <img src="thumbs.jpg"/>
+    </ion-col>
+
+        <ion-card-content>
+          <ion-card-title>
+            {{complain.type}}
+          </ion-card-title>
+          <p>Responsible : {{complain.res_person}}</p>
+          <p>{{complain.details}}...</p>
+        </ion-card-content>
+
+        <ion-row no-padding>
+          <ion-col>
+            <button ion-button clear small color="danger" icon-left>
+              <ion-icon name='md-chatbubbles'></ion-icon>
+              Comment
+            </button>
+          </ion-col>
+        </ion-row>
+
+      </ion-card>
+      
+    </div>
+  </ion-list>
+
+  <ion-list *ngIf="!complaints || (complaints && complaints.length == 0)" inset>
+   <p>No Complains Found.</p>
   </ion-list>
 
 </ion-content>

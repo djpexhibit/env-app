@@ -5,94 +5,92 @@
   Ionic pages and navigation.
 -->
 <ion-header>
-
-  <ion-navbar>
-    <ion-title>Complain</ion-title>
+  <ion-navbar color="dark">
+    <ion-title>
+      Complain Details
+    </ion-title>
+    <ion-buttons start>
+      <button ion-button icon-only [navPush]="addComplaint">
+        <ion-icon name="add"></ion-icon>
+      </button>
+    </ion-buttons>
     <ion-buttons end>
-    	<button [navPush]="addComplaint">
-    		+
-    	</button>
-	</ion-buttons>
+      <button ion-button (click)="logout()">
+        <ion-icon name="log-out"></ion-icon>
+      </button>
+    </ion-buttons>
   </ion-navbar>
+
 
 </ion-header>
 
 
-<ion-content padding class="about" *ngIf="complains && complains.length > 0">
-	<ion-row>
-		<ion-col width-80>
-			<ion-row>
-				Anonymous
-			</ion-row>
-			<ion-row>
-				On 12/12/2015 2.30 P.M
-			</ion-row>
-		</ion-col>
-		
-	</ion-row>
+<ion-content padding class="complains" *ngIf="complains && complains.length > 0">
+<div class="default_space"></div>
+ 
+<ion-card>
+	<ion-item>
+		<ion-label><span class="bold-label">{{complains[0].user}}</span></ion-label>
+	</ion-item>
+<ion-item>
+    {{complains[0].date}}
+  </ion-item>
+  </ion-card>
+<ion-card>
+	<ion-item>
+        <ion-label ><span class="bold-label">Problem  : </span>{{complains[0].type}}</ion-label>
+  </ion-item>
+  <ion-item>
+        <ion-label ><span class="bold-label">Location : </span>{{complains[0].location}} </ion-label>
+  </ion-item>
+  <ion-item>
+        <ion-label ><span class="bold-label">Party    : </span>{{complains[0].res_person}}</ion-label>
+
+		</ion-item>
+</ion-card>
+<ion-card>
 
 	<ion-row>
 		<ion-col>
-			<ion-row>
-				Problem : {{complains[0].type}}
-			</ion-row>
-			<ion-row>
-				Location : Marine Drive Colombo 04
-			</ion-row>
-			<ion-row>
-				Party : {{complains[0].res_person}}
-			</ion-row>
-		</ion-col>
-	</ion-row>
-
-
-	<ion-row>
-		<ion-col>
+      
 			{{complains[0].details}}
+      
 		</ion-col>
 	</ion-row>
+</ion-card>
+<ion-card>
+  <ion-row *ngFor="let comp of complains">
+    <ion-col>
+      <img [src]="_DomSanitizer.bypassSecurityTrustUrl(comp.image)"/>
+    </ion-col>
+  </ion-row>
+</ion-card>
+  <div width="60%" #map id="map"></div> 
+<ion-card>
 
- 	<ion-row class="logo-row">
- 		<ion-col>
- 			<img src="http://placehold.it/300x200"/>
- 		</ion-col>
- 		<ion-col>
- 			<img src="http://placehold.it/300x200"/>
- 		</ion-col>
-    	<ion-col>
-    		<img src="http://placehold.it/300x200"/>
-    	</ion-col>
-  	</ion-row>
+  <ion-list *ngIf="comments && comments.length > 0" inset>
+    <button  ion-item *ngFor="let comment of comments" >
+      <h2>{{comment.user}} : {{comment.date}}</h2>
+      <p>{{comment.details}}</p>
+    </button>
+  </ion-list>
 
-    <ion-row *ngFor="let comp of complains">
-      <ion-col>
-        <img src={{comp.image}} />
-      </ion-col>
-    </ion-row>
+  <ion-list *ngIf="!comments || (comments && comments.length == 0)" inset>
+   <p>No Comments Found.</p>
+  </ion-list>
 
-
-  	<ion-row>
-  		<ion-col>
-  			Upvote
-  		</ion-col>
-  		<ion-col>
-  			Comment
-  		</ion-col>
-  	</ion-row>
-
-  	<ion-row>
-  		<ion-row>
-  			<ion-col>
-  				<div>Anonymous</div>
-  				<div>2016-04-15 13.23 P.M</div>
-  			</ion-col>
-  			<ion-col>
-  				icon
-  			</ion-col>
-  		</ion-row>
-  		<ion-row>
-  			Test Comment - this is a test comment put by user
-  		</ion-row>
-  	</ion-row>
-
+  <ion-row>
+    <ion-col>
+      <ion-item>
+        <ion-label stacked>Put your comment here.</ion-label>
+        <ion-textarea [(ngModel)]="comment.details" name="location"></ion-textarea>
+      </ion-item>
+    </ion-col>
+  </ion-row>
+  <ion-row>
+    <ion-col>
+      <button ion-button color="dark" type="button" (click)="addComment()"  >Add Comment</button>
+    </ion-col>
+  </ion-row>
+</ion-card>
 </ion-content>

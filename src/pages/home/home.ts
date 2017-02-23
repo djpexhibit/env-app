@@ -5,6 +5,7 @@ import { AuthService } from '../../providers/auth-service';
 import { LoginPage } from '../login/login';
 import { ComplaintPage } from '../complaint/complaint';
 import {ComplaintService} from '../../providers/complaint-service';
+import {AddCompaintPage} from '../add-compaint/add-compaint';
  
 @Component({
   selector: 'page-home',
@@ -19,34 +20,14 @@ export class HomePage {
   email = '';
 
   complaint = ComplaintPage;
-
-  items = [
-    'Pokémon Yellow',
-    'Super Metroid',
-    'Mega Man X',
-    'The Legend of Zelda',
-    'Pac-Man',
-    'Super Mario World',
-    'Street Fighter II',
-    'Half Life',
-    'Final Fantasy VII',
-    'Star Fox',
-    'Tetris',
-    'Donkey Kong III',
-    'GoldenEye 007',
-    'Doom',
-    'Fallout',
-    'GTA',
-    'Halo'
-  ];
-
+  addComplaint = AddCompaintPage;
 
   constructor(private nav: NavController, private auth: AuthService, public complaintService: ComplaintService) {
     let info = this.auth.getUserInfo();
     this.username = info.name;
     this.email = info.email;
 
-    this.loadComplaints();
+    this.loadComplaints(info.id);
   }
  
   public logout() {
@@ -55,15 +36,10 @@ export class HomePage {
     });
   }
 
-  itemSelected(item: string) {
-    console.log("Selected Item", item);
-  }
-
-  loadComplaints(){
-    this.complaintService.load()
+  loadComplaints(id){
+    this.complaintService.load(id)
       .then(data => {
         this.complaints = data;
-        console.log(this.complaints);
       });
     }
 }

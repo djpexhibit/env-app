@@ -1,10 +1,10 @@
 
 page-register {
   .login-content {
-    background: #56CA96;
+    background: #ffffff;
  
     .login-box {
-      background: #509287;
+      background: #828282;
       padding: 20px 20px 0px 20px;
       margin-top: 30px;
     }
@@ -15,7 +15,7 @@ page-register {
      }
  
      ion-item {
-         border-radius: 30px !important;
+         border-radius: 5px !important;
          padding-left: 30px !important;
          font-size: 0.9em;
          margin-bottom: 10px;
@@ -36,7 +36,7 @@ page-register {
  
      .submit-btn {
        background: #51CFB1;
-       border-radius: 30px !important;
+       border-radius: 5px !important;
        border: 1px solid #ffffff;
      }
   }

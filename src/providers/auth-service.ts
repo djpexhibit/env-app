@@ -1,15 +1,18 @@
 import { Injectable } from '@angular/core';
-import {Observable} from 'rxjs/Observable';
+import { Observable } from 'rxjs/Observable';
+import 'rxjs/add/observable/throw';
 import 'rxjs/add/operator/map';
 import { Http } from '@angular/http';
  
 export class User {
   name: string;
   email: string;
+  id:number;
  
-  constructor(name: string, email: string) {
+  constructor(name: string, email: string, id: number) {
     this.name = name;
     this.email = email;
+    this.id = id;
   }
 }
  
@@ -17,6 +20,8 @@ export class User {
 export class AuthService {
   currentUser: User;
   access:boolean;
+  success = null;
+  emailCheck = null;
 
   constructor(public http: Http) {
     console.log('Hello ComplaintService Provider');
@@ -25,31 +30,78 @@ export class AuthService {
 
 
 
-    public login(credentials) {
-    if (credentials.email === null || credentials.password === null) {
-      return Observable.throw("Please insert credentials");
-    } else {
-      return Observable.create(observer => {
-        // At this point make a request to your backend to make a real check!
-        let access = (credentials.password === "pass" && credentials.email === "t@t.com");
-        this.currentUser = new User('Simon', 'saimon@devdactic.com');
-        observer.next(access);
+public login(credentials) {
+  if (credentials.email === null || credentials.password === null) {
+    return Observable.throw("Please insert credentials");
+  } else {
+    return Observable.create(observer => {
+      let url = 'http://139.59.58.196:3000/login';
+      this.http.post(url,{"credentials":credentials}).map(res => res.json()).subscribe( data => {
+        if (data.status === "OK"){
+          this.currentUser = new User(data.username, data.email,data.id);
+          this.access = true;
+        }else{
+          this.access = false;
+        }
+        observer.next(this.access);
         observer.complete();
-      });
-    }
+      }, err => {
+        this.access = false;
+         observer.next(this.access);
+        observer.complete();
+      }
+    );
+    });
   }
+}
 
  
-  public register(credentials) {
+  /*public register(credentials) {
     if (credentials.email === null || credentials.password === null) {
       return Observable.throw("Please insert credentials");
+    } else if(credentials.password !== credentials.repassword){
+      return Observable.throw("Password doens't match");
     } else {
       // At this point store the credentials to your backend!
       return Observable.create(observer => {
-        observer.next(true);
-        observer.complete();
+        let url = 'http://139.59.58.196:3000/register';
+        this.http.post(url,{"credentials":credentials}).map(res => res.json()).subscribe( data => {
+          if (data.status === "OK"){
+            observer.next(true);
+          }else{
+            observer.next(false);
+          }
+          
+          observer.complete();
+        }
+        );
       });
     }
+  }*/
+
+  public register(credentials){
+    return new Promise( resolve => {
+      this.http.post('http://139.59.58.196:3000/register',{credentials:credentials})
+        .map(res => res.json())
+        .subscribe(data => {
+          console.log(data);
+          this.success = data;
+          resolve(this.success);
+        })
+    });
+  }
+
+  public checkEmailValidity(credentials){
+  console.log(credentials);
+    return new Promise( resolve => {
+      this.http.post('http://139.59.58.196:3000/checkEmailValidity',{credentials:credentials})
+        .map(res => res.json())
+        .subscribe(data => {
+          console.log(data);
+          this.emailCheck = data;
+          resolve(this.emailCheck);
+        })
+    });
   }
  
   public getUserInfo() : User {

@@ -32,7 +32,7 @@ export class LoginPage {
       }
     },
     error => {
-      this.showError(error);
+      this.showError("Please try again");
     });
   }
  
