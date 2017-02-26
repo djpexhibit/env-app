@@ -6,6 +6,7 @@ import { LoginPage } from '../login/login';
 import { ComplaintPage } from '../complaint/complaint';
 import {ComplaintService} from '../../providers/complaint-service';
 import {AddCompaintPage} from '../add-compaint/add-compaint';
+import {DomSanitizer} from '@angular/platform-browser';
  
 @Component({
   selector: 'page-home',
@@ -22,7 +23,7 @@ export class HomePage {
   complaint = ComplaintPage;
   addComplaint = AddCompaintPage;
 
-  constructor(private nav: NavController, private auth: AuthService, public complaintService: ComplaintService) {
+  constructor(private nav: NavController, private auth: AuthService, public complaintService: ComplaintService, private _DomSanitizer: DomSanitizer) {
     let info = this.auth.getUserInfo();
     this.username = info.name;
     this.email = info.email;

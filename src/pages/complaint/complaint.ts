@@ -4,6 +4,7 @@ import {AddCompaintPage} from '../add-compaint/add-compaint';
 import {ComplaintService} from '../../providers/complaint-service';
 import { Geolocation } from 'ionic-native';
 import {DomSanitizer} from '@angular/platform-browser';
+import { AuthService } from '../../providers/auth-service';
 
 
 /*
@@ -32,7 +33,7 @@ export class ComplaintPage {
   comment = {
     type:'USER',
     details:'',
-    user_id:1,
+    user_id:0,
     complain_id:0
   }
   public complains : any;
@@ -44,8 +45,9 @@ export class ComplaintPage {
   @ViewChild('map') mapElement: ElementRef;
   map: any;
 
-  constructor(public navCtrl: NavController, public navParams: NavParams, public complaintService: ComplaintService, private alertCtrl: AlertController, private loadingCtrl: LoadingController, private _DomSanitizer: DomSanitizer) {
+  constructor(public navCtrl: NavController, public navParams: NavParams, public complaintService: ComplaintService, private alertCtrl: AlertController, private loadingCtrl: LoadingController, private _DomSanitizer: DomSanitizer, private auth: AuthService) {
 
+    this.comment.user_id=this.auth.getUserInfo().id;
     this.loadComplain(navParams.get("id"));
     this.loadComments(navParams.get("id"));
 
@@ -59,7 +61,6 @@ export class ComplaintPage {
   }
 
   loadMap(lat,lng){
-console.log(">>>>>>>>>>>>");
   Geolocation.getCurrentPosition().then((position) => {
  
       let latLng = new google.maps.LatLng(lat,lng);
@@ -129,12 +130,18 @@ console.log(">>>>>>>>>>>>");
 
   addComment(){
     this.showLoading();
+
+    if(!this.comment.details){
+      this.showError("Please enter details");
+    }
+
     this.comment.complain_id = this.complainId;
     this.complaintService.addComment(this.comment).then(success => {
       if (success) {
         setTimeout(() => {
           this.loading.dismiss();
           this.loadComments(this.complainId);
+          this.comment.details="";
         });
       } else {
         this.showError("Access Denied");

@@ -5,6 +5,7 @@ import {ComplaintService} from '../../providers/complaint-service';
 import { HomePage } from '../home/home';
 import { Geolocation } from 'ionic-native';
 import { AuthService } from '../../providers/auth-service';
+import {DomSanitizer} from '@angular/platform-browser';
 
 /*
   Generated class for the AddCompaint page.
@@ -36,7 +37,7 @@ export class AddCompaintPage {
   @ViewChild('map') mapElement: ElementRef;
   map: any;
 
-  constructor(public navCtrl: NavController, public navParams: NavParams, public complainService: ComplaintService, private alertCtrl: AlertController, private loadingCtrl: LoadingController, private auth: AuthService) {
+  constructor(public navCtrl: NavController, public navParams: NavParams, public complainService: ComplaintService, private alertCtrl: AlertController, private loadingCtrl: LoadingController, private auth: AuthService, private _DomSanitizer: DomSanitizer) {
     this.loadPollutionTypes();
     this.loadExpectedActions();
     this.imageCounter = 0;

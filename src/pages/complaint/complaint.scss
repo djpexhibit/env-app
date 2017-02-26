@@ -1,7 +1,7 @@
 page-complaint {
 
 		.complains{
-			background: #76b775;
+			background: #51884f;
 
 			#map {
         		width: 90%;
@@ -16,6 +16,22 @@ page-complaint {
       .bold-label{
         font-weight: 300
       }
+
+      .det{
+      font-family:Roboto,sans-serif;
+      color:#1a1a1a;
+      font-family: Roboto,sans-serif;
+      font-size: 18px;
+      line-height: 20px;
+      }
+
+      .des{
+        margin-left:10px;
+      }
+
+      .pex-input{
+        background-color:#B7B7B7;
+      } 
 		}
 		
 }

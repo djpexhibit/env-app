@@ -30,7 +30,7 @@
 		
 			<ion-item>
 				<ion-label stacked>Person/Firm</ion-label>
-				 <ion-input type="text" placeholder="Enter Details" name="person" [(ngModel)]="complaint.person" required></ion-input>
+				 <ion-input type="text" placeholder="Violated by" name="person" [(ngModel)]="complaint.person" required></ion-input>
 			</ion-item>
 		
 
@@ -38,18 +38,18 @@
 	
 			<ion-item>
 				<ion-label stacked>Details</ion-label>
-				<ion-textarea [(ngModel)]="complaint.details" name="details"></ion-textarea>
+				<ion-textarea [(ngModel)]="complaint.details" name="details" placeholder="Enter information"></ion-textarea>
 			</ion-item>
 		
 
   <ion-row *ngIf="imageCounter < 3">
       <ion-col>
-          <button ion-button color="dark" type="button" (click)="takePicture()">Take a Picture</button>
+          <button ion-button color="dark" type="button" (click)="takePicture()">Take a Picture</button> (Max 3 images)
       </ion-col>
   </ion-row>
   <ion-row *ngFor="let base64Image of base64Images" >
-      <ion-col width-50>
-            <img [src]="base64Image"  *ngIf="base64Image" />
+      <ion-col width-80>
+            <img [src]="_DomSanitizer.bypassSecurityTrustUrl(base64Image)" *ngIf="base64Image" />
       </ion-col>
   </ion-row>
 
@@ -65,7 +65,7 @@
  
       <ion-item>
         <ion-label stacked>Location</ion-label>
-        <ion-textarea [(ngModel)]="complaint.location" name="location"></ion-textarea>
+        <ion-textarea [(ngModel)]="complaint.location" name="location" placeholder="Enter the address"></ion-textarea>
       </ion-item>
 
 

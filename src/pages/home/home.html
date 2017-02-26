@@ -19,11 +19,18 @@
 </ion-header>
  
 <ion-content class="cards-bg">
-  <h3>Welcome, {{username}}!</h3>
-  Your Email is: {{email}}
+
+  <ion-card>
+<img src="add_1.jpg"/>
+</ion-card>
+
+  <div class="user-details">
+    <h3>Welcome, {{username}}!</h3>
+    <span>Your Email is: {{email}}</span>
+  </div>
 
   <ion-list class="list-bak" no-padding *ngIf="complaints && complaints.length > 0" >
-    <div  [navPush]="complaint"  ion-item *ngFor="let complain of complaints" [navParams]={id:complain.id} >
+    <div  [navPush]="complaint"   *ngFor="let complain of complaints" [navParams]={id:complain.id} >
       <ion-card>
 
          <ion-card-header>
@@ -32,8 +39,9 @@
 
         </ion-card-header>
 
-       <ion-col>
-      <img src="thumbs.jpg"/>
+       <ion-col width-50 offset-25>
+       <img [src]="_DomSanitizer.bypassSecurityTrustUrl(complain.image )" *ngIf="complain.image"  />
+        <img src="thumbs.jpg" *ngIf="!complain.image"/>
     </ion-col>
 
         <ion-card-content>
@@ -48,7 +56,7 @@
           <ion-col>
             <button ion-button clear small color="danger" icon-left>
               <ion-icon name='md-chatbubbles'></ion-icon>
-              Comment
+              Comment <span *ngIf="complain.comments">({{complain.comments}})</span> <span *ngIf="!complain.comments">(0)</span>
             </button>
           </ion-col>
         </ion-row>
