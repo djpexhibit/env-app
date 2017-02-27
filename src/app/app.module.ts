@@ -6,7 +6,9 @@ import { LoginPage } from '../pages/login/login';
 import { AuthService } from '../providers/auth-service';
 import { RegisterPage } from '../pages/register/register';
 import { ComplaintPage } from '../pages/complaint/complaint';
-import { AddCompaintPage } from '../pages/add-compaint/add-compaint'
+import { AddCompaintPage } from '../pages/add-compaint/add-compaint';
+import { MainPage } from '../pages/main/main';
+import { LawPage } from '../pages/law/law';
  
 @NgModule({
   declarations: [
@@ -15,7 +17,9 @@ import { AddCompaintPage } from '../pages/add-compaint/add-compaint'
     LoginPage,
     RegisterPage,
     ComplaintPage,
-    AddCompaintPage
+    AddCompaintPage,
+    MainPage,
+    LawPage
   ],
   imports: [
     IonicModule.forRoot(MyApp)
@@ -27,7 +31,9 @@ import { AddCompaintPage } from '../pages/add-compaint/add-compaint'
     LoginPage,
     RegisterPage,
     ComplaintPage,
-    AddCompaintPage
+    AddCompaintPage,
+    MainPage,
+    LawPage
   ],
   providers: [AuthService]
 })

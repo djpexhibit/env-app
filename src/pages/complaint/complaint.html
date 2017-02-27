@@ -74,11 +74,13 @@
 <ion-card>
 
   <ion-list *ngIf="comments && comments.length > 0" inset>
-    <button  ion-item *ngFor="let comment of comments" >
-      <h2>{{comment.user}}</h2>
-      <h4>{{comment.date}}</h4>
-      <p>{{comment.details}}</p>
-    </button>
+    <div *ngFor="let comment of comments">
+      <button  ion-item [class.admin_comment]="checkAdminComment(comment)"  >
+        <h2>{{comment.user}}</h2>
+        <h4>{{comment.date}}</h4>
+        <p [class.admin_comment]="checkAdminComment(comment)">{{comment.details}}</p>
+      </button>
+    </div>
   </ion-list>
 
   <ion-list *ngIf="!comments || (comments && comments.length == 0)" inset>
@@ -102,3 +104,8 @@
 </ion-card>
 </div>
 </ion-content>
+
+
+<ion-footer>
+  <button ion-button menuToggle>>></button>
+</ion-footer>

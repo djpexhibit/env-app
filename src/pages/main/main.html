@@ -1,0 +1,17 @@
+<ion-menu [content]="mycontent">
+
+    <ion-content class="pex-menu">
+        <ion-list inset>
+             <button  color="dark" ion-item menuClose (click)="openPage(lawPage)">
+                Enviorenment Law
+            </button>
+
+            <button  color="dark" ion-item menuClose (click)="openPage(homePage)">
+                Home
+            </button>
+        </ion-list>
+    </ion-content>
+
+</ion-menu>
+
+<ion-nav #mycontent [root]="rootPage"></ion-nav>

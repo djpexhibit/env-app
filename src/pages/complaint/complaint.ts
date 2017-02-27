@@ -19,7 +19,13 @@ declare var google;
 @Component({
   selector: 'page-complaint',
   templateUrl: 'complaint.html',
-  providers: [ComplaintService]
+  providers: [ComplaintService],
+  styles:[`
+    .admin_comment{
+      background-color:#617d87;
+      color:#ffffff
+    }
+  `]
 })
 export class ComplaintPage {
 
@@ -170,6 +176,12 @@ export class ComplaintPage {
       buttons: ['OK']
     });
     alert.present(prompt);
+  }
+
+
+  checkAdminComment(comment){
+    if(comment.type === 'ADMIN') return true
+    else return false;
   }
 
 }
