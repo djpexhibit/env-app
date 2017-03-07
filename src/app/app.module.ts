@@ -7,6 +7,7 @@ import { AuthService } from '../providers/auth-service';
 import { RegisterPage } from '../pages/register/register';
 import { ComplaintPage } from '../pages/complaint/complaint';
 import { AddCompaintPage } from '../pages/add-compaint/add-compaint';
+import { EditComplainPage } from '../pages/edit-complain/edit-complain';
 import { MainPage } from '../pages/main/main';
 import { LawPage } from '../pages/law/law';
  
@@ -18,6 +19,7 @@ import { LawPage } from '../pages/law/law';
     RegisterPage,
     ComplaintPage,
     AddCompaintPage,
+    EditComplainPage,
     MainPage,
     LawPage
   ],
@@ -32,6 +34,7 @@ import { LawPage } from '../pages/law/law';
     RegisterPage,
     ComplaintPage,
     AddCompaintPage,
+    EditComplainPage,
     MainPage,
     LawPage
   ],

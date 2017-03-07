@@ -3,6 +3,7 @@ import { Observable } from 'rxjs/Observable';
 import 'rxjs/add/observable/throw';
 import 'rxjs/add/operator/map';
 import { Http } from '@angular/http';
+import config from '../app/config.json';
  
 export class User {
   name: string;
@@ -35,7 +36,7 @@ public login(credentials) {
     return Observable.throw("Please insert credentials");
   } else {
     return Observable.create(observer => {
-      let url = 'http://139.59.58.196:3000/login';
+      let url = config.main.baseUrl + '/login';
       this.http.post(url,{"credentials":credentials}).map(res => res.json()).subscribe( data => {
         if (data.status === "OK"){
           this.currentUser = new User(data.username, data.email,data.id);
@@ -64,7 +65,7 @@ public login(credentials) {
     } else {
       // At this point store the credentials to your backend!
       return Observable.create(observer => {
-        let url = 'http://139.59.58.196:3000/register';
+        let url = config.main.baseUrl + '/register';
         this.http.post(url,{"credentials":credentials}).map(res => res.json()).subscribe( data => {
           if (data.status === "OK"){
             observer.next(true);
@@ -81,7 +82,7 @@ public login(credentials) {
 
   public register(credentials){
     return new Promise( resolve => {
-      this.http.post('http://139.59.58.196:3000/register',{credentials:credentials})
+      this.http.post(config.main.baseUrl + '/register',{credentials:credentials})
         .map(res => res.json())
         .subscribe(data => {
           console.log(data);
@@ -94,7 +95,7 @@ public login(credentials) {
   public checkEmailValidity(credentials){
   console.log(credentials);
     return new Promise( resolve => {
-      this.http.post('http://139.59.58.196:3000/checkEmailValidity',{credentials:credentials})
+      this.http.post(config.main.baseUrl + '/checkEmailValidity',{credentials:credentials})
         .map(res => res.json())
         .subscribe(data => {
           console.log(data);

@@ -1,6 +1,7 @@
 import { Component, ViewChild, ElementRef } from '@angular/core';
 import { NavController, NavParams ,AlertController, LoadingController, Loading  } from 'ionic-angular';
 import {AddCompaintPage} from '../add-compaint/add-compaint';
+import {EditComplainPage} from '../edit-complain/edit-complain';
 import {ComplaintService} from '../../providers/complaint-service';
 import { Geolocation } from 'ionic-native';
 import {DomSanitizer} from '@angular/platform-browser';
@@ -47,6 +48,7 @@ export class ComplaintPage {
   complainId:any;
 
 	addComplaint = AddCompaintPage;
+  editComplain = EditComplainPage;
 
   @ViewChild('map') mapElement: ElementRef;
   map: any;

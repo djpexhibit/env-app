@@ -7,6 +7,8 @@ import { ComplaintPage } from '../complaint/complaint';
 import {ComplaintService} from '../../providers/complaint-service';
 import {AddCompaintPage} from '../add-compaint/add-compaint';
 import {DomSanitizer} from '@angular/platform-browser';
+import config from '../../app/config.json';
+
  
 @Component({
   selector: 'page-home',
@@ -20,6 +22,9 @@ export class HomePage {
   username = '';
   email = '';
 
+  //adv = '';
+  adv = config.main.baseUrl +  '/1.jpg';
+
   complaint = ComplaintPage;
   addComplaint = AddCompaintPage;
 
@@ -29,6 +34,9 @@ export class HomePage {
     this.email = info.email;
 
     this.loadComplaints(info.id);
+    //this.loadAdv(Math.floor((Math.random() * 10) + 1));
+    let adv_number = Math.floor((Math.random() * 10) + 1);
+    this.adv = config.main.baseUrl + '/'+adv_number+'.jpg';
   }
  
   public logout() {
@@ -43,4 +51,11 @@ export class HomePage {
         this.complaints = data;
       });
     }
+
+
+  /*loadAdv(id){
+    this.advService.load(id).then(data => {
+      this.adv = data;
+    })
+  }*/
 }

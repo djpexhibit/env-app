@@ -1,6 +1,7 @@
 import { Injectable } from '@angular/core';
 import { Http } from '@angular/http';
 import 'rxjs/add/operator/map';
+import config from '../app/config.json';
 
 /*
   Generated class for the ComplaintService provider.
@@ -34,7 +35,7 @@ export class ComplaintService {
   		// then on the response, it'll map the JSON data to a parsed JS object.
   		// Next, we process the data and resolve the promise with the new data.
   		//this.http.get('https://randomuser.me/api/?results=10')
-      this.http.post('http://139.59.58.196:3000/loadComplains',{user_id:id})
+      this.http.post(config.main.baseUrl + '/loadComplains',{user_id:id})
   			.map(res => res.json())
   			.subscribe(data => {
   				// we've got back the raw data, now generate the core schedule data
@@ -53,7 +54,7 @@ export class ComplaintService {
     }
 
     return new Promise(resolve => {
-      this.http.get('http://139.59.58.196:3000/loadPollutionTypes')
+      this.http.get(config.main.baseUrl + '/loadPollutionTypes')
         .map(res => res.json())
         .subscribe(data => {
           this.pollutionTypes = data;
@@ -68,7 +69,7 @@ export class ComplaintService {
     }
 
     return new Promise(resolve => {
-      this.http.get('http://139.59.58.196:3000/loadExpectedActions')
+      this.http.get(config.main.baseUrl + '/loadExpectedActions')
         .map(res => res.json())
         .subscribe(data => {
           this.expectedActions = data;
@@ -82,7 +83,7 @@ export class ComplaintService {
 
   loadComplain(comp_id){
     return new Promise(resolve => {
-      this.http.post('http://139.59.58.196:3000/loadComplain',{comp_id:comp_id})
+      this.http.post(config.main.baseUrl + '/loadComplain',{comp_id:comp_id})
         .map(res => res.json())
         .subscribe(data => {
           console.log("CCCC"); console.log(data);
@@ -98,7 +99,7 @@ export class ComplaintService {
 
   loadComments(comp_id){
     return new Promise(resolve => {
-      this.http.post('http://139.59.58.196:3000/loadComments',{comp_id:comp_id})
+      this.http.post(config.main.baseUrl + '/loadComments',{comp_id:comp_id})
         .map(res => res.json())
         .subscribe(data => {
           console.log(JSON.stringify(data));
@@ -116,7 +117,7 @@ export class ComplaintService {
       images:base64Images
     }
     return new Promise( resolve => {
-      this.http.post('http://139.59.58.196:3000/addComplain',{details:toSend})
+      this.http.post(config.main.baseUrl + '/addComplain',{details:toSend})
         .map(res => res.json())
         .subscribe(data => {
           console.log(data);
@@ -128,7 +129,7 @@ export class ComplaintService {
 
   addComment(comment){
     return new Promise( resolve => {
-      this.http.post('http://139.59.58.196:3000/addComment',{details:comment})
+      this.http.post(config.main.baseUrl + '/addComment',{details:comment})
         .map(res => res.json())
         .subscribe(data => {
           console.log(data);

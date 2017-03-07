@@ -10,6 +10,10 @@
       </button>
     </ion-buttons>
 
+    <button ion-button menuToggle>
+      <ion-icon name="menu"></ion-icon>
+    </button>
+
     <ion-buttons end>
       <button ion-button (click)="logout()">
         <ion-icon name="log-out"></ion-icon>
@@ -22,8 +26,8 @@
 <ion-content class="cards-bg">
 
   <ion-card>
-<img src="add_1.jpg"/>
-</ion-card>
+    <img [src]="adv" />
+  </ion-card>
 
   <div class="user-details">
     <h3>Welcome, {{username}}!</h3>
@@ -73,6 +77,3 @@
 
 </ion-content>
 
-<ion-footer>
-  <button ion-button menuToggle>>></button>
-</ion-footer>
