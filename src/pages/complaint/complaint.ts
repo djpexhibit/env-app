@@ -47,6 +47,8 @@ export class ComplaintPage {
   public comments : any;
   complainId:any;
 
+  userId = 0;
+
 	addComplaint = AddCompaintPage;
   editComplain = EditComplainPage;
 
@@ -58,6 +60,8 @@ export class ComplaintPage {
     this.comment.user_id=this.auth.getUserInfo().id;
     this.loadComplain(navParams.get("id"));
     this.loadComments(navParams.get("id"));
+
+    this.userId = this.auth.getUserInfo().id;
 
     this.complainId = navParams.get("id");
   }

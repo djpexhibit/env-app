@@ -127,6 +127,26 @@ export class ComplaintService {
     });
   }
 
+
+  updateComplain(complain,base64Images){
+    console.log("UPDATING");
+    let toSend = {
+      complain:complain,
+      images:base64Images
+    }
+    return new Promise( resolve => {
+      this.http.post(config.main.baseUrl + '/updateComplain',{details:toSend})
+        .map(res => res.json())
+        .subscribe(data => {
+          console.log(data);
+          this.success = data;
+          resolve(this.success);
+        })
+    });
+  }
+
+
+
   addComment(comment){
     return new Promise( resolve => {
       this.http.post(config.main.baseUrl + '/addComment',{details:comment})

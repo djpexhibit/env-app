@@ -17,7 +17,7 @@
 </ion-header>
 
 
-<ion-content padding class="addComplain">
+<ion-content padding class="editComplain">
   	<ion-item>
   		<ion-label stacked>Select type of violation</ion-label>
   		<ion-select [(ngModel)]="complaint.pid" name="type" >
@@ -74,7 +74,7 @@
 
   <ion-row>
     <ion-col>
-      <button ion-button class="submit-btn" full type="button" (click)="addComplain()" >Save</button>
+      <button ion-button class="submit-btn" full type="button" (click)="updateComplain()" >Update</button>
     </ion-col>
   </ion-row>
 

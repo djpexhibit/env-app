@@ -42,9 +42,13 @@
 	
   
 	<ion-item>
-        <h2 class="det"> Problem  : {{complains[0].type}}
-          <button [navPush]="editComplain" [navParams]={id:complains[0].id} >(Edit)</button>
-        </h2> 
+    <ion-buttons end *ngIf="complains[0].uid == userId" >
+      <button [navPush]="editComplain" [navParams]={id:complains[0].id} >
+        <ion-icon name="md-create"></ion-icon>
+      </button>
+    </ion-buttons>
+    
+    <h2 class="det"> Problem  : {{complains[0].type}} </h2> 
   </ion-item>
   <ion-item>
         <h2 class="det"> Location : {{complains[0].location}} </h2>
@@ -77,6 +81,8 @@
     </ion-col>
   </ion-row>
 </ion-card>
+
+</div>
   <div width="60%" #map id="map"></div> 
 <ion-card>
 
@@ -109,7 +115,7 @@
     </ion-col>
   </ion-row>
 </ion-card>
-</div>
+
 </ion-content>
 
 

@@ -22,7 +22,7 @@ export class EditComplainPage {
 
   loading: Loading;
 	public base64Images : Array<string> = [];
-	complaint = {person: '', details: '', type:'', action:'',lat:0,lng:0, location:'',user:0, pid: -1, aid: -1};
+	complaint = {id:'',person: '', details: '', type:'', action:'',lat:0,lng:0, location:'',user:0, pid: -1, aid: -1};
 	public pollutionTypes: any;
 	public expectedActions: any;
 	public imageCounter: number;
@@ -39,6 +39,7 @@ export class EditComplainPage {
 
 	constructor(public navCtrl: NavController, public navParams: NavParams, public complainService: ComplaintService, private alertCtrl: AlertController, private loadingCtrl: LoadingController, private auth: AuthService, private _DomSanitizer: DomSanitizer) {
 		this.loadComplain(navParams.get("id"));
+    this.complaint.id = navParams.get("id");
 
 		this.loadPollutionTypes();
 		this.loadExpectedActions();
@@ -57,7 +58,14 @@ export class EditComplainPage {
 
 	loadMap(lat,lng){
 		Geolocation.getCurrentPosition().then((position) => {
-			let latLng = new google.maps.LatLng(lat,lng);
+
+      let latLng = null;
+      if(lat){
+        latLng = new google.maps.LatLng(lat,lng);
+      } else{
+        latLng = new google.maps.LatLng(position.coords.latitude, position.coords.longitude);
+      }
+			
 
 			let mapOptions = {
 				center: latLng,
@@ -103,11 +111,11 @@ export class EditComplainPage {
   }
 
 
-  addComplain(){
+  updateComplain(){
     this.showLoading();
-    console.log("SAVING COMPLAIN");
+    console.log("UPDATING COMPLAIN");
     this.complaint.user=this.userid;
-    this.complainService.addComplain(this.complaint, this.base64Images).then(success => {
+    this.complainService.updateComplain(this.complaint, this.base64Images).then(success => {
       if (success) {
         setTimeout(() => {
           this.loading.dismiss();
@@ -184,8 +192,19 @@ export class EditComplainPage {
         this.complaint.pid = this.complains[0].pid;
         this.complaint.aid = this.complains[0].aid;
 
-				if(this.complains && this.complains[0] && this.complains[0].lat){
-					this.loadMap(this.complains[0].lat, this.complains[0].lng);
+        this.complains.map(complain => {
+          this.base64Images.push(complain.image);
+          this.imageCounter++;
+        });
+
+				if(this.complains && this.complains[0]){
+          if(this.complains[0].lat){
+          
+            this.loadMap(this.complains[0].lat, this.complains[0].lng);
+          }else{
+            this.loadMap(null, null);
+          }
+					
 				}
 
 			}else{
