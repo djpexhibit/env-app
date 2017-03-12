@@ -33,7 +33,7 @@
 <ion-content  class="complains">
 
 <ion-card>
-<img src="add_1.jpg"/>
+  <img [src]="adv" />
 </ion-card>
 
 <div *ngIf="complains && complains.length > 0" >
@@ -76,7 +76,7 @@
 <ion-card>
 
   <ion-row *ngFor="let comp of complains">
-    <ion-col>
+    <ion-col *ngIf="comp.image">
       <img [src]="_DomSanitizer.bypassSecurityTrustUrl(comp.image)"/>
     </ion-col>
   </ion-row>

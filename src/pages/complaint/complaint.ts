@@ -6,6 +6,7 @@ import {ComplaintService} from '../../providers/complaint-service';
 import { Geolocation } from 'ionic-native';
 import {DomSanitizer} from '@angular/platform-browser';
 import { AuthService } from '../../providers/auth-service';
+import config from '../../app/config.json';
 
 
 /*
@@ -48,6 +49,7 @@ export class ComplaintPage {
   complainId:any;
 
   userId = 0;
+  adv = config.main.baseUrl +  '/1.jpg';
 
 	addComplaint = AddCompaintPage;
   editComplain = EditComplainPage;
@@ -64,6 +66,9 @@ export class ComplaintPage {
     this.userId = this.auth.getUserInfo().id;
 
     this.complainId = navParams.get("id");
+
+    let adv_number = Math.floor((Math.random() * 10) + 1);
+    this.adv = config.main.baseUrl + '/'+adv_number+'.jpg';
   }
 
   ionViewDidEnter() {
