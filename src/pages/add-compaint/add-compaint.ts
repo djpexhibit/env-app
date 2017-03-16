@@ -87,6 +87,11 @@ export class AddCompaintPage {
     });
   }
 
+  deletePicture(index){
+    this.base64Images = [...this.base64Images.slice(0,index), ...this.base64Images.slice(index + 1)];
+    this.imageCounter--;
+  }
+
 
   loadPollutionTypes(){
     this.complainService.loadPollutionTypes()

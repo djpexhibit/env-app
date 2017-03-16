@@ -52,9 +52,12 @@
           <button ion-button color="dark" type="button" (click)="takePicture()">Take a Picture</button> (Max 3 images)
       </ion-col>
   </ion-row>
-  <ion-row *ngFor="let base64Image of base64Images" >
+  <ion-row *ngFor="let base64Image of base64Images; let i = index" [attr.data-index]="i" >
       <ion-col width-80>
             <img [src]="_DomSanitizer.bypassSecurityTrustUrl(base64Image)" *ngIf="base64Image" />
+      </ion-col>
+      <ion-col width-20>
+            <button ion-button color="dark" type="button" (click)="deletePicture(i)">X</button>
       </ion-col>
   </ion-row>
 
