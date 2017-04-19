@@ -10,6 +10,9 @@ import { AddCompaintPage } from '../pages/add-compaint/add-compaint';
 import { EditComplainPage } from '../pages/edit-complain/edit-complain';
 import { MainPage } from '../pages/main/main';
 import { LawPage } from '../pages/law/law';
+
+import { MediaCapture, Camera,Transfer,File } from 'ionic-native';
+
  
 @NgModule({
   declarations: [
@@ -38,6 +41,6 @@ import { LawPage } from '../pages/law/law';
     MainPage,
     LawPage
   ],
-  providers: [AuthService]
+  providers: [AuthService, MediaCapture, Camera, Transfer, File]
 })
 export class AppModule {}

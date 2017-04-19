@@ -1,11 +1,12 @@
 import { Component ,ViewChild, ElementRef} from '@angular/core';
 import { NavController, NavParams ,AlertController, LoadingController, Loading  } from 'ionic-angular';
-import {Camera} from 'ionic-native';
 import {ComplaintService} from '../../providers/complaint-service';
 import { HomePage } from '../home/home';
 import { Geolocation } from 'ionic-native';
 import { AuthService } from '../../providers/auth-service';
 import {DomSanitizer} from '@angular/platform-browser';
+import { MediaCapture, Camera , CaptureVideoOptions, MediaFile, CaptureError} from 'ionic-native';
+
 
 /*
   Generated class for the AddCompaint page.
@@ -23,6 +24,8 @@ declare var google;
 })
 export class AddCompaintPage {
 
+  @ViewChild('myvideo') myVideo: any;
+
   loading: Loading;
   public base64Images : Array<string> = [];
   complaint = {person: '', details: '', type:'', action:'',lat:0,lng:0, location:'',user:0};
@@ -33,11 +36,13 @@ export class AddCompaintPage {
   username = '';
   email = '';
   userid=0;
+  videoFilePath='';
+  public videoPath = '';
 
   @ViewChild('map') mapElement: ElementRef;
   map: any;
 
-  constructor(public navCtrl: NavController, public navParams: NavParams, public complainService: ComplaintService, private alertCtrl: AlertController, private loadingCtrl: LoadingController, private auth: AuthService, private _DomSanitizer: DomSanitizer) {
+  constructor(public navCtrl: NavController, public navParams: NavParams, public complainService: ComplaintService, private alertCtrl: AlertController, private loadingCtrl: LoadingController, private auth: AuthService, private _DomSanitizer: DomSanitizer, private mediaCapture: MediaCapture) {
     this.loadPollutionTypes();
     this.loadExpectedActions();
     this.imageCounter = 0;
@@ -87,6 +92,46 @@ export class AddCompaintPage {
     });
   }
 
+  takeVideo() {
+    let options: CaptureVideoOptions = { limit: 1 };
+    MediaCapture.captureVideo(options).then((data: MediaFile[]) => {
+      var i, path, len;
+      for (i = 0, len = data.length; i < len; i += 1) {
+        console.log(path);
+        // data[i].fullPath = "file:/storage/extSdCard/DCIM/Camera/20160827_225041.mp4"
+        // data[i].localURL = "cdvfile://localhost/root/storage/extSdCard/DCIM/Camera/20160827_225041.mp4"
+        // How do I display this video to the user?
+        this.videoFilePath = data[i].fullPath;
+      }
+    },(err: CaptureError) => {
+      console.error(err);
+    }
+  );
+  }
+
+
+
+  startrecording() {
+    MediaCapture.captureVideo((videodata) => {
+      //this.base64Video = 'data:video/mp4;base64,'+videodata;
+      alert(JSON.stringify(videodata)); 
+    })
+  }
+
+  selectvideo() {
+    let video = this.myVideo.nativeElement;
+    var options = {
+      sourceType: 2,
+      mediaType: 1
+    };
+ 
+    Camera.getPicture(options).then((data) => {
+      video.src = data;
+      this.videoPath=data;
+      video.play();
+    })
+  }
+
   deletePicture(index){
     this.base64Images = [...this.base64Images.slice(0,index), ...this.base64Images.slice(index + 1)];
     this.imageCounter--;
@@ -116,10 +161,18 @@ export class AddCompaintPage {
     this.complaint.user=this.userid;
     this.complainService.addComplain(this.complaint, this.base64Images).then(success => {
       if (success) {
-        setTimeout(() => {
-          this.loading.dismiss();
-          this.navCtrl.setRoot(HomePage)
-        });
+        if(this.videoPath){
+          this.complainService.upload(this.videoPath).then( success => {
+            setTimeout(() => {
+              this.loading.dismiss();
+              this.navCtrl.setRoot(HomePage);
+            });
+
+          }
+            
+          );
+        }
+        
       } else {
         this.showError("Access Denied");
       }

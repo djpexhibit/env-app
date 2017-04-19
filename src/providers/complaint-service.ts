@@ -2,6 +2,9 @@ import { Injectable } from '@angular/core';
 import { Http } from '@angular/http';
 import 'rxjs/add/operator/map';
 import config from '../app/config.json';
+import { Transfer } from 'ionic-native';
+//import { FileUploadOptions, TransferObject } from '@ionic-native/transfer';
+//import { File } from '@ionic-native/file';
 
 /*
   Generated class for the ComplaintService provider.
@@ -19,9 +22,11 @@ export class ComplaintService {
   success = null;
   comments = null;
 
-  constructor(public http: Http) {
+  constructor(public http: Http, public transfer:Transfer) {
     console.log('Hello ComplaintService Provider');
   }
+
+  
 
   load(id) {
   	if (this.data) {
@@ -107,6 +112,29 @@ export class ComplaintService {
           resolve(this.comments);
         });
     });
+  }
+
+
+  upload(path) {
+    let options = {
+      fileKey: 'file',
+      fileName: 'name.mp4',
+      headers: {}
+    };
+
+    const fileTransfer = new Transfer();
+
+ return new Promise(resolve => {
+fileTransfer.upload(path, config.main.baseUrl + '/addVideo', options).then((data) => {
+     
+        resolve(data);
+    }, (err) => {
+      // error
+    })
+    
+ });
+
+    
   }
 
 
