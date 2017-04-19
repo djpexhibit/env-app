@@ -162,7 +162,7 @@ export class AddCompaintPage {
     this.complainService.addComplain(this.complaint, this.base64Images).then(success => {
       if (success) {
         if(this.videoPath){
-          this.complainService.upload(this.videoPath).then( success => {
+          this.complainService.upload(this.videoPath, success).then( success => {
             setTimeout(() => {
               this.loading.dismiss();
               this.navCtrl.setRoot(HomePage);

@@ -61,10 +61,13 @@
       </ion-col>
   </ion-row>
 
-      <button ion-button (click)="takeVideo()">Start</button>
-      <button ion-button (click)="selectvideo()">Select</button>
-      <video #myvideo height="300" width="300" controls></video>
-
+      
+        You can either record video here and select it or select previously recorded video (less than 10 MB)
+        <button ion-button (click)="takeVideo()">Record</button>
+        --- Please Select ---
+        <button ion-button (click)="selectvideo()">Select</button>
+        <video #myvideo height="300" width="300" controls></video>
+      
  
       <ion-item>
           <ion-label stacked>Action Expected</ion-label>

@@ -31,6 +31,8 @@ declare var google;
 })
 export class ComplaintPage {
 
+   @ViewChild('myvideo') myVideo: any;
+
   loading: Loading;
   complain = {
     res_person:'',
@@ -69,11 +71,15 @@ export class ComplaintPage {
 
     let adv_number = Math.floor((Math.random() * 10) + 1);
     this.adv = config.main.baseUrl + '/'+adv_number+'.jpg';
+
+    
   }
 
   ionViewDidEnter() {
     console.log('ionViewDidLoad AddCompaintPage');
-    
+    let video = this.myVideo.nativeElement;
+    video.src = 'http://139.59.58.196:3000/vid50.mp4';
+    video.play();
 
   }
 
