@@ -10,6 +10,10 @@ import { AddCompaintPage } from '../pages/add-compaint/add-compaint';
 import { EditComplainPage } from '../pages/edit-complain/edit-complain';
 import { MainPage } from '../pages/main/main';
 import { LawPage } from '../pages/law/law';
+import { AddSpeciesPage } from '../pages/add-species/add-species';
+import { ListSpeciesPage } from '../pages/list-species/list-species';
+import { ViewSpeciesPage } from '../pages/view-species/view-species';
+import { EditSpeciesPage } from '../pages/edit-species/edit-species';
 
 import { MediaCapture, Camera,Transfer,File } from 'ionic-native';
 
@@ -24,7 +28,11 @@ import { MediaCapture, Camera,Transfer,File } from 'ionic-native';
     AddCompaintPage,
     EditComplainPage,
     MainPage,
-    LawPage
+    LawPage,
+    AddSpeciesPage,
+    ListSpeciesPage,
+    ViewSpeciesPage,
+    EditSpeciesPage
   ],
   imports: [
     IonicModule.forRoot(MyApp)
@@ -39,7 +47,11 @@ import { MediaCapture, Camera,Transfer,File } from 'ionic-native';
     AddCompaintPage,
     EditComplainPage,
     MainPage,
-    LawPage
+    LawPage,
+    AddSpeciesPage,
+    ListSpeciesPage,
+    ViewSpeciesPage,
+    EditSpeciesPage
   ],
   providers: [AuthService, MediaCapture, Camera, Transfer, File]
 })

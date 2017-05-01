@@ -118,7 +118,7 @@ export class ComplaintService {
   upload(path, compId) {
     let options = {
       fileKey: 'file',
-      fileName: 'vid'+compId.id+'.mp4',
+      fileName: 'vid_'+compId.id+'.mp4',
       headers: {}
     };
 

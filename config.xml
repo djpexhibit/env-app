@@ -13,6 +13,15 @@
   <allow-navigation href="http://10.217.61.200:8100"/>
   <allow-navigation href="http://10.219.114.191:8100"/>
   <allow-navigation href="http://10.179.218.1:8100"/>
+  <allow-navigation href="http://10.219.250.196:8100"/>
+  <allow-navigation href="http://10.217.63.235:8100"/>
+  <allow-navigation href="http://10.219.125.45:8100"/>
+  <allow-navigation href="http://10.158.42.201:8100"/>
+  <allow-navigation href="http://10.179.223.19:8100"/>
+  <allow-navigation href="http://10.217.11.25:8100"/>
+  <allow-navigation href="http://10.219.244.18:8100"/>
+  <allow-navigation href="http://192.168.1.6:8100"/>
+  <allow-navigation href="http://192.168.1.2:8100"/>
   <allow-intent href="http://*/*"/>
   <allow-intent href="https://*/*"/>
   <allow-intent href="tel:*"/>

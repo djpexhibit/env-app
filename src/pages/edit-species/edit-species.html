@@ -1,0 +1,68 @@
+<ion-header>
+	<ion-navbar color="dark">
+    	<ion-title>
+      		Edit Species
+    	</ion-title>
+
+    	<button ion-button menuToggle>
+     		<ion-icon name="menu"></ion-icon>
+    	</button>
+    
+    	<ion-buttons end>
+      		<button ion-button (click)="logout()">
+        		<ion-icon name="log-out"></ion-icon>
+      		</button>
+    	</ion-buttons>
+  	</ion-navbar>
+</ion-header>
+
+
+<ion-content padding class="editSpecies">
+	
+	<ion-item>
+		<ion-label stacked>Species Type</ion-label>
+		<ion-textarea [(ngModel)]="specie.type" name="type" placeholder="Enter information"></ion-textarea>
+	</ion-item>
+
+	<ion-item>
+		<ion-label stacked>Species Name</ion-label>
+		<ion-textarea [(ngModel)]="specie.name" name="name" placeholder="Enter information"></ion-textarea>
+	</ion-item>
+
+	<ion-item>
+		<ion-label stacked>Details</ion-label>
+		<ion-textarea [(ngModel)]="specie.details" name="details" placeholder="Enter information"></ion-textarea>
+	</ion-item>
+
+	<ion-row *ngIf="imageCounter < 3">
+		<ion-col>
+			<button ion-button color="dark" type="button" (click)="takePicture()">Take a Picture</button> (Max 3 images)
+		</ion-col>
+	</ion-row>
+	<ion-row *ngFor="let base64Image of base64Images" >
+		<ion-col width-80>
+			<img [src]="_DomSanitizer.bypassSecurityTrustUrl(base64Image)" *ngIf="base64Image" />
+		</ion-col>
+	</ion-row>
+
+
+	<ion-item>
+		<ion-label stacked>Location</ion-label>
+		<ion-textarea [(ngModel)]="specie.location" name="location" placeholder="Enter the address"></ion-textarea>
+	</ion-item>
+
+
+	<ion-buttons end>
+		<button ion-button  color="dark" (click)="addMarker()"><ion-icon name="add"></ion-icon>Mark Location</button>
+	</ion-buttons>
+	<div width="50%" #map id="map"></div>
+
+
+	<ion-row>
+		<ion-col>
+			<button ion-button class="submit-btn" full type="button" (click)="updateSpecies()" >Update</button>
+		</ion-col>
+	</ion-row>
+
+</ion-content>
+

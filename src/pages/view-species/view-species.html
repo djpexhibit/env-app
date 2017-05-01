@@ -1,0 +1,119 @@
+<ion-header>
+	<ion-navbar color="dark">
+		<ion-title>
+			Species Details
+		</ion-title>
+
+		<ion-buttons start>
+			<button ion-button icon-only [navPush]="addSpecies">
+				<ion-icon name="add"></ion-icon>
+			</button>
+		</ion-buttons>
+
+		<button ion-button menuToggle>
+			<ion-icon name="menu"></ion-icon>
+		</button>
+
+		<ion-buttons end>
+			<button ion-button (click)="logout()">
+				<ion-icon name="log-out"></ion-icon>
+			</button>
+		</ion-buttons>
+	</ion-navbar>
+</ion-header>
+
+
+<ion-content  class="viewSpecies">
+
+	<ion-card>
+		<img [src]="adv" />
+	</ion-card>
+
+	
+
+	<div *ngIf="species && species.length > 0" >
+
+		<ion-card>
+
+			<ion-item>
+				<ion-buttons end *ngIf="species[0].uid == userId" >
+					<button [navPush]="editSpecies" [navParams]={id:species[0].id} >
+						<ion-icon name="md-create"></ion-icon>
+					</button>
+				</ion-buttons>
+
+				<h2 class="det"> Name  : {{species[0].name}} </h2>
+			</ion-item>
+
+			<ion-item>
+				<h2 class="det"> Location : {{species[0].location}} </h2>
+			</ion-item>
+
+			<ion-item>
+				<h2 class="det"> Type    : {{species[0].type}} </h2>
+			</ion-item>
+
+			<ion-item>
+				<h3> Reported By : {{species[0].user}} </h3>
+				<h3> On : {{species[0].date}} </h3>
+			</ion-item>
+
+			<ion-row>
+				<ion-col>
+					<div class="des">
+						{{species[0].details}}
+					</div>
+				</ion-col>
+			</ion-row>
+		</ion-card>
+
+		<ion-card>
+			<ion-row *ngFor="let spec of species">
+				<ion-col *ngIf="spec.image">
+					<img [src]="_DomSanitizer.bypassSecurityTrustUrl(spec.image)"/>
+				</ion-col>
+			</ion-row>
+		</ion-card>
+
+		
+	</div>
+
+	<video #myvideo height="300" width="300" controls ></video>
+
+	<div width="60%" #map id="map"></div>
+		<ion-card>
+			<ion-list *ngIf="comments && comments.length > 0" inset>
+				<div *ngFor="let comment of comments">
+					<button  ion-item [class.admin_comment]="checkAdminComment(comment)"  >
+						<h2>{{comment.user}}</h2>
+						<h4>{{comment.date}}</h4>
+						<p [class.admin_comment]="checkAdminComment(comment)">{{comment.details}}</p>
+					</button>
+				</div>
+			</ion-list>
+
+			<ion-list *ngIf="!comments || (comments && comments.length == 0)" inset>
+				<p>No Comments Found.</p>
+			</ion-list>
+		</ion-card>
+
+		<ion-card>
+			<ion-row class="pex-input">
+				<ion-col>
+					<ion-item>
+						<ion-label stacked>Put your comment here.</ion-label>
+						<ion-textarea [(ngModel)]="comment.details" name="location" placeholder="Enter information" ></ion-textarea>
+					</ion-item>
+				</ion-col>
+			</ion-row>
+
+			<ion-row>
+				<ion-col>
+					<button ion-button color="dark" type="button" (click)="addComment()"  >Add Comment</button>
+				</ion-col>
+			</ion-row>
+		</ion-card>
+
+</ion-content>
+
+

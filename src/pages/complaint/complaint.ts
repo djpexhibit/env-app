@@ -78,7 +78,8 @@ export class ComplaintPage {
   ionViewDidEnter() {
     console.log('ionViewDidLoad AddCompaintPage');
     let video = this.myVideo.nativeElement;
-    video.src = 'http://139.59.58.196:3000/vid50.mp4';
+    video.src = 'http://139.59.58.196:3000/getvvv?id='+this.complainId;
+    video.load();
     video.play();
 
   }

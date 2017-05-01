@@ -1,0 +1,90 @@
+<ion-header>
+	<ion-navbar color="dark">
+		<ion-title>
+			Add Species
+		</ion-title>
+
+		<button ion-button menuToggle>
+			<ion-icon name="menu"></ion-icon>
+		</button>
+
+		<ion-buttons end>
+			<button ion-button (click)="logout()">
+				<ion-icon name="log-out"></ion-icon>
+			</button>
+		</ion-buttons>
+	</ion-navbar>
+</ion-header>
+
+
+<ion-content padding class="addSpecies">
+
+	<ion-item>
+		<ion-label stacked>Species Type</ion-label>
+		<ion-textarea [(ngModel)]="species.type" name="type" placeholder="Enter information"></ion-textarea>
+	</ion-item>
+
+	<ion-item>
+		<ion-label stacked>Species Name</ion-label>
+		<ion-textarea [(ngModel)]="species.name" name="name" placeholder="Enter information"></ion-textarea>
+	</ion-item>
+
+	<ion-item>
+		<ion-label stacked>Details</ion-label>
+		<ion-textarea [(ngModel)]="species.details" name="details" placeholder="Enter information"></ion-textarea>
+	</ion-item>
+
+	
+
+	<ion-row *ngIf="imageCounter < 3">
+		<ion-col>
+			<button ion-button color="dark" type="button" (click)="takePicture()">Take a Picture</button> (Max 3 images)
+		</ion-col>
+	</ion-row>
+
+	<ion-row *ngFor="let base64Image of base64Images; let i = index" [attr.data-index]="i" >
+		<ion-col width-80>
+			<img [src]="_DomSanitizer.bypassSecurityTrustUrl(base64Image)" *ngIf="base64Image" />
+		</ion-col>
+		<ion-col width-20>
+			<button ion-button color="dark" type="button" (click)="deletePicture(i)">X</button>
+		</ion-col>
+	</ion-row>
+
+
+	<ion-card>
+		<ion-card-content>
+			You can either record video here and select it or select previously recorded video (less than 10 MB)
+		</ion-card-content>
+	</ion-card>
+	
+	<button ion-button (click)="takeVideo()">Record</button>
+	<button ion-button (click)="selectvideo()">Select Video</button>
+	<video #myvideo height="300" width="300" controls></video>
+
+
+
+	<ion-item>
+		<ion-label stacked>Location</ion-label>
+		<ion-textarea [(ngModel)]="species.location" name="location" placeholder="Enter the address"></ion-textarea>
+	</ion-item>
+
+
+	<ion-buttons end>
+		<button ion-button  color="dark" (click)="addMarker()"><ion-icon name="add"></ion-icon>Mark Location</button>
+	</ion-buttons>
+	<div width="50%" #map id="map"></div> 
+
+
+
+	<ion-row>
+		<ion-col>
+			<button ion-button class="submit-btn" full type="button" (click)="addSpecies()" >Save</button>
+		</ion-col>
+	</ion-row>
+
+
+
+
+</ion-content>
+

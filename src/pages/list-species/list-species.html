@@ -1,0 +1,78 @@
+<ion-header>
+	<ion-navbar color="dark">
+		<ion-title>
+			Species
+		</ion-title>
+
+		<ion-buttons start>
+			<button ion-button icon-only [navPush]="addSpecies">
+				<ion-icon name="add"></ion-icon>
+			</button>
+		</ion-buttons>
+
+		<button ion-button menuToggle>
+			<ion-icon name="menu"></ion-icon>
+		</button>
+
+		<ion-buttons end>
+			<button ion-button (click)="logout()">
+				<ion-icon name="log-out"></ion-icon>
+			</button>
+		</ion-buttons>
+	</ion-navbar>
+</ion-header>
+
+
+<ion-content class="cards-bg">
+
+	<ion-card>
+		<img [src]="adv" />
+	</ion-card>
+
+	<div class="user-details">
+		<h3>Welcome, {{username}}!</h3>
+		<span>Your Email is: {{email}}</span>
+	</div>
+
+	<ion-list class="list-bak" no-padding *ngIf="species && species.length > 0" >
+		<div  [navPush]="viewSpecies"   *ngFor="let specie of species" [navParams]={id:specie.id} >
+		
+			<ion-card>
+				<ion-card-header>
+					<p>Reported By : {{specie.user }} </p>
+					<p>On : {{ specie.date}} </p>
+				</ion-card-header>
+
+				<ion-col width-50 offset-25>
+					<img [src]="_DomSanitizer.bypassSecurityTrustUrl(specie.image )" *ngIf="specie.image"  />
+					<img src="thumbs.jpg" *ngIf="!specie.image"/>
+				</ion-col>
+
+				<ion-card-content>
+					<ion-card-title>
+						{{specie.type}}
+					</ion-card-title>
+					<p>Name : {{specie.name}}</p>
+					<p>{{specie.details}}...</p>
+				</ion-card-content>
+
+				<ion-row no-padding>
+					<ion-col>
+						<button ion-button clear small color="danger" icon-left>
+							<ion-icon name='md-chatbubbles'></ion-icon>
+								Comment 
+								<span *ngIf="specie.comments">({{specie.comments}})</span>
+								<span *ngIf="!specie.comments">(0)</span>
+						</button>
+					</ion-col>
+				</ion-row>
+			</ion-card>
+		</div>
+	</ion-list>
+
+	<ion-list *ngIf="!species || (species && species.length == 0)" inset>
+		<p>No Species Found.</p>
+	</ion-list>
+
+</ion-content>
+

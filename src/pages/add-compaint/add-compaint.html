@@ -61,11 +61,14 @@
       </ion-col>
   </ion-row>
 
-      
-        You can either record video here and select it or select previously recorded video (less than 10 MB)
+        <ion-card>
+          <ion-card-content>
+            You can either record video here and select it or select previously recorded video (less than 10 MB)
+          </ion-card-content>
+        </ion-card>
+        
         <button ion-button (click)="takeVideo()">Record</button>
-        --- Please Select ---
-        <button ion-button (click)="selectvideo()">Select</button>
+        <button ion-button (click)="selectvideo()">Select Video</button>
         <video #myvideo height="300" width="300" controls></video>
       
  
