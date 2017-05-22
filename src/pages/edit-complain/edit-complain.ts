@@ -1,11 +1,11 @@
 import { Component ,ViewChild, ElementRef} from '@angular/core';
 import { NavController, NavParams ,AlertController, LoadingController, Loading  } from 'ionic-angular';
-import {Camera} from 'ionic-native';
 import {ComplaintService} from '../../providers/complaint-service';
 import { HomePage } from '../home/home';
-import { Geolocation } from 'ionic-native';
 import { AuthService } from '../../providers/auth-service';
 import {DomSanitizer} from '@angular/platform-browser';
+import { Geolocation, MediaCapture, Camera , CaptureVideoOptions, MediaFile, CaptureError} from 'ionic-native';
+
 
 
 declare var google;
@@ -18,6 +18,8 @@ declare var google;
 
 
 export class EditComplainPage {
+
+  @ViewChild('myvideo') myVideo: any;
 
 
   loading: Loading;
@@ -32,6 +34,8 @@ export class EditComplainPage {
 	username = '';
 	email = '';
 	userid=0;
+  videoFilePath;
+  videoPath
 
 
 	@ViewChild('map') mapElement: ElementRef;
@@ -54,6 +58,14 @@ export class EditComplainPage {
 	ionViewDidLoad() {
 		console.log('ionViewDidLoad AddCompaintPage');
 	}
+
+
+  ionViewDidEnter(){
+    let video = this.myVideo.nativeElement;
+    video.src = 'http://139.59.58.196:3000/getvvv?id='+this.complaint.id+'&type=spec';
+    video.load();
+    video.play();
+  }
 
 
 	loadMap(lat,lng){
@@ -117,10 +129,17 @@ export class EditComplainPage {
     this.complaint.user=this.userid;
     this.complainService.updateComplain(this.complaint, this.base64Images).then(success => {
       if (success) {
-        setTimeout(() => {
-          this.loading.dismiss();
-          this.navCtrl.setRoot(HomePage)
-        });
+        if(this.videoPath){
+          this.complainService.upload(this.videoPath, success).then( success => {
+            setTimeout(() => {
+              this.loading.dismiss();
+              this.navCtrl.setRoot(HomePage);
+            });
+
+          }
+            
+          );
+        }
       } else {
         this.showError("Access Denied");
       }
@@ -216,6 +235,34 @@ export class EditComplainPage {
 		});
 
 	}
+
+
+  takeVideo() {
+    let options: CaptureVideoOptions = { limit: 1 };
+    MediaCapture.captureVideo(options).then((data: MediaFile[]) => {
+      var i, path, len;
+      for (i = 0, len = data.length; i < len; i += 1) {
+        this.videoFilePath = data[i].fullPath;
+      }
+    },(err: CaptureError) => {
+      console.error(err);
+    }
+  );
+  }
+
+  selectvideo() {
+    let video = this.myVideo.nativeElement;
+    var options = {
+      sourceType: 2,
+      mediaType: 1
+    };
+ 
+    Camera.getPicture(options).then((data) => {
+      video.src = data;
+      this.videoPath=data;
+      video.play();
+    })
+  }
 
 
 }

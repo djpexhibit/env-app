@@ -1,37 +1,41 @@
 page-view-species {
 
-	.viewSpecies{
-		background: #51884f;
+  .viewSpecies{
+    background: #51884f;
 
-			#map {
-        		width: 90%;
-        		height: 100%;
-        		margin: auto;
-      		}
+    #map {
+      width: 90%;
+      height: 100%;
+      margin: auto;
+    }
 
-      		.default_space{
-      			margin-top:56px;
-      		}
+    .default_space{
+      margin-top:56px;
+    }
 
-      .bold-label{
-        font-weight: 300
-      }
+    .bold-label{
+      font-weight: 300
+    }
 
-      .det{
+    .det{
       font-family:Roboto,sans-serif;
       color:#1a1a1a;
       font-family: Roboto,sans-serif;
       font-size: 18px;
       line-height: 20px;
-      }
+    }
 
-      .des{
-        margin-left:10px;
-      }
+    .des{
+      margin-left:10px;
+    }
 
-      .pex-input{
-        background-color:#B7B7B7;
-      } 
-		}
+    .pex-input{
+      background-color:#B7B7B7;
+    }
+
+    video{
+      margin-left:10%;
+    } 
+  }
 		
 }

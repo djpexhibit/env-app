@@ -1,7 +1,7 @@
 import { Component ,ViewChild, ElementRef} from '@angular/core';
 import { NavController, NavParams ,AlertController, LoadingController, Loading  } from 'ionic-angular';
 import {SpeciesService} from '../../providers/species-service';
-import { HomePage } from '../home/home';
+import { ListSpeciesPage } from '../list-species/list-species';
 import { Geolocation } from 'ionic-native';
 import { AuthService } from '../../providers/auth-service';
 import {DomSanitizer} from '@angular/platform-browser';
@@ -55,24 +55,24 @@ export class AddSpeciesPage {
   }
 
   loadMap(){
- 
+
     Geolocation.getCurrentPosition().then((position) => {
- 
+
       let latLng = new google.maps.LatLng(position.coords.latitude, position.coords.longitude);
 
-    
+
       let mapOptions = {
         center: latLng,
         zoom: 15,
         mapTypeId: google.maps.MapTypeId.ROADMAP
       }
- 
+
       this.map = new google.maps.Map(this.mapElement.nativeElement, mapOptions);
- 
+
     }, (err) => {
       console.log(err);
     });
- 
+
   }
 
   takePicture(){
@@ -89,7 +89,7 @@ export class AddSpeciesPage {
   }
 
   takeVideo() {
-    let options: CaptureVideoOptions = { limit: 1 };
+    let options: CaptureVideoOptions = { limit: 1, duration: 10, quality:0 };
     MediaCapture.captureVideo(options).then((data: MediaFile[]) => {
       var i, path, len;
       for (i = 0, len = data.length; i < len; i += 1) {
@@ -110,7 +110,7 @@ export class AddSpeciesPage {
   startrecording() {
     MediaCapture.captureVideo((videodata) => {
       //this.base64Video = 'data:video/mp4;base64,'+videodata;
-      alert(JSON.stringify(videodata)); 
+      alert(JSON.stringify(videodata));
     })
   }
 
@@ -120,7 +120,7 @@ export class AddSpeciesPage {
       sourceType: 2,
       mediaType: 1
     };
- 
+
     Camera.getPicture(options).then((data) => {
       video.src = data;
       this.videoPath=data;
@@ -133,6 +133,12 @@ export class AddSpeciesPage {
     this.imageCounter--;
   }
 
+  /*deleteVideo(){
+    this.videoPath = null;
+    let video = this.myVideo.nativeElement;
+    video.src=null;
+  }*/
+
 
   addSpecies(){
     this.showLoading();
@@ -144,14 +150,17 @@ export class AddSpeciesPage {
           this.speciesService.upload(this.videoPath, success).then( success => {
             setTimeout(() => {
               this.loading.dismiss();
-              this.navCtrl.setRoot(HomePage);
+              this.navCtrl.setRoot(ListSpeciesPage);
             });
 
           }
-            
+
           );
         }
-        
+
+        this.loading.dismiss();
+        this.navCtrl.setRoot(ListSpeciesPage);
+
       } else {
         this.showError("Access Denied");
       }
@@ -168,12 +177,12 @@ export class AddSpeciesPage {
     });
     this.loading.present();
   }
- 
+
   showError(text) {
     setTimeout(() => {
       this.loading.dismiss();
     });
- 
+
     let alert = this.alertCtrl.create({
       title: 'Fail',
       subTitle: text,
@@ -192,7 +201,7 @@ export class AddSpeciesPage {
 
     this.species.lat = this.map.getCenter().lat();
     this.species.lng = this.map.getCenter().lng();
- 
+
 
     let content = "<h4>Marked Place!</h4>";
     this.addInfoWindow(marker, content);

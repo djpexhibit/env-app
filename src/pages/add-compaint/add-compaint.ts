@@ -59,24 +59,24 @@ export class AddCompaintPage {
   }
 
   loadMap(){
- 
+
     Geolocation.getCurrentPosition().then((position) => {
- 
+
       let latLng = new google.maps.LatLng(position.coords.latitude, position.coords.longitude);
 
-    
+
       let mapOptions = {
         center: latLng,
         zoom: 15,
         mapTypeId: google.maps.MapTypeId.ROADMAP
       }
- 
+
       this.map = new google.maps.Map(this.mapElement.nativeElement, mapOptions);
- 
+
     }, (err) => {
       console.log(err);
     });
- 
+
   }
 
   takePicture(){
@@ -93,7 +93,7 @@ export class AddCompaintPage {
   }
 
   takeVideo() {
-    let options: CaptureVideoOptions = { limit: 1 };
+    let options: CaptureVideoOptions = { limit: 1, duration: 10, quality:0 };
     MediaCapture.captureVideo(options).then((data: MediaFile[]) => {
       var i, path, len;
       for (i = 0, len = data.length; i < len; i += 1) {
@@ -114,7 +114,7 @@ export class AddCompaintPage {
   startrecording() {
     MediaCapture.captureVideo((videodata) => {
       //this.base64Video = 'data:video/mp4;base64,'+videodata;
-      alert(JSON.stringify(videodata)); 
+      alert(JSON.stringify(videodata));
     })
   }
 
@@ -124,8 +124,9 @@ export class AddCompaintPage {
       sourceType: 2,
       mediaType: 1
     };
- 
+
     Camera.getPicture(options).then((data) => {
+      //this.showError(video.size);
       video.src = data;
       this.videoPath=data;
       video.play();
@@ -169,10 +170,13 @@ export class AddCompaintPage {
             });
 
           }
-            
+
           );
         }
-        
+
+        this.loading.dismiss();
+        this.navCtrl.setRoot(HomePage);
+
       } else {
         this.showError("Access Denied");
       }
@@ -189,12 +193,12 @@ export class AddCompaintPage {
     });
     this.loading.present();
   }
- 
+
   showError(text) {
     setTimeout(() => {
       this.loading.dismiss();
     });
- 
+
     let alert = this.alertCtrl.create({
       title: 'Fail',
       subTitle: text,
@@ -213,7 +217,7 @@ export class AddCompaintPage {
 
     this.complaint.lat = this.map.getCenter().lat();
     this.complaint.lng = this.map.getCenter().lng();
- 
+
 
     let content = "<h4>Marked Place!</h4>";
     this.addInfoWindow(marker, content);
