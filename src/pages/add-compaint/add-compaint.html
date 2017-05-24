@@ -13,7 +13,7 @@
     <button ion-button menuToggle>
       <ion-icon name="menu"></ion-icon>
     </button>
-    
+
     <ion-buttons end>
       <button ion-button (click)="logout()">
         <ion-icon name="log-out"></ion-icon>
@@ -24,28 +24,28 @@
 
 
 <ion-content padding class="addComplain">
-  
-	
+
+
 			<ion-item>
   				<ion-label stacked>Select type of violation</ion-label>
   				<ion-select [(ngModel)]="complaint.type" name="type" >
     				<ion-option *ngFor="let pollutionType of pollutionTypes" value={{pollutionType.id}} >{{pollutionType.type}}</ion-option>
   				</ion-select>
 			</ion-item>
-		
+
 			<ion-item>
 				<ion-label stacked>Person/Firm</ion-label>
 				 <ion-input type="text" placeholder="Violated by" name="person" [(ngModel)]="complaint.person" required></ion-input>
 			</ion-item>
-		
 
 
-	
+
+
 			<ion-item>
 				<ion-label stacked>Details</ion-label>
 				<ion-textarea [(ngModel)]="complaint.details" name="details" placeholder="Enter information"></ion-textarea>
 			</ion-item>
-		
+
 
   <ion-row *ngIf="imageCounter < 3">
       <ion-col>
@@ -63,24 +63,38 @@
 
         <ion-card>
           <ion-card-content>
-            You can either record video here and select it or select previously recorded video (less than 10 MB)
+            You can either record video here and select it or select previously recorded video (less than 5 seconds)
           </ion-card-content>
         </ion-card>
-        
+
+        <ion-row>
+          <ion-col>
         <button ion-button (click)="takeVideo()">Record</button>
+      </ion-col>
+      <ion-col>
+        <ion-icon name="fastforward"  *ngIf="!videoPath && vidRecoded"></ion-icon>
         <button ion-button (click)="selectvideo()">Select Video</button>
-        <video #myvideo height="300" width="300" controls></video>
-      
- 
+      </ion-col>
+      <ion-col *ngIf="videoPath">
+        <button ion-button color="dark" type="button" (click)="deleteVideo()" >X</button>
+      </ion-col>
+    </ion-row>
+    <ion-row>
+      <ion-col>
+        <video class="vid_align" #myvideo height="250" width="250" controls poster="vid.png"></video>
+      </ion-col>
+      </ion-row>
+
+
       <ion-item>
           <ion-label stacked>Action Expected</ion-label>
           <ion-select [(ngModel)]="complaint.action" name="action" >
             <ion-option *ngFor="let expectedAction of expectedActions" value={{expectedAction.id}} >{{expectedAction.action}}</ion-option>
           </ion-select>
       </ion-item>
-  
 
- 
+
+
       <ion-item>
         <ion-label stacked>Location</ion-label>
         <ion-textarea [(ngModel)]="complaint.location" name="location" placeholder="Enter the address"></ion-textarea>
@@ -90,8 +104,8 @@
   <ion-buttons end>
     <button ion-button  color="dark" (click)="addMarker()"><ion-icon name="add"></ion-icon>Mark Location</button>
   </ion-buttons>
-  <div width="50%" #map id="map"></div> 
-  	
+  <div width="50%" #map id="map"></div>
+
 
   <ion-row>
     <ion-col>
@@ -99,7 +113,6 @@
     </ion-col>
   </ion-row>
 
- 
+
 
 </ion-content>
-

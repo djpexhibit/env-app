@@ -38,6 +38,7 @@ export class AddCompaintPage {
   userid=0;
   videoFilePath='';
   public videoPath = '';
+  vidRecoded = false;
 
   @ViewChild('map') mapElement: ElementRef;
   map: any;
@@ -93,7 +94,7 @@ export class AddCompaintPage {
   }
 
   takeVideo() {
-    let options: CaptureVideoOptions = { limit: 1, duration: 10, quality:0 };
+    let options: CaptureVideoOptions = { limit: 1, duration: 5, quality:0 };
     MediaCapture.captureVideo(options).then((data: MediaFile[]) => {
       var i, path, len;
       for (i = 0, len = data.length; i < len; i += 1) {
@@ -103,6 +104,7 @@ export class AddCompaintPage {
         // How do I display this video to the user?
         this.videoFilePath = data[i].fullPath;
       }
+      this.vidRecoded = true;
     },(err: CaptureError) => {
       console.error(err);
     }
@@ -138,6 +140,12 @@ export class AddCompaintPage {
     this.imageCounter--;
   }
 
+  deleteVideo(){
+    this.videoPath = null;
+    let video = this.myVideo.nativeElement;
+    video.src=null;
+    //this.vidRecoded = false;
+  }
 
   loadPollutionTypes(){
     this.complainService.loadPollutionTypes()
