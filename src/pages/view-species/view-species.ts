@@ -23,7 +23,7 @@ declare var google;
 	`]
 })
 export class ViewSpeciesPage {
-	
+
 	@ViewChild('myvideo') myVideo: any;
 
 	loading: Loading;
@@ -69,13 +69,13 @@ export class ViewSpeciesPage {
 
 	}
 
-	ionViewDidEnter() {
+	/*ionViewDidEnter() {
 		console.log('ionViewDidLoad AddCompaintPage');
 		let video = this.myVideo.nativeElement;
 		video.src = 'http://139.59.58.196:3000/getvvv?id='+this.speciesId+'&type=spec';
 		video.load();
 		video.play();
-	}
+	}*/
 
 	loadMap(lat,lng){
 		Geolocation.getCurrentPosition().then((position) => {

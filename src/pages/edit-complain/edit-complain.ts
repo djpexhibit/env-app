@@ -60,12 +60,12 @@ export class EditComplainPage {
 	}
 
 
-  ionViewDidEnter(){
+/*  ionViewDidEnter(){
     let video = this.myVideo.nativeElement;
     video.src = 'http://139.59.58.196:3000/getvvv?id='+this.complaint.id+'&type=spec';
     video.load();
     video.play();
-  }
+  }*/
 
 
 	loadMap(lat,lng){
@@ -77,7 +77,7 @@ export class EditComplainPage {
       } else{
         latLng = new google.maps.LatLng(position.coords.latitude, position.coords.longitude);
       }
-			
+
 
 			let mapOptions = {
 				center: latLng,
@@ -96,7 +96,8 @@ export class EditComplainPage {
     Camera.getPicture({
       destinationType: Camera.DestinationType.DATA_URL,
       targetWidth: 320,
-      targetHeight: 320
+      targetHeight: 320,
+      correctOrientation: true
     }).then((imageData) => {
       // imageData is a base64 encoded string
       this.base64Images[this.imageCounter++] = "data:image/jpeg;base64," + imageData;
@@ -105,6 +106,19 @@ export class EditComplainPage {
     });
   }
 
+  selectPicture(){
+    let options = {
+      destinationType : Camera.DestinationType.DATA_URL,
+      sourceType : Camera.PictureSourceType.PHOTOLIBRARY,
+      correctOrientation: true
+    };
+
+    Camera.getPicture(options).then((imageData) => {
+      this.base64Images[this.imageCounter++] = "data:image/jpeg;base64," + imageData;
+    }, (err) => {
+      console.log(err);
+    });
+  }
 
   loadPollutionTypes(){
     this.complainService.loadPollutionTypes()
@@ -137,9 +151,13 @@ export class EditComplainPage {
             });
 
           }
-            
+
           );
         }
+
+        this.loading.dismiss();
+        this.navCtrl.setRoot(HomePage);
+        
       } else {
         this.showError("Access Denied");
       }
@@ -156,12 +174,12 @@ export class EditComplainPage {
     });
     this.loading.present();
   }
- 
+
   showError(text) {
     /*setTimeout(() => {
       this.loading.dismiss();
     });*/
- 
+
     let alert = this.alertCtrl.create({
       title: 'Fail',
       subTitle: text,
@@ -180,7 +198,7 @@ export class EditComplainPage {
 
     this.complaint.lat = this.map.getCenter().lat();
     this.complaint.lng = this.map.getCenter().lng();
- 
+
 
     let content = "<h4>Marked Place!</h4>";
     this.addInfoWindow(marker, content);
@@ -201,7 +219,7 @@ export class EditComplainPage {
 		this.complainService.loadComplain(comp_id).then(data => {
     console.log(">>>>>>>"); console.log(data)
 			if(data){
-        
+
 				this.complains = data;
         this.complaint.person = this.complains[0].res_person;
         this.complaint.details = this.complains[0].details;
@@ -218,12 +236,12 @@ export class EditComplainPage {
 
 				if(this.complains && this.complains[0]){
           if(this.complains[0].lat){
-          
+
             this.loadMap(this.complains[0].lat, this.complains[0].lng);
           }else{
             this.loadMap(null, null);
           }
-					
+
 				}
 
 			}else{
@@ -256,7 +274,7 @@ export class EditComplainPage {
       sourceType: 2,
       mediaType: 1
     };
- 
+
     Camera.getPicture(options).then((data) => {
       video.src = data;
       this.videoPath=data;

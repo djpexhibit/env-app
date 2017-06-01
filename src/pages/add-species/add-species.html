@@ -21,10 +21,16 @@
 
 	<ion-row *ngIf="imageCounter < 3">
 		<ion-col>
-			<button ion-button color="dark" type="button" (click)="takePicture()">Take a Picture</button>
+				<button class="new-btn" ion-button color="dark" type="button" (click)="takePicture()" >
+					<ion-icon name="camera"></ion-icon>&nbsp;
+						Take a Picture
+				</button>
 		</ion-col>
 		<ion-col>
-			<button ion-button color="dark" (click)="selectPicture()">Select Picture</button>
+			<button class="new-btn" ion-button color="dark" (click)="selectPicture()">
+				<ion-icon name="add-circle"></ion-icon>&nbsp;
+				From Gallary
+			</button>
 		</ion-col>
 	</ion-row>
   <span class="white-font">(Max 3 images)</span>
@@ -37,6 +43,26 @@
 			<button ion-button color="dark" type="button" (click)="deletePicture(i)">X</button>
 		</ion-col>
 	</ion-row>
+
+
+<!--	<ion-row>
+		<ion-col>
+	<button class="new-btn" ion-button color="dark" (click)="takeVideo()">Record</button>
+</ion-col>
+<ion-col>
+	<ion-icon name="fastforward"  *ngIf="!videoPath && vidRecoded"></ion-icon>
+	<button class="new-btn" ion-button color="dark" (click)="selectvideo()">Select Video</button>
+</ion-col>
+<ion-col *ngIf="videoPath">
+	<button ion-button color="dark" type="button" (click)="deleteVideo()" >X</button>
+</ion-col>
+</ion-row>
+<ion-row>
+<ion-col>
+	<video class="vid_align" #myvideo height="250" width="250" controls poster="vid.png"></video>
+</ion-col>
+</ion-row> -->
+
 
 	<ion-item>
 		<ion-label stacked>Species Type</ion-label>
@@ -65,23 +91,7 @@
 	</ion-card> -->
 
 
-	<ion-row>
-		<ion-col>
-	<button ion-button color="dark" (click)="takeVideo()">Record</button>
-</ion-col>
-<ion-col>
-	<ion-icon name="fastforward"  *ngIf="!videoPath && vidRecoded"></ion-icon>
-	<button ion-button color="dark" (click)="selectvideo()">Select Video</button>
-</ion-col>
-<ion-col *ngIf="videoPath">
-	<button ion-button color="dark" type="button" (click)="deleteVideo()" >X</button>
-</ion-col>
-</ion-row>
-<ion-row>
-<ion-col>
-	<video class="vid_align" #myvideo height="250" width="250" controls poster="vid.png"></video>
-</ion-col>
-</ion-row>
+
 
 	<ion-item>
 		<ion-label stacked>Location</ion-label>

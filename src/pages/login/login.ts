@@ -14,7 +14,14 @@ export class LoginPage {
   loading: Loading;
   registerCredentials = {email: '', password: ''};
 
-  constructor(private nav: NavController, private auth: AuthService, private alertCtrl: AlertController, private loadingCtrl: LoadingController) {}
+  constructor(private nav: NavController, private auth: AuthService, private alertCtrl: AlertController, private loadingCtrl: LoadingController) {
+
+  }
+  /*ionViewWillEnter(){
+      if(localStorage.getItem("logged") === 'true'){
+        this.nav.setRoot(MainPage)
+      }
+  }*/
 
   public createAccount() {
     this.nav.push(RegisterPage);

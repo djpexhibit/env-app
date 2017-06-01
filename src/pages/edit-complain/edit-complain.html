@@ -7,7 +7,7 @@
     	<button ion-button menuToggle>
      		<ion-icon name="menu"></ion-icon>
     	</button>
-    
+
     	<ion-buttons end>
       		<button ion-button (click)="logout()">
         		<ion-icon name="log-out"></ion-icon>
@@ -18,54 +18,69 @@
 
 
 <ion-content padding class="editComplain">
+
+
+	<ion-row *ngIf="imageCounter < 3">
+		<ion-col>
+				<button class="new-btn" ion-button color="dark" type="button" (click)="takePicture()" >
+					<ion-icon name="camera"></ion-icon>&nbsp;
+						Take a Picture
+				</button>
+		</ion-col>
+		<ion-col>
+			<button class="new-btn" ion-button color="dark" (click)="selectPicture()">
+				<ion-icon name="add-circle"></ion-icon>&nbsp;
+				From Gallary
+			</button>
+		</ion-col>
+	</ion-row>
+	<span class="white-font">(Max 3 images)</span>
+
+	<ion-row *ngFor="let base64Image of base64Images" >
+			<ion-col width-80>
+						<img [src]="_DomSanitizer.bypassSecurityTrustUrl(base64Image)" *ngIf="base64Image" />
+			</ion-col>
+	</ion-row>
+
   	<ion-item>
   		<ion-label stacked>Select type of violation</ion-label>
   		<ion-select [(ngModel)]="complaint.pid" name="type" >
     		<ion-option *ngFor="let pollutionType of pollutionTypes" value={{pollutionType.id}}  >{{pollutionType.type}}</ion-option>
   		</ion-select>
 	</ion-item>
-		
+
 			<ion-item>
 				<ion-label stacked>Person/Firm</ion-label>
 				 <ion-input type="text" placeholder="Violated by" name="person" [(ngModel)]="complaint.person" required></ion-input>
 			</ion-item>
-		
 
 
-	
+
+
 			<ion-item>
 				<ion-label stacked>Details</ion-label>
 				<ion-textarea [(ngModel)]="complaint.details" name="details" placeholder="Enter information"></ion-textarea>
 			</ion-item>
-		
-
-  <ion-row *ngIf="imageCounter < 3">
-      <ion-col>
-          <button ion-button color="dark" type="button" (click)="takePicture()">Take a Picture</button> (Max 3 images)
-      </ion-col>
-  </ion-row>
-  <ion-row *ngFor="let base64Image of base64Images" >
-      <ion-col width-80>
-            <img [src]="_DomSanitizer.bypassSecurityTrustUrl(base64Image)" *ngIf="base64Image" />
-      </ion-col>
-  </ion-row>
 
 
-  
-  <button ion-button (click)="takeVideo()">Record</button>
+
+
+
+
+<!--  <button ion-button (click)="takeVideo()">Record</button>
   <button ion-button (click)="selectvideo()">Select Video</button>
-  <video #myvideo height="300" width="300" controls ></video>
+  <video #myvideo height="300" width="300" controls ></video> -->
 
- 
+
       <ion-item>
           <ion-label stacked>Action Expected</ion-label>
           <ion-select [(ngModel)]="complaint.aid" name="action" >
             <ion-option *ngFor="let expectedAction of expectedActions" value={{expectedAction.id}} >{{expectedAction.action}}</ion-option>
           </ion-select>
       </ion-item>
-  
 
- 
+
+
       <ion-item>
         <ion-label stacked>Location</ion-label>
         <ion-textarea [(ngModel)]="complaint.location" name="location" placeholder="Enter the address"></ion-textarea>
@@ -75,8 +90,8 @@
   <ion-buttons end>
     <button ion-button  color="dark" (click)="addMarker()"><ion-icon name="add"></ion-icon>Mark Location</button>
   </ion-buttons>
-  <div width="50%" #map id="map"></div> 
-  	
+  <div width="50%" #map id="map"></div>
+
 
   <ion-row>
     <ion-col>
@@ -84,7 +99,6 @@
     </ion-col>
   </ion-row>
 
- 
+
 
 </ion-content>
-

@@ -95,7 +95,7 @@ export class AddCompaintPage {
   }
 
   takeVideo() {
-    let options: CaptureVideoOptions = { limit: 1, duration: 5, quality:0};
+    let options: CaptureVideoOptions = { limit: 1};
     MediaCapture.captureVideo(options).then((data: MediaFile[]) => {
       var i, path, len;
       for (i = 0, len = data.length; i < len; i += 1) {

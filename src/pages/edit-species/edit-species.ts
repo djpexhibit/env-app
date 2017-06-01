@@ -5,6 +5,8 @@ import { HomePage } from '../home/home';
 import { AuthService } from '../../providers/auth-service';
 import {DomSanitizer} from '@angular/platform-browser';
 import { Geolocation, MediaCapture, Camera , CaptureVideoOptions, MediaFile, CaptureError} from 'ionic-native';
+import { ListSpeciesPage } from '../list-species/list-species';
+
 
 
 declare var google;
@@ -53,12 +55,12 @@ export class EditSpeciesPage {
 		console.log('ionViewDidLoad AddCompaintPage');
 	}
 
-  ionViewDidEnter(){
+  /*ionViewDidEnter(){
     let video = this.myVideo.nativeElement;
     video.src = 'http://139.59.58.196:3000/getvvv?id='+this.specie.id+'&type=spec';
     video.load();
     video.play();
-  }
+  }*/
 
 
 	loadMap(lat,lng){
@@ -70,7 +72,7 @@ export class EditSpeciesPage {
       } else{
         latLng = new google.maps.LatLng(position.coords.latitude, position.coords.longitude);
       }
-			
+
 
 			let mapOptions = {
 				center: latLng,
@@ -89,7 +91,8 @@ export class EditSpeciesPage {
     Camera.getPicture({
       destinationType: Camera.DestinationType.DATA_URL,
       targetWidth: 320,
-      targetHeight: 320
+      targetHeight: 320,
+			correctOrientation: true
     }).then((imageData) => {
       // imageData is a base64 encoded string
       this.base64Images[this.imageCounter++] = "data:image/jpeg;base64," + imageData;
@@ -97,6 +100,20 @@ export class EditSpeciesPage {
       console.log(err);
     });
   }
+
+	selectPicture(){
+		let options = {
+			destinationType : Camera.DestinationType.DATA_URL,
+			sourceType : Camera.PictureSourceType.PHOTOLIBRARY,
+			correctOrientation: true
+		};
+
+		Camera.getPicture(options).then((imageData) => {
+			this.base64Images[this.imageCounter++] = "data:image/jpeg;base64," + imageData;
+		}, (err) => {
+			console.log(err);
+		});
+	}
 
 
   updateSpecies(){
@@ -108,14 +125,18 @@ export class EditSpeciesPage {
         if(this.videoPath){
           this.speciesService.upload(this.videoPath, success).then( success => {
             setTimeout(() => {
-              this.loading.dismiss();
-              this.navCtrl.setRoot(HomePage);
+							this.loading.dismiss();
+              this.navCtrl.setRoot(ListSpeciesPage);
             });
 
           }
-            
+
           );
         }
+
+				this.loading.dismiss();
+        this.navCtrl.setRoot(ListSpeciesPage);
+
       } else {
         this.showError("Access Denied");
       }
@@ -132,12 +153,12 @@ export class EditSpeciesPage {
     });
     this.loading.present();
   }
- 
+
   showError(text) {
     /*setTimeout(() => {
       this.loading.dismiss();
     });*/
- 
+
     let alert = this.alertCtrl.create({
       title: 'Fail',
       subTitle: text,
@@ -156,7 +177,7 @@ export class EditSpeciesPage {
 
     this.species.lat = this.map.getCenter().lat();
     this.species.lng = this.map.getCenter().lng();
- 
+
 
     let content = "<h4>Marked Place!</h4>";
     this.addInfoWindow(marker, content);
@@ -176,13 +197,13 @@ export class EditSpeciesPage {
 	loadSpecies(spec_id){
 		this.speciesService.loadSpecies(spec_id).then(data => {
 			if(data){
-        
+
 				this.species = data;
         this.specie.name = this.species[0].name;
         this.specie.details = this.species[0].details;
         this.specie.location = this.species[0].location;
         this.specie.type = this.species[0].type;
-      
+
 
         this.species.map(species => {
           this.base64Images.push(species.image);
@@ -191,12 +212,12 @@ export class EditSpeciesPage {
 
 				if(this.species && this.species[0]){
           if(this.species[0].lat){
-          
+
             this.loadMap(this.species[0].lat, this.species[0].lng);
           }else{
             this.loadMap(null, null);
           }
-					
+
 				}
 
 			}else{
@@ -229,7 +250,7 @@ export class EditSpeciesPage {
       sourceType: 2,
       mediaType: 1
     };
- 
+
     Camera.getPicture(options).then((data) => {
       video.src = data;
       this.videoPath=data;

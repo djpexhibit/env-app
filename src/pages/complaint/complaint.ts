@@ -77,14 +77,14 @@ export class ComplaintPage {
 
   }
 
-  ionViewDidEnter() {
+  /*ionViewDidEnter() {
     console.log('ionViewDidLoad AddCompaintPage');
     let video = this.myVideo.nativeElement;
     video.src = 'http://139.59.58.196:3000/getvvv?id='+this.complainId;
     video.load();
     video.play();
 
-  }
+  }*/
 
   loadMap(lat,lng){
   Geolocation.getCurrentPosition().then((position) => {
