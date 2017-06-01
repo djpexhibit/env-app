@@ -2,6 +2,7 @@ import { Component, ViewChild, ElementRef } from '@angular/core';
 import { NavController, NavParams ,AlertController, LoadingController, Loading  } from 'ionic-angular';
 import {AddCompaintPage} from '../add-compaint/add-compaint';
 import {EditComplainPage} from '../edit-complain/edit-complain';
+import {HomePage} from '../home/home';
 import {ComplaintService} from '../../providers/complaint-service';
 import { Geolocation } from 'ionic-native';
 import {DomSanitizer} from '@angular/platform-browser';
@@ -55,6 +56,7 @@ export class ComplaintPage {
 
 	addComplaint = AddCompaintPage;
   editComplain = EditComplainPage;
+  home = HomePage;
 
   @ViewChild('map') mapElement: ElementRef;
   map: any;
@@ -72,7 +74,7 @@ export class ComplaintPage {
     let adv_number = Math.floor((Math.random() * 10) + 1);
     this.adv = config.main.baseUrl + '/'+adv_number+'.jpg';
 
-    
+
   }
 
   ionViewDidEnter() {
@@ -86,16 +88,16 @@ export class ComplaintPage {
 
   loadMap(lat,lng){
   Geolocation.getCurrentPosition().then((position) => {
- 
+
       let latLng = new google.maps.LatLng(lat,lng);
 
-    
+
       let mapOptions = {
         center: latLng,
         zoom: 15,
         mapTypeId: google.maps.MapTypeId.ROADMAP
       }
- 
+
       this.map = new google.maps.Map(this.mapElement.nativeElement, mapOptions);
 
       this.addMarker();
@@ -129,7 +131,7 @@ export class ComplaintPage {
   loadComplain(comp_id){
     this.complaintService.loadComplain(comp_id)
       .then(data => {
-      
+
         if(data){
         this.complains = data;
 
@@ -140,7 +142,7 @@ export class ComplaintPage {
           this.showError("Please try again");
          }
     },err => {
-      
+
           this.showError("Please try again");
     });
   }
@@ -182,12 +184,12 @@ export class ComplaintPage {
     });
     this.loading.present();
   }
- 
+
   showError(text) {
     setTimeout(() => {
       this.loading.dismiss();
     });
- 
+
     let alert = this.alertCtrl.create({
       title: 'Fail',
       subTitle: text,
@@ -201,5 +203,18 @@ export class ComplaintPage {
     if(comment.type === 'ADMIN') return true
     else return false;
   }
+
+  loadComplaints(id){
+    this.complaintService.load(id)
+      .then(data => {
+        //dummy
+      });
+    }
+
+    backHome(){
+      //this.navCtrl.pop();
+      this.navCtrl.setRoot(HomePage); // previous view will be cached
+    this.navCtrl.setRoot(HomePage);
+    }
 
 }

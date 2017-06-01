@@ -4,19 +4,19 @@ import 'rxjs/add/observable/throw';
 import 'rxjs/add/operator/map';
 import { Http } from '@angular/http';
 import config from '../app/config.json';
- 
+
 export class User {
   name: string;
   email: string;
   id:number;
- 
+
   constructor(name: string, email: string, id: number) {
     this.name = name;
     this.email = email;
     this.id = id;
   }
 }
- 
+
 @Injectable()
 export class AuthService {
   currentUser: User;
@@ -27,7 +27,7 @@ export class AuthService {
   constructor(public http: Http) {
     console.log('Hello ComplaintService Provider');
   }
- 
+
 
 
 
@@ -56,7 +56,7 @@ public login(credentials) {
   }
 }
 
- 
+
   /*public register(credentials) {
     if (credentials.email === null || credentials.password === null) {
       return Observable.throw("Please insert credentials");
@@ -72,7 +72,7 @@ public login(credentials) {
           }else{
             observer.next(false);
           }
-          
+
           observer.complete();
         }
         );
@@ -92,6 +92,20 @@ public login(credentials) {
     });
   }
 
+  public verifyMobileCode(verifyCredentials){
+    return new Promise(
+      resolve => {
+        this.http.post(config.main.baseUrl + '/verifyMobileCode',{verifyCredentials:verifyCredentials})
+          .map(res => res.json())
+          .subscribe(data => {
+            console.log(data);
+            this.success = data;
+            resolve(this.success)
+          })
+      }
+    );
+  }
+
   public checkEmailValidity(credentials){
   console.log(credentials);
     return new Promise( resolve => {
@@ -104,11 +118,11 @@ public login(credentials) {
         })
     });
   }
- 
+
   public getUserInfo() : User {
     return this.currentUser;
   }
- 
+
   public logout() {
     return Observable.create(observer => {
       this.currentUser = null;

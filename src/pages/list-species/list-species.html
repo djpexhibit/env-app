@@ -36,22 +36,23 @@
 
 	<ion-list class="list-bak" no-padding *ngIf="species && species.length > 0" >
 		<div  [navPush]="viewSpecies"   *ngFor="let specie of species" [navParams]={id:specie.id} >
-		
+
 			<ion-card>
 				<ion-card-header>
-					<p>Reported By : {{specie.user }} </p>
+					<p *ngIf="!specie.anonymous">Reported By : {{specie.user }} </p>
 					<p>On : {{ specie.date}} </p>
 				</ion-card-header>
 
-				<ion-col width-50 offset-25>
-					<img [src]="_DomSanitizer.bypassSecurityTrustUrl(specie.image )" *ngIf="specie.image"  />
-					<img src="thumbs.jpg" *ngIf="!specie.image"/>
-				</ion-col>
+
 
 				<ion-card-content>
-					<ion-card-title>
+					<ion-col width-50 offset-33>
+						<img class="sca" [src]="_DomSanitizer.bypassSecurityTrustUrl(specie.image )" *ngIf="specie.image"  />
+						<img class="sca" width="80" src="thumbs.jpg" *ngIf="!specie.image"/>
+					</ion-col>
+					<p>
 						{{specie.type}}
-					</ion-card-title>
+					</p>
 					<p>Name : {{specie.name}}</p>
 					<p>{{specie.details}}...</p>
 				</ion-card-content>
@@ -60,7 +61,7 @@
 					<ion-col>
 						<button ion-button clear small color="danger" icon-left>
 							<ion-icon name='md-chatbubbles'></ion-icon>
-								Comment 
+								Comment
 								<span *ngIf="specie.comments">({{specie.comments}})</span>
 								<span *ngIf="!specie.comments">(0)</span>
 						</button>
@@ -71,8 +72,7 @@
 	</ion-list>
 
 	<ion-list *ngIf="!species || (species && species.length == 0)" inset>
-		<p>No Species Found.</p>
+		<p>{{noInfoMsg}}</p>
 	</ion-list>
 
 </ion-content>
-

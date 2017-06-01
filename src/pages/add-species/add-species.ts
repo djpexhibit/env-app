@@ -28,7 +28,7 @@ export class AddSpeciesPage {
 
   loading: Loading;
   public base64Images : Array<string> = [];
-  species = {type: '', name:'', details: '',lat:0,lng:0, location:'',user:0};
+  species = {type: '', name:'', details: '',lat:0,lng:0, location:'',user:0,anonymous:false};
   public imageCounter: number;
 
   username = '';
@@ -80,7 +80,8 @@ export class AddSpeciesPage {
     Camera.getPicture({
       destinationType: Camera.DestinationType.DATA_URL,
       targetWidth: 320,
-      targetHeight: 320
+      targetHeight: 320,
+      correctOrientation: true
     }).then((imageData) => {
       // imageData is a base64 encoded string
       this.base64Images[this.imageCounter++] = "data:image/jpeg;base64," + imageData;
@@ -90,7 +91,7 @@ export class AddSpeciesPage {
   }
 
   takeVideo() {
-    let options: CaptureVideoOptions = { limit: 1, duration: 5, quality:0 };
+    let options: CaptureVideoOptions = { limit: 1 };
     MediaCapture.captureVideo(options).then((data: MediaFile[]) => {
       var i, path, len;
       for (i = 0, len = data.length; i < len; i += 1) {
@@ -128,6 +129,20 @@ export class AddSpeciesPage {
       this.videoPath=data;
       video.play();
     })
+  }
+
+  selectPicture(){
+    let options = {
+      destinationType : Camera.DestinationType.DATA_URL,
+      sourceType : Camera.PictureSourceType.PHOTOLIBRARY,
+      correctOrientation: true
+    };
+
+    Camera.getPicture(options).then((imageData) => {
+      this.base64Images[this.imageCounter++] = "data:image/jpeg;base64," + imageData;
+    }, (err) => {
+      console.log(err);
+    });
   }
 
   deletePicture(index){
@@ -176,7 +191,7 @@ export class AddSpeciesPage {
 
   showLoading() {
     this.loading = this.loadingCtrl.create({
-      content: 'Please wait...'
+      content: 'Uploading Content (This will take a while depending on image/video sizes and your network connection)'
     });
     this.loading.present();
   }

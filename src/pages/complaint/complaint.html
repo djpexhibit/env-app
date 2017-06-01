@@ -5,7 +5,12 @@
   Ionic pages and navigation.
 -->
 <ion-header>
-  <ion-navbar color="dark">
+  <ion-navbar color="dark" hideBackButton>
+    <ion-buttons left>
+        <button ion-button (click)="backHome()">
+            <ion-icon class="customIcon" name="arrow-back"></ion-icon>
+        </button>
+    </ion-buttons>
     <ion-title>
       Complain Details
     </ion-title>
@@ -18,7 +23,7 @@
     <button ion-button menuToggle>
       <ion-icon name="menu"></ion-icon>
     </button>
-    
+
     <ion-buttons end>
       <button ion-button (click)="logout()">
         <ion-icon name="log-out"></ion-icon>
@@ -37,18 +42,18 @@
 </ion-card>
 
 <div *ngIf="complains && complains.length > 0" >
- 
+
 <ion-card>
-	
-  
+
+
 	<ion-item>
     <ion-buttons end *ngIf="complains[0].uid == userId" >
       <button [navPush]="editComplain" [navParams]={id:complains[0].id} >
         <ion-icon name="md-create"></ion-icon>
       </button>
     </ion-buttons>
-    
-    <h2 class="det"> Problem  : {{complains[0].type}} </h2> 
+
+    <h2 class="det"> Problem  : {{complains[0].type}} </h2>
   </ion-item>
   <ion-item>
         <h2 class="det"> Location : {{complains[0].location}} </h2>
@@ -58,10 +63,10 @@
   </ion-item>
 
   <ion-item>
-    <h3> Reported By : {{complains[0].user}} </h3>
+    <h3 *ngIf="!complains[0].anonymous"> Reported By : {{complains[0].user}} </h3>
     <h3> On : {{complains[0].date}} </h3>
   </ion-item>
- 
+
 
 
 	<ion-row>
@@ -82,10 +87,12 @@
   </ion-row>
 </ion-card>
 
-<video #myvideo height="300" width="300" controls ></video>
+<ion-col>
+  <video  class="vid_align" #myvideo height="250" width="250" controls poster="vid.png"></video>
+</ion-col>
 
 </div>
-  <div width="60%" #map id="map"></div> 
+  <div *ngIf="complains && complains[0] && complains[0].lat" width="60%" height="100%"  #map id="map"></div>
 <ion-card>
 
   <ion-list *ngIf="comments && comments.length > 0" inset>
@@ -119,5 +126,3 @@
 </ion-card>
 
 </ion-content>
-
-

@@ -28,7 +28,7 @@ export class AddCompaintPage {
 
   loading: Loading;
   public base64Images : Array<string> = [];
-  complaint = {person: '', details: '', type:'', action:'',lat:0,lng:0, location:'',user:0};
+  complaint = {person: '', details: '', type:'', action:'',lat:0,lng:0, location:'',user:0,anonymous:false};
   public pollutionTypes: any;
   public expectedActions: any;
   public imageCounter: number;
@@ -84,7 +84,8 @@ export class AddCompaintPage {
     Camera.getPicture({
       destinationType: Camera.DestinationType.DATA_URL,
       targetWidth: 320,
-      targetHeight: 320
+      targetHeight: 320,
+      correctOrientation: true
     }).then((imageData) => {
       // imageData is a base64 encoded string
       this.base64Images[this.imageCounter++] = "data:image/jpeg;base64," + imageData;
@@ -94,7 +95,7 @@ export class AddCompaintPage {
   }
 
   takeVideo() {
-    let options: CaptureVideoOptions = { limit: 1, duration: 5, quality:0 };
+    let options: CaptureVideoOptions = { limit: 1, duration: 5, quality:0};
     MediaCapture.captureVideo(options).then((data: MediaFile[]) => {
       var i, path, len;
       for (i = 0, len = data.length; i < len; i += 1) {
@@ -133,6 +134,20 @@ export class AddCompaintPage {
       this.videoPath=data;
       video.play();
     })
+  }
+
+  selectPicture(){
+    let options = {
+      destinationType : Camera.DestinationType.DATA_URL,
+      sourceType : Camera.PictureSourceType.PHOTOLIBRARY,
+      correctOrientation: true
+    };
+
+    Camera.getPicture(options).then((imageData) => {
+      this.base64Images[this.imageCounter++] = "data:image/jpeg;base64," + imageData;
+    }, (err) => {
+      console.log(err);
+    });
   }
 
   deletePicture(index){
@@ -197,7 +212,7 @@ export class AddCompaintPage {
 
   showLoading() {
     this.loading = this.loadingCtrl.create({
-      content: 'Please wait...'
+      content: 'Uploading Content (This will take a while depending on image/video sizes and your network connection)'
     });
     this.loading.present();
   }

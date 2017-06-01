@@ -19,6 +19,25 @@
 
 <ion-content padding class="addSpecies">
 
+	<ion-row *ngIf="imageCounter < 3">
+		<ion-col>
+			<button ion-button color="dark" type="button" (click)="takePicture()">Take a Picture</button>
+		</ion-col>
+		<ion-col>
+			<button ion-button color="dark" (click)="selectPicture()">Select Picture</button>
+		</ion-col>
+	</ion-row>
+  <span class="white-font">(Max 3 images)</span>
+
+	<ion-row *ngFor="let base64Image of base64Images; let i = index" [attr.data-index]="i" >
+		<ion-col width-80>
+			<img [src]="_DomSanitizer.bypassSecurityTrustUrl(base64Image)" *ngIf="base64Image" />
+		</ion-col>
+		<ion-col width-20>
+			<button ion-button color="dark" type="button" (click)="deletePicture(i)">X</button>
+		</ion-col>
+	</ion-row>
+
 	<ion-item>
 		<ion-label stacked>Species Type</ion-label>
 		<ion-textarea [(ngModel)]="species.type" name="type" placeholder="Enter information"></ion-textarea>
@@ -36,36 +55,23 @@
 
 
 
-	<ion-row *ngIf="imageCounter < 3">
-		<ion-col>
-			<button ion-button color="dark" type="button" (click)="takePicture()">Take a Picture</button> (Max 3 images)
-		</ion-col>
-	</ion-row>
-
-	<ion-row *ngFor="let base64Image of base64Images; let i = index" [attr.data-index]="i" >
-		<ion-col width-80>
-			<img [src]="_DomSanitizer.bypassSecurityTrustUrl(base64Image)" *ngIf="base64Image" />
-		</ion-col>
-		<ion-col width-20>
-			<button ion-button color="dark" type="button" (click)="deletePicture(i)">X</button>
-		</ion-col>
-	</ion-row>
 
 
-	<ion-card>
+
+	<!-- <ion-card>
 		<ion-card-content>
 			You can either record video here and select it or select previously recorded video (less than 5 seconds)
 		</ion-card-content>
-	</ion-card>
+	</ion-card> -->
 
 
 	<ion-row>
 		<ion-col>
-	<button ion-button (click)="takeVideo()">Record</button>
+	<button ion-button color="dark" (click)="takeVideo()">Record</button>
 </ion-col>
 <ion-col>
 	<ion-icon name="fastforward"  *ngIf="!videoPath && vidRecoded"></ion-icon>
-	<button ion-button (click)="selectvideo()">Select Video</button>
+	<button ion-button color="dark" (click)="selectvideo()">Select Video</button>
 </ion-col>
 <ion-col *ngIf="videoPath">
 	<button ion-button color="dark" type="button" (click)="deleteVideo()" >X</button>

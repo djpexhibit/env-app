@@ -1,24 +1,39 @@
 
 page-login {
- 
+
   .login-content {
     background: #FFFFFF;
- 
-    .logo-row {
-      padding-top: 5px;
-      padding-bottom: 5px;
+    padding-top: 2px !important;
+
+    .scroll-content{
+      padding-top: 5px !important;
     }
- 
+
+    .logo-row {
+
+    }
+
     .login-box {
-      background: #828282;
-      padding: 10px 20px 0px 20px;
+      background: #9DFF00; /* For browsers that do not support gradients */
+      background: -webkit-linear-gradient(#9DFF00, #00B412); /* For Safari 5.1 to 6.0 */
+      background: -o-linear-gradient(#9DFF00, #00B412); /* For Opera 11.1 to 12.0 */
+      background: -moz-linear-gradient(#9DFF00, #00B412); /* For Firefox 3.6 to 15 */
+      background: linear-gradient(#9DFF00, #00B412); /* Standard syntax */
+      padding: 2px 20px 0px 20px;
      }
- 
+
     ion-row {
        align-items: center;
        text-align: center;
+       padding-top: 2px !important;
+       padding-bottom: 2px !important;
      }
- 
+
+     ion-list{
+       margin-top: 8px !important;
+       margin-bottom: 8px !important;
+     }
+
      ion-item {
          border-radius: 5px !important;
          padding-left: 30px !important;
@@ -28,25 +43,25 @@ page-login {
          border-bottom: 0px !important;
          box-shadow: none !important;
      }
- 
+
      .signup-col {
        margin: 0px 16px 0px 16px;
-       padding-bottom: 5px;
+       padding-bottom: 1px;
      }
- 
+
      .item-inner {
        border-bottom-color: #ffffff !important;
        box-shadow: none !important;
      }
- 
+
      .submit-btn {
-       background: #51CFB1;
+       background: #060606;
        border-radius: 5px !important;
        border: 1px solid #ffffff;
      }
- 
+
      .register-btn {
-       color: #ffffff;
+       color: #060606;
        font-size: 0.8em;
      }
 
@@ -59,5 +74,5 @@ page-login {
       }
   }
 
- 
+
 }

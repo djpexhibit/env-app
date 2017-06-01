@@ -22,7 +22,7 @@
   </ion-navbar>
 
 </ion-header>
- 
+
 <ion-content class="cards-bg">
 
   <ion-card>
@@ -39,20 +39,20 @@
       <ion-card>
 
          <ion-card-header>
-          <p>Reported By : {{complain.user }} </p>
+          <p *ngIf="!complain.anonymous">Reported By : {{complain.user }} </p>
           <p>On : {{ complain.date}} </p>
 
         </ion-card-header>
 
-       <ion-col width-50 offset-25>
-       <img [src]="_DomSanitizer.bypassSecurityTrustUrl(complain.image )" *ngIf="complain.image"  />
-        <img src="thumbs.jpg" *ngIf="!complain.image"/>
+       <ion-col width-50 offset-33>
+       <img class="sca" [src]="_DomSanitizer.bypassSecurityTrustUrl(complain.image )" *ngIf="complain.image"  />
+        <img  class="sca" src="thumbs.jpg" *ngIf="!complain.image"/>
     </ion-col>
 
         <ion-card-content>
-          <ion-card-title>
+          <p>
             {{complain.type}}
-          </ion-card-title>
+          </p>
           <p>Responsible : {{complain.res_person}}</p>
           <p>{{complain.details}}...</p>
         </ion-card-content>
@@ -67,13 +67,12 @@
         </ion-row>
 
       </ion-card>
-      
+
     </div>
   </ion-list>
 
   <ion-list *ngIf="!complaints || (complaints && complaints.length == 0)" inset>
-   <p>No Complains Found.</p>
+   <p>{{noInfoMsg}}</p>
   </ion-list>
 
 </ion-content>
-

@@ -14,10 +14,11 @@ import { AddSpeciesPage } from '../pages/add-species/add-species';
 import { ListSpeciesPage } from '../pages/list-species/list-species';
 import { ViewSpeciesPage } from '../pages/view-species/view-species';
 import { EditSpeciesPage } from '../pages/edit-species/edit-species';
+import { VerifyPage } from '../pages/verify/verify';
 
 import { MediaCapture, Camera,Transfer,File } from 'ionic-native';
 
- 
+
 @NgModule({
   declarations: [
     MyApp,
@@ -32,7 +33,8 @@ import { MediaCapture, Camera,Transfer,File } from 'ionic-native';
     AddSpeciesPage,
     ListSpeciesPage,
     ViewSpeciesPage,
-    EditSpeciesPage
+    EditSpeciesPage,
+    VerifyPage
   ],
   imports: [
     IonicModule.forRoot(MyApp)
@@ -51,7 +53,8 @@ import { MediaCapture, Camera,Transfer,File } from 'ionic-native';
     AddSpeciesPage,
     ListSpeciesPage,
     ViewSpeciesPage,
-    EditSpeciesPage
+    EditSpeciesPage,
+    VerifyPage
   ],
   providers: [AuthService, MediaCapture, Camera, Transfer, File]
 })

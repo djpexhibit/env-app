@@ -9,7 +9,7 @@ import {AddCompaintPage} from '../add-compaint/add-compaint';
 import {DomSanitizer} from '@angular/platform-browser';
 import config from '../../app/config.json';
 
- 
+
 @Component({
   selector: 'page-home',
   templateUrl: 'home.html',
@@ -28,17 +28,26 @@ export class HomePage {
   complaint = ComplaintPage;
   addComplaint = AddCompaintPage;
 
+  noInfoMsg:string = "Loading";
+
   constructor(private nav: NavController, private auth: AuthService, public complaintService: ComplaintService, private _DomSanitizer: DomSanitizer) {
     let info = this.auth.getUserInfo();
     this.username = info.name;
     this.email = info.email;
 
-    this.loadComplaints(info.id);
+    //this.loadComplaints(info.id);
     //this.loadAdv(Math.floor((Math.random() * 10) + 1));
     let adv_number = Math.floor((Math.random() * 10) + 1);
     this.adv = config.main.baseUrl + '/'+adv_number+'.jpg';
   }
- 
+
+  ionViewDidEnter() {
+    let info = this.auth.getUserInfo();
+    this.username = info.name;
+    this.email = info.email;
+    this.loadComplaints(info.id);
+  }
+
   public logout() {
     this.auth.logout().subscribe(succ => {
         this.nav.setRoot(LoginPage)
@@ -49,6 +58,9 @@ export class HomePage {
     this.complaintService.load(id)
       .then(data => {
         this.complaints = data;
+        if(this.complaints.length == 0){
+          this.noInfoMsg = "No Complains Found.";
+        }
       });
     }
 

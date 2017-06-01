@@ -5,7 +5,7 @@ import { AuthService } from '../../providers/auth-service';
 import { RegisterPage } from '../register/register';
 //import { HomePage } from '../home/home';
 import { MainPage } from '../main/main';
- 
+
 @Component({
   selector: 'page-login',
   templateUrl: 'login.html'
@@ -13,13 +13,13 @@ import { MainPage } from '../main/main';
 export class LoginPage {
   loading: Loading;
   registerCredentials = {email: '', password: ''};
- 
+
   constructor(private nav: NavController, private auth: AuthService, private alertCtrl: AlertController, private loadingCtrl: LoadingController) {}
- 
+
   public createAccount() {
     this.nav.push(RegisterPage);
   }
- 
+
   public login() {
     this.showLoading()
     this.auth.login(this.registerCredentials).subscribe(allowed => {
@@ -36,19 +36,19 @@ export class LoginPage {
       this.showError("Please try again");
     });
   }
- 
+
   showLoading() {
     this.loading = this.loadingCtrl.create({
       content: 'Please wait...'
     });
     this.loading.present();
   }
- 
+
   showError(text) {
     setTimeout(() => {
       this.loading.dismiss();
     });
- 
+
     let alert = this.alertCtrl.create({
       title: 'Fail',
       subTitle: text,

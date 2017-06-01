@@ -26,7 +26,7 @@ export class ComplaintService {
     console.log('Hello ComplaintService Provider');
   }
 
-  
+
 
   load(id) {
   	if (this.data) {
@@ -126,15 +126,15 @@ export class ComplaintService {
 
  return new Promise(resolve => {
 fileTransfer.upload(path, config.main.baseUrl + '/addVideo', options).then((data) => {
-     
+
         resolve(data);
     }, (err) => {
       // error
     })
-    
+
  });
 
-    
+
   }
 
 

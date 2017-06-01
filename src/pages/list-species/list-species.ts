@@ -8,7 +8,7 @@ import {AddSpeciesPage} from '../add-species/add-species';
 import {DomSanitizer} from '@angular/platform-browser';
 import config from '../../app/config.json';
 
- 
+
 @Component({
 	selector: 'page-list-species',
 	templateUrl: 'list-species.html',
@@ -26,6 +26,8 @@ export class ListSpeciesPage {
 
 	viewSpecies = ViewSpeciesPage;
 	addSpecies = AddSpeciesPage;
+
+  noInfoMsg:string = "Loading Species";
 
 	constructor(private nav: NavController, private auth: AuthService, public speciesService: SpeciesService, private _DomSanitizer: DomSanitizer) {
 		let info = this.auth.getUserInfo();
@@ -48,6 +50,9 @@ export class ListSpeciesPage {
 		this.speciesService.load(id)
 		.then(data => {
 			this.species = data;
+      if(this.species.length ==0 ){
+        this.noInfoMsg = "No Species Found.";
+      }
 		});
 	}
 

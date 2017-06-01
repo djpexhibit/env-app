@@ -2,7 +2,8 @@
 import { Component } from '@angular/core';
 import { NavController, AlertController ,LoadingController, Loading  } from 'ionic-angular';
 import { AuthService } from '../../providers/auth-service';
- 
+import { VerifyPage } from '../verify/verify';
+
 @Component({
   selector: 'page-register',
   templateUrl: 'register.html'
@@ -11,10 +12,10 @@ export class RegisterPage {
 
   loading: Loading;
   createSuccess = false;
-  registerCredentials = {email: '', password: '',repassword:'',username:'',name:''};
- 
+  registerCredentials = {email: '', password: '',repassword:'',username:'',name:'',mobile:''};
+
   constructor(private nav: NavController, private auth: AuthService, private alertCtrl: AlertController, private loadingCtrl: LoadingController) {}
- 
+
   /*public register() {
     this.auth.register(this.registerCredentials).subscribe(success => {
       if (success) {
@@ -39,7 +40,6 @@ export class RegisterPage {
       this.showError("Password doesn't match");
     }else{
       this.auth.checkEmailValidity(this.registerCredentials).then(emailCheck => {
-        console.log("FFFFFFF");
         if (emailCheck["status"] === 'OK' && emailCheck["msg"] && emailCheck["msg"] === 'EMAIL_EXIST') {
           setTimeout(() => {
             this.loading.dismiss();
@@ -49,7 +49,11 @@ export class RegisterPage {
           this.auth.register(this.registerCredentials).then(success => {
           if (success) {
             setTimeout(() => {
-            this.loading.dismiss();
+              this.loading.dismiss();
+              //this.nav.setRoot(VerifyPage);
+              this.nav.push(VerifyPage, {
+                mobile: this.registerCredentials.mobile 
+              });
             } );
           } else {
             this.showError("Error");
@@ -64,11 +68,11 @@ export class RegisterPage {
       this.showError("Please try again");
     });
 
-    
+
 
     }
 
-    
+
   }
 
 
@@ -78,12 +82,12 @@ export class RegisterPage {
     });
     this.loading.present();
   }
- 
+
   showError(text) {
     setTimeout(() => {
       this.loading.dismiss();
     });
- 
+
     let alert = this.alertCtrl.create({
       title: 'Fail',
       subTitle: text,
@@ -91,7 +95,7 @@ export class RegisterPage {
     });
     alert.present(prompt);
   }
- 
+
   showPopup(title, text) {
     let alert = this.alertCtrl.create({
       title: title,

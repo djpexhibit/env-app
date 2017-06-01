@@ -7,6 +7,7 @@ page-complaint {
       width: 90%;
       height: 100%;
       margin: auto;
+      min-height: 500px;
     }
 
     .default_space{
@@ -33,9 +34,9 @@ page-complaint {
       background-color:#B7B7B7;
     }
 
-    video{
-      margin-left: 10px;
-    } 
+    .vid_align{
+      margin-left: 10%;
+    }
 	}
-		
+
 }

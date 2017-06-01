@@ -1,58 +1,87 @@
 
 <ion-content class="login-content" padding>
-  
+
   <ion-row class="logo-row">
     <ion-col></ion-col>
     <ion-col width-67>
-      <img src="logo.jpg"/>
+      <img  src="logo.jpg"/>
     </ion-col>
     <ion-col></ion-col>
   </ion-row>
-  <ion-row>
+  <!-- <ion-row>
     <ion-col></ion-col>
     <ion-col width-80>
-      <h2 class="det">Combat Environmental Pollution </h2>
+      <h2 class="det">My Environment</h2>
     </ion-col>
     <ion-col></ion-col>
-    
-  </ion-row>
+
+  </ion-row> -->
   <div class="login-box">
     <form (ngSubmit)="login()" #registerForm="ngForm">
       <ion-row>
         <ion-col>
           <ion-list inset>
-            
+
             <ion-item>
               <ion-input type="email" placeholder="Email" name="email" [(ngModel)]="registerCredentials.email" required></ion-input>
             </ion-item>
-            
+
             <ion-item>
               <ion-input type="password" placeholder="Password" name="password" [(ngModel)]="registerCredentials.password" required></ion-input>
             </ion-item>
-            
+
           </ion-list>
         </ion-col>
       </ion-row>
-      
+
       <ion-row>
         <ion-col class="signup-col">
           <button ion-button class="submit-btn" full type="submit" [disabled]="!registerForm.form.valid">Login</button>
           <button ion-button class="register-btn" type="button" block clear (click)="createAccount()">Create New Account</button>
         </ion-col>
       </ion-row>
-      
+
     </form>
   </div>
 
 
   <ion-row class="logo-row">
-    <ion-col>Powered By : </ion-col>
-    <ion-col>
-      
+    <ion-col width-60>
+      Technical Agency
     </ion-col>
+
     <ion-col>
-      
-      <img src="eml.jpg"/>
+      Concept By
     </ion-col>
   </ion-row>
+
+  <ion-row class="logo-row">
+    <ion-col width-60>
+      <img width="60px" src="ta.png" />
+    </ion-col>
+
+    <ion-col>
+      <img width="80px" src="eml.jpg"/>
+    </ion-col>
+  </ion-row>
+
+  <ion-row class="logo-row">
+    <ion-col  width-60>
+      Partners
+    </ion-col>
+    <ion-col>
+
+    </ion-col>
+  </ion-row>
+
+
+  <ion-row class="logo-row">
+    <ion-col  width-60>
+      <img width="60px" src="pa.jpg" />
+    </ion-col>
+    <ion-col>
+
+    </ion-col>
+  </ion-row>
+
 </ion-content>
