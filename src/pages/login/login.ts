@@ -5,6 +5,8 @@ import { AuthService } from '../../providers/auth-service';
 import { RegisterPage } from '../register/register';
 //import { HomePage } from '../home/home';
 import { MainPage } from '../main/main';
+import { HomePage } from '../home/home';
+import { PasswordResetPage } from '../password-reset/password-reset';
 
 @Component({
   selector: 'page-login',
@@ -17,14 +19,19 @@ export class LoginPage {
   constructor(private nav: NavController, private auth: AuthService, private alertCtrl: AlertController, private loadingCtrl: LoadingController) {
 
   }
-  /*ionViewWillEnter(){
+  ionViewDidLoad(){
       if(localStorage.getItem("logged") === 'true'){
-        this.nav.setRoot(MainPage)
+        this.auth.setUserInfo(JSON.parse(localStorage.getItem("currentUser")));
+        this.nav.setRoot(MainPage);
       }
-  }*/
+  }
 
   public createAccount() {
     this.nav.push(RegisterPage);
+  }
+
+  public forgetPassword(){
+    this.nav.push(PasswordResetPage);
   }
 
   public login() {

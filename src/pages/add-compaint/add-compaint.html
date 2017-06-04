@@ -91,7 +91,7 @@
 			</ion-item>
 
       <ion-item>
-        <ion-label>I want to remain anonymous</ion-label>
+        <ion-label>Keep me unknown</ion-label>
         <ion-checkbox [(ngModel)]="complaint.anonymous"></ion-checkbox>
       </ion-item>
 
@@ -130,7 +130,7 @@
 
   <ion-row>
     <ion-col>
-      <button ion-button class="submit-btn" full type="button" (click)="addComplain()" >Save</button>
+      <button ion-button  #subb id="subb" class="submit-btn" full type="button" (click)="addComplain()" >Save</button>
     </ion-col>
   </ion-row>
 

@@ -50,7 +50,9 @@ export class HomePage {
 
   public logout() {
     this.auth.logout().subscribe(succ => {
-        this.nav.setRoot(LoginPage)
+        localStorage.setItem("logged",null);
+        localStorage.setItem("currentUser",null);
+        this.nav.setRoot(LoginPage);
     });
   }
 

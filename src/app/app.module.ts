@@ -15,6 +15,9 @@ import { ListSpeciesPage } from '../pages/list-species/list-species';
 import { ViewSpeciesPage } from '../pages/view-species/view-species';
 import { EditSpeciesPage } from '../pages/edit-species/edit-species';
 import { VerifyPage } from '../pages/verify/verify';
+import { SplashScreen } from '@ionic-native/splash-screen';
+import { PasswordResetPage } from '../pages/password-reset/password-reset';
+import { VerifyResetPage } from '../pages/verify-reset/verify-reset';
 
 import { MediaCapture, Camera,Transfer,File } from 'ionic-native';
 
@@ -34,7 +37,9 @@ import { MediaCapture, Camera,Transfer,File } from 'ionic-native';
     ListSpeciesPage,
     ViewSpeciesPage,
     EditSpeciesPage,
-    VerifyPage
+    VerifyPage,
+    PasswordResetPage,
+    VerifyResetPage
   ],
   imports: [
     IonicModule.forRoot(MyApp)
@@ -54,8 +59,10 @@ import { MediaCapture, Camera,Transfer,File } from 'ionic-native';
     ListSpeciesPage,
     ViewSpeciesPage,
     EditSpeciesPage,
-    VerifyPage
+    VerifyPage,
+    PasswordResetPage,
+    VerifyResetPage
   ],
-  providers: [AuthService, MediaCapture, Camera, Transfer, File]
+  providers: [SplashScreen,AuthService, MediaCapture, Camera, Transfer, File]
 })
 export class AppModule {}

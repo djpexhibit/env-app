@@ -43,6 +43,8 @@ export class AddCompaintPage {
   @ViewChild('map') mapElement: ElementRef;
   map: any;
 
+  @ViewChild('subb') subb : ElementRef;
+
   constructor(public navCtrl: NavController, public navParams: NavParams, public complainService: ComplaintService, private alertCtrl: AlertController, private loadingCtrl: LoadingController, private auth: AuthService, private _DomSanitizer: DomSanitizer, private mediaCapture: MediaCapture) {
     this.loadPollutionTypes();
     this.loadExpectedActions();
@@ -186,7 +188,7 @@ export class AddCompaintPage {
     this.complainService.addComplain(this.complaint, this.base64Images).then(success => {
       if (success) {
         if(this.videoPath){
-          this.complainService.upload(this.videoPath, success).then( success => {
+        /*  this.complainService.upload(this.videoPath, success).then( success => {
             setTimeout(() => {
               this.loading.dismiss();
               this.navCtrl.setRoot(HomePage);
@@ -194,7 +196,7 @@ export class AddCompaintPage {
 
           }
 
-          );
+        );*/
         }
 
         this.loading.dismiss();
@@ -244,6 +246,7 @@ export class AddCompaintPage {
 
     let content = "<h4>Marked Place!</h4>";
     this.addInfoWindow(marker, content);
+    //this.subb.nativeElement.focus();
   }
 
   addInfoWindow(marker, content){

@@ -38,6 +38,7 @@
   <allow-navigation href="http://10.217.102.237:8100"/>
   <allow-navigation href="http://10.219.227.138:8100"/>
   <allow-navigation href="http://10.179.17.238:8100"/>
+  <allow-navigation href="http://10.179.22.98:8100"/>
   <allow-intent href="http://*/*"/>
   <allow-intent href="https://*/*"/>
   <allow-intent href="tel:*"/>
@@ -60,6 +61,8 @@
   <preference name="FadeSplashScreenDuration" value="300"/>
   <preference name="SplashShowOnlyFirstTime" value="false"/>
   <preference name="loadUrlTimeoutValue" value="700000"/>
+  <preference name="SplashScreen" value="screen"/>
+  <preference name="AutoHideSplashScreen" value="false"/>
   <feature name="StatusBar">
     <param name="ios-package" onload="true" value="CDVStatusBar"/>
   </feature>

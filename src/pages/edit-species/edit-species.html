@@ -42,19 +42,23 @@
 		</ion-col>
 	</ion-row>
 
+
 	<ion-item>
-		<ion-label stacked>Species Type</ion-label>
-		<ion-textarea [(ngModel)]="specie.type" name="type" placeholder="Enter information"></ion-textarea>
+			<ion-label stacked>Select Type</ion-label>
+			<ion-select [(ngModel)]="species.type" name="type" >
+				<ion-option  value="Plant" >Plant</ion-option>
+				<ion-option  value="Animal" >Animal</ion-option>
+			</ion-select>
 	</ion-item>
 
 	<ion-item>
-		<ion-label stacked>Species Name</ion-label>
-		<ion-textarea [(ngModel)]="specie.name" name="name" placeholder="Enter information"></ion-textarea>
+		<ion-label stacked>Common name / Scientific name</ion-label>
+		<ion-textarea [(ngModel)]="species.name" name="name" placeholder="Enter information"></ion-textarea>
 	</ion-item>
 
 	<ion-item>
-		<ion-label stacked>Details</ion-label>
-		<ion-textarea [(ngModel)]="specie.details" name="details" placeholder="Enter information"></ion-textarea>
+		<ion-label stacked>Genus name and the species name</ion-label>
+		<ion-textarea [(ngModel)]="species.specname" name="specname" placeholder="Enter information"></ion-textarea>
 	</ion-item>
 
 
@@ -62,6 +66,11 @@
 	<!-- <button ion-button (click)="takeVideo()">Record</button>
 	<button ion-button (click)="selectvideo()">Select Video</button>
 	<video #myvideo height="300" width="300" controls ></video> -->
+
+	<ion-item>
+		<ion-label>Date/Time</ion-label>
+		<ion-datetime displayFormat="MMM DD, YYYY HH:mm" [(ngModel)]="species.datetime"></ion-datetime>
+	</ion-item>
 
 
 	<ion-item>

@@ -45,17 +45,19 @@
 
 
 
-				<ion-card-content>
-					<ion-col width-50 offset-33>
+				<ion-row>
+          <ion-col width-67>
+            <ion-card-content>
+							<p>{{specie.type}}</p>
+							<p>Name : {{specie.name}}</p>
+							<p>{{specie.specname}}...</p>
+            </ion-card-content>
+          </ion-col>
+          <ion-col>
 						<img class="sca" [src]="_DomSanitizer.bypassSecurityTrustUrl(specie.image )" *ngIf="specie.image"  />
 						<img class="sca" width="80" src="thumbs.jpg" *ngIf="!specie.image"/>
-					</ion-col>
-					<p>
-						{{specie.type}}
-					</p>
-					<p>Name : {{specie.name}}</p>
-					<p>{{specie.details}}...</p>
-				</ion-card-content>
+          </ion-col>
+        </ion-row>
 
 				<ion-row no-padding>
 					<ion-col>

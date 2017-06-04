@@ -42,6 +42,8 @@ export class ListSpeciesPage {
 
 	public logout() {
 		this.auth.logout().subscribe(succ => {
+			localStorage.setItem("logged",null);
+			localStorage.setItem("currentUser",null);
 			this.nav.setRoot(LoginPage)
 		});
 	}

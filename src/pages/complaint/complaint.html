@@ -54,17 +54,10 @@
     </ion-buttons>
 
     <h2 class="det"> Problem  : {{complains[0].type}} </h2>
-  </ion-item>
-  <ion-item>
         <h2 class="det"> Location : {{complains[0].location}} </h2>
-  </ion-item>
-  <ion-item>
         <h2 class="det"> Party    : {{complains[0].res_person}} </h2>
-  </ion-item>
-
-  <ion-item>
-    <h3 *ngIf="!complains[0].anonymous"> Reported By : {{complains[0].user}} </h3>
-    <h3> On : {{complains[0].date}} </h3>
+        <h3 *ngIf="!complains[0].anonymous"> Reported By : {{complains[0].user}} </h3>
+        <h3> On : {{complains[0].date}} </h3>
   </ion-item>
 
 
@@ -82,7 +75,7 @@
 
   <ion-row *ngFor="let comp of complains">
     <ion-col *ngIf="comp.image">
-      <img [src]="_DomSanitizer.bypassSecurityTrustUrl(comp.image)"/>
+      <img  [src]="_DomSanitizer.bypassSecurityTrustUrl(comp.image)"/>
     </ion-col>
   </ion-row>
 </ion-card>

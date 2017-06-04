@@ -24,7 +24,7 @@ export class EditSpeciesPage {
 
   loading: Loading;
 	public base64Images : Array<string> = [];
-	specie = {id:'',name: '', details: '', type:'',lat:0,lng:0, location:'',user:0};
+	specie = {id:'',name: '', specname: '', type:'',lat:0,lng:0, location:'',datetime:'',user:0};
 	public imageCounter: number;
 
 	public species : any;
@@ -123,7 +123,7 @@ export class EditSpeciesPage {
     this.speciesService.updateSpecies(this.specie, this.base64Images).then(success => {
       if (success) {
         if(this.videoPath){
-          this.speciesService.upload(this.videoPath, success).then( success => {
+          /*this.speciesService.upload(this.videoPath, success).then( success => {
             setTimeout(() => {
 							this.loading.dismiss();
               this.navCtrl.setRoot(ListSpeciesPage);
@@ -131,7 +131,7 @@ export class EditSpeciesPage {
 
           }
 
-          );
+				);*/
         }
 
 				this.loading.dismiss();
@@ -200,9 +200,10 @@ export class EditSpeciesPage {
 
 				this.species = data;
         this.specie.name = this.species[0].name;
-        this.specie.details = this.species[0].details;
+        this.specie.specname = this.species[0].specname;
         this.specie.location = this.species[0].location;
         this.specie.type = this.species[0].type;
+				this.specie.datetime = this.species[0].datetime;
 
 
         this.species.map(species => {

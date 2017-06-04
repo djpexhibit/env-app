@@ -144,7 +144,7 @@ export class EditComplainPage {
     this.complainService.updateComplain(this.complaint, this.base64Images).then(success => {
       if (success) {
         if(this.videoPath){
-          this.complainService.upload(this.videoPath, success).then( success => {
+          /*this.complainService.upload(this.videoPath, success).then( success => {
             setTimeout(() => {
               this.loading.dismiss();
               this.navCtrl.setRoot(HomePage);
@@ -152,12 +152,12 @@ export class EditComplainPage {
 
           }
 
-          );
+        );*/
         }
 
         this.loading.dismiss();
         this.navCtrl.setRoot(HomePage);
-        
+
       } else {
         this.showError("Access Denied");
       }

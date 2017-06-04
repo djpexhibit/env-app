@@ -23,6 +23,7 @@ export class AuthService {
   access:boolean;
   success = null;
   emailCheck = null;
+  emailCheckPw = null;
 
   constructor(public http: Http) {
     console.log('Hello ComplaintService Provider');
@@ -41,6 +42,8 @@ public login(credentials) {
         if (data.status === "OK"){
           this.currentUser = new User(data.username, data.email,data.id);
           this.access = true;
+          localStorage.setItem("logged","true");
+          localStorage.setItem("currentUser",JSON.stringify(this.currentUser));
         }else{
           this.access = false;
         }
@@ -106,6 +109,20 @@ public login(credentials) {
     );
   }
 
+  public verifyResetMobileCode(verifyCredentials){
+    return new Promise(
+      resolve => {
+        this.http.post(config.main.baseUrl + '/verifyResetMobileCode',{verifyCredentials:verifyCredentials})
+          .map(res => res.json())
+          .subscribe(data => {
+            console.log(data);
+            this.success = data;
+            resolve(this.success)
+          })
+      }
+    );
+  }
+
   public checkEmailValidity(credentials){
   console.log(credentials);
     return new Promise( resolve => {
@@ -119,8 +136,24 @@ public login(credentials) {
     });
   }
 
+  public verifyEmailWithMobile(credentials){
+    return new Promise( resolve => {
+      this.http.post(config.main.baseUrl + '/verifyEmailWithMobile',{credentials:credentials})
+        .map(res => res.json())
+        .subscribe(data => {
+          console.log(data);
+          this.emailCheckPw = data;
+          resolve(this.emailCheckPw);
+        })
+    });
+  }
+
   public getUserInfo() : User {
     return this.currentUser;
+  }
+
+  public setUserInfo(user){
+    this.currentUser = user;
   }
 
   public logout() {

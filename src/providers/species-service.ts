@@ -2,8 +2,8 @@ import { Injectable } from '@angular/core';
 import { Http } from '@angular/http';
 import 'rxjs/add/operator/map';
 import config from '../app/config.json';
-import { Transfer } from 'ionic-native';
-
+//import { Transfer } from 'ionic-native';
+//import { Platform } from 'ionic-angular';
 
 @Injectable()
 export class SpeciesService {
@@ -13,7 +13,7 @@ export class SpeciesService {
 	success = null;
 	comments = null;
 
-	constructor(public http: Http, public transfer:Transfer) {
+	constructor(public http: Http) {
 		console.log('Hello ComplaintService Provider');
 	}
 
@@ -68,7 +68,8 @@ export class SpeciesService {
 	}
 
 
-	upload(path, specId) {
+	/*upload(path, specId) {
+		this.platform.ready().then(()=>{
 		let options = {
 			fileKey: 'file',
 			fileName: 'vidSpec_'+specId.id+'.mp4',
@@ -84,8 +85,8 @@ export class SpeciesService {
 				// error
 			})
 		});
-
-	}
+});
+	}*/
 
 
 

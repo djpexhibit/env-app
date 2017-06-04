@@ -38,24 +38,24 @@
     <div  [navPush]="complaint"   *ngFor="let complain of complaints" [navParams]={id:complain.id} >
       <ion-card>
 
-         <ion-card-header>
+        <ion-card-header>
           <p *ngIf="!complain.anonymous">Reported By : {{complain.user }} </p>
           <p>On : {{ complain.date}} </p>
-
         </ion-card-header>
 
-       <ion-col width-50 offset-33>
-       <img class="sca" [src]="_DomSanitizer.bypassSecurityTrustUrl(complain.image )" *ngIf="complain.image"  />
-        <img  class="sca" src="thumbs.jpg" *ngIf="!complain.image"/>
-    </ion-col>
-
-        <ion-card-content>
-          <p>
-            {{complain.type}}
-          </p>
-          <p>Responsible : {{complain.res_person}}</p>
-          <p>{{complain.details}}...</p>
-        </ion-card-content>
+        <ion-row>
+          <ion-col width-67>
+            <ion-card-content>
+              <p>{{complain.type}}</p>
+              <p>Responsible : {{complain.res_person}}</p>
+              <p>{{complain.details}}...</p>
+            </ion-card-content>
+          </ion-col>
+          <ion-col>
+            <img class="sca" [src]="_DomSanitizer.bypassSecurityTrustUrl(complain.image )" *ngIf="complain.image"  />
+            <img  class="sca" src="thumbs.jpg" *ngIf="!complain.image"/>
+          </ion-col>
+        </ion-row>
 
         <ion-row no-padding>
           <ion-col>
