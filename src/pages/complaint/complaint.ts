@@ -158,7 +158,7 @@ export class ComplaintPage {
     this.showLoading();
 
     if(!this.comment.details){
-      this.showError("Please enter details");
+      this.showError("Please enter details"); return;
     }
 
     this.comment.complain_id = this.complainId;

@@ -4,7 +4,7 @@ import {ComplaintService} from '../../providers/complaint-service';
 import { HomePage } from '../home/home';
 import { AuthService } from '../../providers/auth-service';
 import {DomSanitizer} from '@angular/platform-browser';
-import { Geolocation, MediaCapture, Camera , CaptureVideoOptions, MediaFile, CaptureError} from 'ionic-native';
+import { Geolocation, Camera , CaptureVideoOptions, CaptureError} from 'ionic-native';
 
 
 
@@ -255,7 +255,7 @@ export class EditComplainPage {
 	}
 
 
-  takeVideo() {
+/*  takeVideo() {
     let options: CaptureVideoOptions = { limit: 1 };
     MediaCapture.captureVideo(options).then((data: MediaFile[]) => {
       var i, path, len;
@@ -280,7 +280,7 @@ export class EditComplainPage {
       this.videoPath=data;
       video.play();
     })
-  }
+  }*/
 
 
 }

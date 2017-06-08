@@ -26,16 +26,16 @@
 <ion-content padding class="addComplain">
 
   <ion-row *ngIf="imageCounter < 3">
-      <ion-col>
+      <ion-col >
           <button class="new-btn" ion-button color="dark" type="button" (click)="takePicture()" >
             <ion-icon name="camera"></ion-icon>&nbsp;
-              Take a Picture
+              Capture
           </button>
       </ion-col>
-      <ion-col>
+      <ion-col >
         <button class="new-btn" ion-button color="dark" (click)="selectPicture()">
           <ion-icon name="add-circle"></ion-icon>&nbsp;
-          From Gallary
+          Gallery
         </button>
       </ion-col>
 
@@ -87,12 +87,12 @@
 
 			<ion-item>
 				<ion-label stacked>Details</ion-label>
-				<ion-textarea [(ngModel)]="complaint.details" name="details" placeholder="Enter Information Include observation, highlight the Issue"></ion-textarea>
+				<ion-textarea [(ngModel)]="complaint.details" name="details" placeholder="Include observations and findings regarding the issue"></ion-textarea>
 			</ion-item>
 
       <ion-item>
         <ion-label>Keep me unknown</ion-label>
-        <ion-checkbox [(ngModel)]="complaint.anonymous"></ion-checkbox>
+        <ion-checkbox style="margin-right:4px !important" [(ngModel)]="complaint.anonymous"></ion-checkbox>
       </ion-item>
 
 

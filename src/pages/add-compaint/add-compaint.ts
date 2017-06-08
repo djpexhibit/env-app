@@ -5,7 +5,7 @@ import { HomePage } from '../home/home';
 import { Geolocation } from 'ionic-native';
 import { AuthService } from '../../providers/auth-service';
 import {DomSanitizer} from '@angular/platform-browser';
-import { MediaCapture, Camera , CaptureVideoOptions, MediaFile, CaptureError} from 'ionic-native';
+import {  Camera , CaptureVideoOptions, CaptureError} from 'ionic-native';
 
 
 /*
@@ -45,7 +45,7 @@ export class AddCompaintPage {
 
   @ViewChild('subb') subb : ElementRef;
 
-  constructor(public navCtrl: NavController, public navParams: NavParams, public complainService: ComplaintService, private alertCtrl: AlertController, private loadingCtrl: LoadingController, private auth: AuthService, private _DomSanitizer: DomSanitizer, private mediaCapture: MediaCapture) {
+  constructor(public navCtrl: NavController, public navParams: NavParams, public complainService: ComplaintService, private alertCtrl: AlertController, private loadingCtrl: LoadingController, private auth: AuthService, private _DomSanitizer: DomSanitizer) {
     this.loadPollutionTypes();
     this.loadExpectedActions();
     this.imageCounter = 0;
@@ -96,7 +96,7 @@ export class AddCompaintPage {
     });
   }
 
-  takeVideo() {
+  /*takeVideo() {
     let options: CaptureVideoOptions = { limit: 1};
     MediaCapture.captureVideo(options).then((data: MediaFile[]) => {
       var i, path, len;
@@ -112,18 +112,18 @@ export class AddCompaintPage {
       console.error(err);
     }
   );
-  }
+}*/
 
 
 
-  startrecording() {
+  /*startrecording() {
     MediaCapture.captureVideo((videodata) => {
       //this.base64Video = 'data:video/mp4;base64,'+videodata;
       alert(JSON.stringify(videodata));
     })
-  }
+  }*/
 
-  selectvideo() {
+  /*selectvideo() {
     let video = this.myVideo.nativeElement;
     var options = {
       sourceType: 2,
@@ -136,7 +136,7 @@ export class AddCompaintPage {
       this.videoPath=data;
       video.play();
     })
-  }
+  }*/
 
   selectPicture(){
     let options = {
@@ -183,34 +183,60 @@ export class AddCompaintPage {
 
   addComplain(){
     this.showLoading();
-    console.log("SAVING COMPLAIN");
-    this.complaint.user=this.userid;
-    this.complainService.addComplain(this.complaint, this.base64Images).then(success => {
-      if (success) {
-        if(this.videoPath){
-        /*  this.complainService.upload(this.videoPath, success).then( success => {
-            setTimeout(() => {
-              this.loading.dismiss();
-              this.navCtrl.setRoot(HomePage);
-            });
+    if((this.complaint.person && this.complaint.location)
+        || (this.complaint.person && this.complaint.lat)
+        || (this.complaint.person && this.imageCounter > 0)
+        || (this.complaint.details && this.complaint.location)
+        || (this.complaint.details && this.complaint.lat)
+        || (this.complaint.details && this.imageCounter > 0)
+        || (this.complaint.location && this.imageCounter > 0)
+        || (this.complaint.lat && this.imageCounter > 0)
+      ){
+      console.log("SAVING COMPLAIN");
+      this.complaint.user=this.userid;
+      this.complainService.addComplain(this.complaint, this.base64Images).then(success => {
+        if (success) {
+          if(this.videoPath){
+          /*  this.complainService.upload(this.videoPath, success).then( success => {
+              setTimeout(() => {
+                this.loading.dismiss();
+                this.navCtrl.setRoot(HomePage);
+              });
 
+            }
+
+          );*/
           }
 
-        );*/
+          this.loading.dismiss();
+          this.clearComplain();
+          this.navCtrl.setRoot(HomePage);
+
+        } else {
+          this.clearComplain();
+          this.showError("Access Denied");
         }
-
-        this.loading.dismiss();
-        this.navCtrl.setRoot(HomePage);
-
-      } else {
-        this.showError("Access Denied");
-      }
-    },
-    error => {
-      this.showError(error);
-    });
+      },
+      error => {
+        this.clearComplain();
+        this.showError(error);
+      });
+    }else{
+      this.showError("Insufficient information");
+    }
   }
 
+  clearComplain(){
+      this.complaint.person = '';
+      this.complaint.details = '';
+      this.complaint.type = '';
+      this.complaint.action = '';
+      this.complaint.lat = 0;
+      this.complaint.lng = 0;
+      this.complaint.location = '';
+      this.complaint.user = 0;
+      this.complaint.anonymous = false;
+  }
 
   showLoading() {
     this.loading = this.loadingCtrl.create({

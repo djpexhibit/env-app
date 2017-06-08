@@ -5,7 +5,7 @@ import { ListSpeciesPage } from '../list-species/list-species';
 import { Geolocation } from 'ionic-native';
 import { AuthService } from '../../providers/auth-service';
 import {DomSanitizer} from '@angular/platform-browser';
-import { MediaCapture, Camera , CaptureVideoOptions, MediaFile, CaptureError} from 'ionic-native';
+import { Camera , CaptureVideoOptions, CaptureError} from 'ionic-native';
 
 
 /*
@@ -41,7 +41,7 @@ export class AddSpeciesPage {
   @ViewChild('map') mapElement: ElementRef;
   map: any;
 
-  constructor(public navCtrl: NavController, public navParams: NavParams, public speciesService: SpeciesService, private alertCtrl: AlertController, private loadingCtrl: LoadingController, private auth: AuthService, private _DomSanitizer: DomSanitizer, private mediaCapture: MediaCapture) {
+  constructor(public navCtrl: NavController, public navParams: NavParams, public speciesService: SpeciesService, private alertCtrl: AlertController, private loadingCtrl: LoadingController, private auth: AuthService, private _DomSanitizer: DomSanitizer) {
     this.imageCounter = 0;
 
     let info = this.auth.getUserInfo();
@@ -90,7 +90,7 @@ export class AddSpeciesPage {
     });
   }
 
-  takeVideo() {
+/*  takeVideo() {
     let options: CaptureVideoOptions = { limit: 1 };
     MediaCapture.captureVideo(options).then((data: MediaFile[]) => {
       var i, path, len;
@@ -130,7 +130,7 @@ export class AddSpeciesPage {
       video.play();
     })
   }
-
+*/
   selectPicture(){
     let options = {
       destinationType : Camera.DestinationType.DATA_URL,
@@ -160,32 +160,59 @@ export class AddSpeciesPage {
 
   addSpecies(){
     this.showLoading();
-    console.log("SAVING SPECIES");
-    this.species.user=this.userid;
-    this.speciesService.addSpecies(this.species, this.base64Images).then(success => {
-      if (success) {
-        if(this.videoPath){
-          /*this.speciesService.upload(this.videoPath, success).then( success => {
-            setTimeout(() => {
-              this.loading.dismiss();
-              this.navCtrl.setRoot(ListSpeciesPage);
-            });
+    if((this.species.name && this.imageCounter > 0)
+      || (this.species.name && this.species.lat)
+      || (this.species.name && this.species.specname)
+      || (this.species.name && this.species.location)
+      || (this.species.specname && this.imageCounter > 0)
+      || (this.species.specname && this.species.lat)
+      || (this.species.specname && this.species.location)
+      || (this.species.location && this.imageCounter > 0)
+      || (this.species.location && this.species.lat)){
+      console.log("SAVING SPECIES");
+      this.species.user=this.userid;
+      this.speciesService.addSpecies(this.species, this.base64Images).then(success => {
+        if (success) {
+          if(this.videoPath){
+            /*this.speciesService.upload(this.videoPath, success).then( success => {
+              setTimeout(() => {
+                this.loading.dismiss();
+                this.navCtrl.setRoot(ListSpeciesPage);
+              });
 
+            }
+
+          );*/
           }
 
-        );*/
+          this.loading.dismiss();
+          this.clearSpecies();
+          this.navCtrl.setRoot(ListSpeciesPage);
+
+        } else {
+          this.clearSpecies();
+          this.showError("Access Denied");
         }
+      },
+      error => {
+        this.clearSpecies();
+        this.showError(error);
+      });
+    }else{
+      this.showError("Insufficient information");
+    }
+  }
 
-        this.loading.dismiss();
-        this.navCtrl.setRoot(ListSpeciesPage);
-
-      } else {
-        this.showError("Access Denied");
-      }
-    },
-    error => {
-      this.showError(error);
-    });
+  clearSpecies(){
+    this.species.type = '';
+    this.species.name = '';
+    this.species.specname = '';
+    this.species.lat = 0;
+    this.species.lng = 0;
+    this.species.location = '';
+    this.species.datetime = '';
+    this.species.user = 0;
+    this.species.anonymous = false;
   }
 
 

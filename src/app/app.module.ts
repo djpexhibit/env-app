@@ -19,7 +19,7 @@ import { SplashScreen } from '@ionic-native/splash-screen';
 import { PasswordResetPage } from '../pages/password-reset/password-reset';
 import { VerifyResetPage } from '../pages/verify-reset/verify-reset';
 
-import { MediaCapture, Camera,Transfer,File } from 'ionic-native';
+import { Camera,Transfer,File } from 'ionic-native';
 
 
 @NgModule({
@@ -63,6 +63,6 @@ import { MediaCapture, Camera,Transfer,File } from 'ionic-native';
     PasswordResetPage,
     VerifyResetPage
   ],
-  providers: [SplashScreen,AuthService, MediaCapture, Camera, Transfer, File]
+  providers: [SplashScreen,AuthService, Camera, Transfer, File]
 })
 export class AppModule {}

@@ -23,13 +23,13 @@
 		<ion-col>
 				<button class="new-btn" ion-button color="dark" type="button" (click)="takePicture()" >
 					<ion-icon name="camera"></ion-icon>&nbsp;
-						Take a Picture
+						Capture
 				</button>
 		</ion-col>
 		<ion-col>
 			<button class="new-btn" ion-button color="dark" (click)="selectPicture()">
 				<ion-icon name="add-circle"></ion-icon>&nbsp;
-				From Gallary
+					Gallery
 			</button>
 		</ion-col>
 	</ion-row>
@@ -99,7 +99,7 @@
 
 	<ion-item>
 		<ion-label>Date/Time</ion-label>
-		<ion-datetime displayFormat="MMM DD, YYYY HH:mm" [(ngModel)]="species.datetime"></ion-datetime>
+		<ion-datetime displayFormat="MMM DD, YY HH:mm" [(ngModel)]="species.datetime"></ion-datetime>
 	</ion-item>
 
 
