@@ -15,7 +15,7 @@ import { PasswordResetPage } from '../password-reset/password-reset';
 export class LoginPage {
   loading: Loading;
   registerCredentials = {email: '', password: ''};
-  logoImg = 'assets/img/logo.jpg';
+  logoImg = 'img/logo.jpg';
   ta = 'ta.png';
 
 
