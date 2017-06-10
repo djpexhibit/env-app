@@ -18,6 +18,7 @@ import { VerifyPage } from '../pages/verify/verify';
 import { SplashScreen } from '@ionic-native/splash-screen';
 import { PasswordResetPage } from '../pages/password-reset/password-reset';
 import { VerifyResetPage } from '../pages/verify-reset/verify-reset';
+import { DashboardPage } from '../pages/dashboard/dashboard';
 
 import { Camera,Transfer,File } from 'ionic-native';
 
@@ -39,7 +40,8 @@ import { Camera,Transfer,File } from 'ionic-native';
     EditSpeciesPage,
     VerifyPage,
     PasswordResetPage,
-    VerifyResetPage
+    VerifyResetPage,
+    DashboardPage
   ],
   imports: [
     IonicModule.forRoot(MyApp)
@@ -61,7 +63,8 @@ import { Camera,Transfer,File } from 'ionic-native';
     EditSpeciesPage,
     VerifyPage,
     PasswordResetPage,
-    VerifyResetPage
+    VerifyResetPage,
+    DashboardPage
   ],
   providers: [SplashScreen,AuthService, Camera, Transfer, File]
 })
