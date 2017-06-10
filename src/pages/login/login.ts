@@ -7,6 +7,8 @@ import { RegisterPage } from '../register/register';
 import { MainPage } from '../main/main';
 import { HomePage } from '../home/home';
 import { PasswordResetPage } from '../password-reset/password-reset';
+import config from '../../app/config.json';
+
 
 @Component({
   selector: 'page-login',
@@ -15,8 +17,11 @@ import { PasswordResetPage } from '../password-reset/password-reset';
 export class LoginPage {
   loading: Loading;
   registerCredentials = {email: '', password: ''};
-  logoImg = 'img/logo.jpg';
-  ta = 'ta.png';
+  logoImg = config.main.baseUrl +  '/logo.jpg';
+  ta = config.main.baseUrl +  '/ta.png';
+  pa = config.main.baseUrl +  '/pa.jpg';
+  eml = config.main.baseUrl +  '/eml.jpg';
+
 
 
   constructor(private nav: NavController, private auth: AuthService, private alertCtrl: AlertController, private loadingCtrl: LoadingController) {
