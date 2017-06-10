@@ -16,6 +16,7 @@ export class LoginPage {
   loading: Loading;
   registerCredentials = {email: '', password: ''};
   logoImg = './assets/img/logo.jpg';
+  ta = 'ta.png';
 
 
   constructor(private nav: NavController, private auth: AuthService, private alertCtrl: AlertController, private loadingCtrl: LoadingController) {
