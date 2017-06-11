@@ -62,15 +62,15 @@
 
   <ion-row class="logo-row">
     <ion-col>
-      <img width="60px" [src]="ta" />
+      <img width="60px" [src]="_DomSanitizer.bypassSecurityTrustUrl(ta)" />
     </ion-col>
 
     <ion-col>
-      <img width="60px" [src]="pa" />
+      <img width="60px" [src]="_DomSanitizer.bypassSecurityTrustUrl(pa)" />
     </ion-col>
 
     <ion-col>
-      <img width="80px" [src]="eml"/>
+      <img width="80px" [src]="_DomSanitizer.bypassSecurityTrustUrl(eml)"/>
     </ion-col>
   </ion-row>
 

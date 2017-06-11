@@ -8,6 +8,7 @@ import { MainPage } from '../main/main';
 import { HomePage } from '../home/home';
 import { PasswordResetPage } from '../password-reset/password-reset';
 import config from '../../app/config.json';
+import {DomSanitizer} from '@angular/platform-browser';
 
 
 @Component({
@@ -24,7 +25,7 @@ export class LoginPage {
 
 
 
-  constructor(private nav: NavController, private auth: AuthService, private alertCtrl: AlertController, private loadingCtrl: LoadingController) {
+  constructor(private nav: NavController, private auth: AuthService, private alertCtrl: AlertController, private loadingCtrl: LoadingController,private _DomSanitizer: DomSanitizer) {
 
   }
   ionViewDidLoad(){
