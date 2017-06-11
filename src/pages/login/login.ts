@@ -18,10 +18,10 @@ import {DomSanitizer} from '@angular/platform-browser';
 export class LoginPage {
   loading: Loading;
   registerCredentials = {email: '', password: ''};
-  logoImg = config.main.baseUrl +  '/logo.jpg';
-  ta = config.main.baseUrl +  '/ta.png';
-  pa = config.main.baseUrl +  '/pa.jpg';
-  eml = config.main.baseUrl +  '/eml.jpg';
+  logoImg = 'logo.jpg';
+  ta = 'ta.png';
+  pa = 'pa.jpg';
+  eml = 'eml.jpg';
 
 
 

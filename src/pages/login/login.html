@@ -4,7 +4,7 @@
   <ion-row class="logo-row">
     <ion-col></ion-col>
     <ion-col width-67>
-      <img  [src]="logoImg"/>
+      <img  src="logoImg"/>
     </ion-col>
     <ion-col></ion-col>
   </ion-row>
@@ -62,15 +62,15 @@
 
   <ion-row class="logo-row">
     <ion-col>
-      <img width="60px" [src]="_DomSanitizer.bypassSecurityTrustUrl(ta)" />
+      <img width="60px" src="ta" />
     </ion-col>
 
     <ion-col>
-      <img width="60px" [src]="_DomSanitizer.bypassSecurityTrustUrl(pa)" />
+      <img width="60px" src="pa" />
     </ion-col>
 
     <ion-col>
-      <img width="80px" [src]="_DomSanitizer.bypassSecurityTrustUrl(eml)"/>
+      <img width="80px" src="eml"/>
     </ion-col>
   </ion-row>
 
