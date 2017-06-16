@@ -7,6 +7,9 @@ import { RegisterPage } from '../register/register';
 import { MainPage } from '../main/main';
 import { HomePage } from '../home/home';
 import { PasswordResetPage } from '../password-reset/password-reset';
+import config from '../../app/config.json';
+import {DomSanitizer} from '@angular/platform-browser';
+
 
 @Component({
   selector: 'page-login',
@@ -15,8 +18,14 @@ import { PasswordResetPage } from '../password-reset/password-reset';
 export class LoginPage {
   loading: Loading;
   registerCredentials = {email: '', password: ''};
+  logoImg = './assets/img/logo.jpg';
+  ta = './assets/img/ta.png';
+  pa = './assets/img/pa.jpg';
+  eml = './assets/img/eml.jpg';
 
-  constructor(private nav: NavController, private auth: AuthService, private alertCtrl: AlertController, private loadingCtrl: LoadingController) {
+
+
+  constructor(private nav: NavController, private auth: AuthService, private alertCtrl: AlertController, private loadingCtrl: LoadingController,private _DomSanitizer: DomSanitizer) {
 
   }
   ionViewDidLoad(){
