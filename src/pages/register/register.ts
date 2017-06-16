@@ -12,7 +12,13 @@ export class RegisterPage {
 
   loading: Loading;
   createSuccess = false;
-  registerCredentials = {email: '', password: '',repassword:'',username:'',name:'',mobile:''};
+  registerCredentials = {email: '', password: '',repassword:'',username:'',name:'',mobile:'', type:'', expertType:'', mediaType:'', isJoined:false};
+
+  expertTypes = [
+    'Bio',
+    'Animal',
+    'Plant'
+  ];
 
   constructor(private nav: NavController, private auth: AuthService, private alertCtrl: AlertController, private loadingCtrl: LoadingController) {}
 
@@ -52,7 +58,7 @@ export class RegisterPage {
               this.loading.dismiss();
               //this.nav.setRoot(VerifyPage);
               this.nav.push(VerifyPage, {
-                mobile: this.registerCredentials.mobile 
+                mobile: this.registerCredentials.mobile
               });
             } );
           } else {
@@ -112,5 +118,9 @@ export class RegisterPage {
      ]
     });
     alert.present();
+  }
+
+  displayJoinedMessage(){
+    if(this.registerCredentials.isJoined) this.showPopup("Join to panel","You can only join after the verification process");
   }
 }

@@ -25,48 +25,59 @@
 
 <ion-content class="cards-bg">
 
-  <ion-card>
-    <img [src]="adv" />
-  </ion-card>
 
-  <div class="user-details">
-    <h3>Welcome, {{username}}!</h3>
-    <span>Your Email is: {{email}}</span>
-  </div>
 
-  <ion-list class="list-bak" no-padding *ngIf="complaints && complaints.length > 0" >
+<!--  <ion-fab top right  *ngIf="showFAB" #fab>
+    <button ion-fab color="dark" mini><ion-icon name="arrow-dropleft"></ion-icon></button>
+    <ion-fab-list side="left">
+      <button ion-fab mini><ion-icon name="hammer"></ion-icon></button>
+      <button ion-fab mini ><ion-icon name="trash"></ion-icon></button>
+      <button ion-fab mini ><ion-icon name="star"></ion-icon></button>
+      <button ion-fab mini (click)="closeFAB()"><ion-icon name="checkmark"></ion-icon></button>
+    </ion-fab-list>
+  </ion-fab> -->
+
+  <ion-fab top right>
+    <button ion-fab color="dark" mini  [navPush]="addComplaint"><ion-icon name="add"></ion-icon></button>
+  </ion-fab>
+
+  <ion-list *ngIf="complaints && complaints.length > 0" >
     <div  [navPush]="complaint"   *ngFor="let complain of complaints" [navParams]={id:complain.id} >
-      <ion-card>
 
-        <ion-card-header>
-          <p *ngIf="!complain.anonymous">Reported By : {{complain.user }} </p>
-          <p>On : {{ complain.date}} </p>
-        </ion-card-header>
-
-        <ion-row>
-          <ion-col width-67>
-            <ion-card-content>
-              <p>{{complain.type}}</p>
-              <p>Responsible : {{complain.res_person}}</p>
-              <p>{{complain.details}}...</p>
-            </ion-card-content>
-          </ion-col>
-          <ion-col>
+      <ion-grid>
+        <ion-row (longPress)="onLongPress($event,complain.id)">
+        <!--  <ion-col width-25>
             <img class="sca" [src]="_DomSanitizer.bypassSecurityTrustUrl(complain.image )" *ngIf="complain.image"  />
             <img  class="sca" src="thumbs.jpg" *ngIf="!complain.image"/>
           </ion-col>
-        </ion-row>
+          <ion-col width-75>
+            <div class="list-title">{{complain.type}}</div>
+            <div class="list-reportedBy" *ngIf="!complain.anonymous">{{complain.user }} </div>
+            <div class="list-desc">{{complain.details}}...</div>
+          </ion-col> -->
+          <ion-col  class="list-pic" [style.border]="(seletedComplainId === complain.id)?getb():null"
+            [style.background-image]="(complain.image)?getBackground(complain.image):getBackground('../thumbs.jpg')">
+            <div class="row list-icon">
+              <ion-icon name="person" item-right></ion-icon>
+            </div>
+            <div class="row list-icon">
+              <img *ngIf="!complain.expertReplied && !complain.closed"  src="tr_r.png" style="float:right" />
+              <img *ngIf="complain.expertReplied && !complain.closed"  src="tr_y.png" style="float:right" />
+              <img *ngIf="complain.closed"  src="tr_g.png" style="float:right" />
+            </div>
+            <div class="row list-icon">
+                <ion-icon style="color:yellow" name="star" item-right></ion-icon>
+            </div>
+            <div>
+              <span class="list-title">{{complain.type}}</span>
+              <span class="list-sub">{{complain.address}}</span>
+              <div class="list-sub">{{complain.date}}</div>
+            </div>
 
-        <ion-row no-padding>
-          <ion-col>
-            <button ion-button clear small color="danger" icon-left>
-              <ion-icon name='md-chatbubbles'></ion-icon>
-              Comment <span *ngIf="complain.comments">({{complain.comments}})</span> <span *ngIf="!complain.comments">(0)</span>
-            </button>
           </ion-col>
-        </ion-row>
 
-      </ion-card>
+        </ion-row>
+      </ion-grid>
 
     </div>
   </ion-list>
@@ -75,4 +86,28 @@
    <p>{{noInfoMsg}}</p>
   </ion-list>
 
+  <ion-card>
+    <img [src]="adv" />
+  </ion-card>
+
 </ion-content>
+
+<ion-footer no-border *ngIf="showFAB" >
+  <ion-toolbar color="dark" >
+    <ion-buttons start>
+      <button  ion-button icon-only color="royal" small class="toolbar-mod">
+        <ion-icon name="hammer"></ion-icon>
+      </button>
+      <button  ion-button icon-only color="royal" small class="toolbar-mod">
+        <ion-icon name="trash"></ion-icon>
+      </button>
+      <button  ion-button icon-only color="royal" small class="toolbar-mod">
+        <ion-icon name="star"></ion-icon>
+      </button>
+      <button  ion-button icon-only color="royal" small class="toolbar-mod" (click)="closeFAB()">
+        <ion-icon name="checkmark"></ion-icon>
+      </button>
+    </ion-buttons>
+
+  </ion-toolbar>
+</ion-footer>

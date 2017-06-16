@@ -9,11 +9,18 @@ export class User {
   name: string;
   email: string;
   id:number;
+  fullName: string;
+  image;
+  type:string;
 
-  constructor(name: string, email: string, id: number) {
+
+  constructor(name: string, email: string, id: number, fullName: string, image, type:string) {
     this.name = name;
     this.email = email;
     this.id = id;
+    this.fullName = fullName;
+    this.image = image;
+    this.type = type;
   }
 }
 
@@ -40,7 +47,7 @@ public login(credentials) {
       let url = config.main.baseUrl + '/login';
       this.http.post(url,{"credentials":credentials}).map(res => res.json()).subscribe( data => {
         if (data.status === "OK"){
-          this.currentUser = new User(data.username, data.email,data.id);
+          this.currentUser = new User(data.username, data.email, data.id, data.name, data.image, data.type);
           this.access = true;
           localStorage.setItem("logged","true");
           localStorage.setItem("currentUser",JSON.stringify(this.currentUser));
@@ -86,6 +93,18 @@ public login(credentials) {
   public register(credentials){
     return new Promise( resolve => {
       this.http.post(config.main.baseUrl + '/register',{credentials:credentials})
+        .map(res => res.json())
+        .subscribe(data => {
+          console.log(data);
+          this.success = data;
+          resolve(this.success);
+        })
+    });
+  }
+
+  public editProfile(credentials){
+    return new Promise( resolve => {
+      this.http.post(config.main.baseUrl + '/editProfile',{credentials:credentials})
         .map(res => res.json())
         .subscribe(data => {
           console.log(data);

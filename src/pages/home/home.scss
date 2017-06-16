@@ -1,25 +1,69 @@
 
 
 page-home {
+  $fab-mini-size: 20px;
   .home {
-    background: #28653A;
+    background: #fff;
   }
 
   .list-bak{
-  	background: #28653A;
+  	background: #fff;
   }
 
   .cards-bg{
-  	background: #28653A;
+  	background: #fff;
   }
 
   .user-details{
-  	color:white;
+  	color:black;
   	margin-left:10px;
   }
 
   .sca{
-    width:80px; /* you can use % */
+    width:85px; /* you can use % */
     height: auto;
+  }
+
+  .list-title{
+    font-size: 14px;
+    color: white;
+  }
+
+  .list-sub{
+    font-size: 12px;
+    color: white;
+  }
+  .list-main{
+    position: relative;
+  }
+
+  .list-icon{
+    height: 25%;
+  }
+
+  .list-icon ion-icon{
+    float: right;
+  }
+
+  .list-reportedBy{
+    font-size: 10px;
+    margin-bottom: 5px;
+  }
+
+  .list-desc{
+    font-size: 10px;
+  }
+
+  .post{
+    background-image: url(complain.image) no-repeat center;
+    width:100%;
+  }
+
+  .list-pic{
+    height: 150px;
+  }
+
+  .toolbar-mod{
+    font-size: 10px;
   }
 }

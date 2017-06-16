@@ -1,0 +1,53 @@
+page-dashboard {
+  .container {
+    position: relative;
+    width: 249px;
+  }
+
+  .prof-pic{
+    height: 110px;
+    //margin-left: 70px;
+   border-radius: 50%;
+   border: 1px solid black;
+  }
+
+  .mask {
+    top: 50px;
+    left: 0;
+    right: 0;
+    position: absolute;
+    height: 110px;
+    width: 100%;
+    background: radial-gradient(circle, transparent 50px, white 50px);
+
+  }
+
+  .icon-section{
+    padding-top: 50px;
+  }
+
+  .text-right-align{
+    text-align: right;
+  }
+
+  .text-center-align{
+    text-align: center;
+  }
+
+  .display-number{
+    font-size: 20px;
+    color: red
+  }
+
+  .tile-icon{
+    border-radius: 5px;
+  }
+
+  .profile-details{
+    text-align: center;
+  }
+
+  .picdiv{
+    text-align: center;
+  }
+}

@@ -5,6 +5,7 @@ import { LawPage } from '../law/law';
 import { AddSpeciesPage } from '../add-species/add-species';
 import { ListSpeciesPage } from '../list-species/list-species';
 import { AddCompaintPage } from '../add-compaint/add-compaint';
+import { DashboardPage } from '../dashboard/dashboard';
 
 
 @Component({
@@ -19,16 +20,18 @@ export class MainPage {
   private addSpeciesPage;
   private listSpeciesPage;
   private addCompaintPage;
- 
+  private dashboardPage;
+
 
   constructor(public navCtrl: NavController, public navParams: NavParams) {
-    this.rootPage = HomePage;
+    this.rootPage = DashboardPage;
 
     this.homePage = HomePage;
     this.lawPage = LawPage;
     this.addSpeciesPage = AddSpeciesPage;
     this.listSpeciesPage = ListSpeciesPage;
     this.addCompaintPage = AddCompaintPage;
+    this.dashboardPage = DashboardPage;
 
   }
 

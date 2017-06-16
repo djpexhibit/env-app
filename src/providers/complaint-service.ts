@@ -190,4 +190,16 @@ fileTransfer.upload(path, config.main.baseUrl + '/addVideo', options).then((data
     });
   }
 
+	addAsFavorite(fav){
+		return new Promise( resolve => {
+      this.http.post(config.main.baseUrl + '/addAsFavoriteComp',{fav:fav})
+        .map(res => res.json())
+        .subscribe(data => {
+          console.log(data);
+          this.success = data;
+          resolve(this.success);
+        })
+    });
+	}
+
 }

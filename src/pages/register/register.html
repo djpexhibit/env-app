@@ -26,7 +26,39 @@
             </ion-item>
 
             <ion-item>
-              <ion-input type="username" placeholder="Username" name="username" [(ngModel)]="registerCredentials.username" required></ion-input>
+              <ion-input type="username" placeholder="Display Name" name="username" [(ngModel)]="registerCredentials.username" required></ion-input>
+            </ion-item>
+
+            <ion-list name="type" radio-group [(ngModel)]="registerCredentials.type">
+              <ion-label>Type</ion-label>
+              <ion-item>
+                <ion-label>Public</ion-label>
+                <ion-radio value="Public" checked></ion-radio>
+              </ion-item>
+              <ion-item>
+                <ion-label>Expert</ion-label>
+                <ion-radio value="Expert"></ion-radio>
+              </ion-item>
+              <ion-item>
+                <ion-label>Media</ion-label>
+                <ion-radio value="Media"></ion-radio>
+              </ion-item>
+            </ion-list>
+
+            <ion-item *ngIf="registerCredentials.type === 'Expert'">
+        				<ion-label stacked>Expertise On</ion-label>
+        				<ion-select [(ngModel)]="registerCredentials.expertType" name="expertType" >
+          				<ion-option *ngFor="let exType of expertTypes" value={{exType}} >{{exType}}</ion-option>
+        				</ion-select>
+      			</ion-item>
+
+            <ion-item *ngIf="registerCredentials.type === 'Media'">
+                <ion-input type="text" placeholder="Type of a media" name="mediaType" [(ngModel)]="registerCredentials.mediaType" required></ion-input>
+      			</ion-item>
+
+            <ion-item *ngIf="registerCredentials.type === 'Expert' || registerCredentials.type === 'Media' ">
+              <ion-label>Join the panel</ion-label>
+              <ion-toggle (click)="displayJoinedMessage()" name="isJoined" [(ngModel)]="registerCredentials.isJoined" checked="false"></ion-toggle>
             </ion-item>
 
             <ion-item>

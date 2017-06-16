@@ -18,8 +18,12 @@ import { VerifyPage } from '../pages/verify/verify';
 import { SplashScreen } from '@ionic-native/splash-screen';
 import { PasswordResetPage } from '../pages/password-reset/password-reset';
 import { VerifyResetPage } from '../pages/verify-reset/verify-reset';
+import { DashboardPage } from '../pages/dashboard/dashboard';
+import { SelectTaskPage } from '../pages/select-task/select-task';
 
 import { Camera,Transfer,File } from 'ionic-native';
+
+import { PressDirective } from "../components/press-directive/press-directive";
 
 
 @NgModule({
@@ -39,7 +43,10 @@ import { Camera,Transfer,File } from 'ionic-native';
     EditSpeciesPage,
     VerifyPage,
     PasswordResetPage,
-    VerifyResetPage
+    VerifyResetPage,
+    DashboardPage,
+    SelectTaskPage,
+    PressDirective
   ],
   imports: [
     IonicModule.forRoot(MyApp)
@@ -61,7 +68,9 @@ import { Camera,Transfer,File } from 'ionic-native';
     EditSpeciesPage,
     VerifyPage,
     PasswordResetPage,
-    VerifyResetPage
+    VerifyResetPage,
+    DashboardPage,
+    SelectTaskPage
   ],
   providers: [SplashScreen,AuthService, Camera, Transfer, File]
 })

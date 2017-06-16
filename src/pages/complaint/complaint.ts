@@ -6,7 +6,7 @@ import {HomePage} from '../home/home';
 import {ComplaintService} from '../../providers/complaint-service';
 import { Geolocation } from 'ionic-native';
 import {DomSanitizer} from '@angular/platform-browser';
-import { AuthService } from '../../providers/auth-service';
+import { AuthService, User } from '../../providers/auth-service';
 import config from '../../app/config.json';
 
 
@@ -62,8 +62,13 @@ export class ComplaintPage {
   map: any;
 
   constructor(public navCtrl: NavController, public navParams: NavParams, public complaintService: ComplaintService, private alertCtrl: AlertController, private loadingCtrl: LoadingController, private _DomSanitizer: DomSanitizer, private auth: AuthService) {
+    let u = this.auth.getUserInfo();
+    this.comment.user_id=u.id;
 
-    this.comment.user_id=this.auth.getUserInfo().id;
+    if(u.type === 'Media' || u.type === 'Expert'){
+      this.comment.type = 'EXPERT';
+    }
+
     this.loadComplain(navParams.get("id"));
     this.loadComments(navParams.get("id"));
 
@@ -215,6 +220,28 @@ export class ComplaintPage {
       //this.navCtrl.pop();
       this.navCtrl.setRoot(HomePage); // previous view will be cached
     this.navCtrl.setRoot(HomePage);
+    }
+
+
+    addAsFavorite(){
+      this.showLoading();
+
+      let fav={ compId:null, userId:null};
+      fav.compId = this.complainId;
+      fav.userId = this.userId;
+
+      this.complaintService.addAsFavorite(fav).then(success => {
+        if (success) {
+          setTimeout(() => {
+            this.loading.dismiss();
+          });
+        } else {
+          this.showError("Please try again");
+        }
+      },
+      error => {
+        this.showError(error);
+      });
     }
 
 }
