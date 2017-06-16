@@ -44,6 +44,9 @@ export class AddSpeciesPage {
   constructor(public navCtrl: NavController, public navParams: NavParams, public speciesService: SpeciesService, private alertCtrl: AlertController, private loadingCtrl: LoadingController, private auth: AuthService, private _DomSanitizer: DomSanitizer) {
     this.imageCounter = 0;
 
+    let typ = navParams.get("type");
+    this.species.type = typ;
+
     let info = this.auth.getUserInfo();
     this.username = info.name;
     this.email = info.email;

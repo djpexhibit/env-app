@@ -22,7 +22,7 @@
       <ion-col width-25>
       </ion-col>
       <ion-col width-50>
-        <div class="">
+        <div class="picdiv">
           <img class="prof-pic" src="prof.jpg" />
         <!--  <div class="mask"></div> -->
         </div>
@@ -34,7 +34,7 @@
 
   <div class="profile-details">
     <div>
-      visionx.prasad@gmail.com
+      {{loggedUser.email}}
     </div>
     <div>
       Edit Profile
@@ -56,10 +56,10 @@
     </ion-row>
     <ion-row>
       <ion-col width-33>
-        <img class="tile-icon" src="tile1.jpg" />
+        <img (click)="selectTask()" class="tile-icon" src="tile1.jpg" />
       </ion-col>
       <ion-col width-33>
-        <img class="tile-icon" src="tile2.jpg" />
+        <img (click)="viewComplains()" class="tile-icon" src="tile2.jpg" />
       </ion-col>
       <ion-col width-33>
         <img class="tile-icon" src="tile3.jpg" />

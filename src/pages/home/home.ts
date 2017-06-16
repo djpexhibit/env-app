@@ -1,6 +1,6 @@
 
 import {Component} from '@angular/core';
-import {NavController} from 'ionic-angular';
+import {NavController,AlertController} from 'ionic-angular';
 import { AuthService } from '../../providers/auth-service';
 import { LoginPage } from '../login/login';
 import { ComplaintPage } from '../complaint/complaint';
@@ -22,6 +22,9 @@ export class HomePage {
   username = '';
   email = '';
 
+  seletedComplainId = 0;
+  showFAB = false;
+
   //adv = '';
   adv = config.main.baseUrl +  '/1.jpg';
 
@@ -30,7 +33,7 @@ export class HomePage {
 
   noInfoMsg:string = "Loading";
 
-  constructor(private nav: NavController, private auth: AuthService, public complaintService: ComplaintService, private _DomSanitizer: DomSanitizer) {
+  constructor(private alertCtrl: AlertController,private nav: NavController, private auth: AuthService, public complaintService: ComplaintService, private _DomSanitizer: DomSanitizer) {
     let info = this.auth.getUserInfo();
     this.username = info.name;
     this.email = info.email;
@@ -65,6 +68,50 @@ export class HomePage {
         }
       });
     }
+
+    onLongPress(e,id){
+      //this.showPopup("ss","ss "+id);
+      this.seletedComplainId = id;
+      this.showFAB = true;
+    }
+
+    closeFAB(){
+      this.seletedComplainId = 0;
+      this.showFAB=false;
+      //fab.close();
+    }
+
+    showPopup(title, text) {
+      let alert = this.alertCtrl.create({
+        title: title,
+        subTitle: text,
+        buttons: [
+         {
+           text: 'OK',
+           handler: data => {
+
+           }
+         }
+       ]
+      });
+      alert.present();
+    }
+
+
+    getBackground (image) {
+         return this._DomSanitizer.bypassSecurityTrustStyle(`url(${image})`);
+         }
+
+         toggleFavorite(){
+           console.log("TOGGLING FAV")
+         }
+
+         getb () {
+           console.log("DDDDDDDDDDDDDDDDDDd")
+              return this._DomSanitizer.bypassSecurityTrustStyle(`5px groove yellow`);
+              }
+
+
 
 
   /*loadAdv(id){
