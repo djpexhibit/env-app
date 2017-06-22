@@ -38,9 +38,9 @@ export class SpeciesService {
 
 
 
-	loadSpecies(spec_id){
+	loadSpecies(spec_id,userId){
 		return new Promise(resolve => {
-			this.http.post(config.main.baseUrl + '/loadSpecie',{spec_id:spec_id})
+			this.http.post(config.main.baseUrl + '/loadSpecie',{spec_id:spec_id , userId:userId})
 			.map(res => res.json())
 			.subscribe(data => {
 				console.log("CCCC"); console.log(data);

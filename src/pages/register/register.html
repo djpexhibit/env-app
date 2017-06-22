@@ -29,8 +29,10 @@
               <ion-input type="username" placeholder="Display Name" name="username" [(ngModel)]="registerCredentials.username" required></ion-input>
             </ion-item>
 
-            <ion-list name="type" radio-group [(ngModel)]="registerCredentials.type">
-              <ion-label>Type</ion-label>
+            <ion-list class="type_list" name="type" radio-group [(ngModel)]="registerCredentials.type">
+              <ion-list-header>
+                Type
+              </ion-list-header>
               <ion-item>
                 <ion-label>Public</ion-label>
                 <ion-radio value="Public" checked></ion-radio>

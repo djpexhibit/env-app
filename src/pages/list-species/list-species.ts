@@ -1,5 +1,5 @@
 import {Component} from '@angular/core';
-import {NavController} from 'ionic-angular';
+import {NavController,Loading,AlertController, LoadingController, NavParams} from 'ionic-angular';
 import { AuthService } from '../../providers/auth-service';
 import { LoginPage } from '../login/login';
 import { ViewSpeciesPage } from '../view-species/view-species';
@@ -29,10 +29,16 @@ export class ListSpeciesPage {
 
   noInfoMsg:string = "Loading Species";
 
-	constructor(private nav: NavController, private auth: AuthService, public speciesService: SpeciesService, private _DomSanitizer: DomSanitizer) {
+	loading: Loading;
+	selectedFav = false;
+	userId = 0;
+
+
+	constructor(private nav: NavController, private auth: AuthService, public alertCtrl: AlertController ,public loadingCtrl:LoadingController ,public speciesService: SpeciesService, private _DomSanitizer: DomSanitizer) {
 		let info = this.auth.getUserInfo();
 		this.username = info.name;
 		this.email = info.email;
+		this.userId = info.id;
 
 		this.loadSpecies(info.id);
 		//this.loadAdv(Math.floor((Math.random() * 10) + 1));
@@ -56,6 +62,55 @@ export class ListSpeciesPage {
         this.noInfoMsg = "No Species Found.";
       }
 		});
+	}
+
+
+	toggleFavorite(specId,index){
+		this.showLoading();
+		this.selectedFav = !this.selectedFav;
+
+		let fav={ specId:null, userId:null, isFavorite:false};
+		fav.specId = specId;
+		fav.userId = this.userId;
+
+
+		this.species[index].fav = !this.species[index].fav;
+		fav.isFavorite = this.species[index].fav;
+
+
+
+		this.speciesService.addAsFavorite(fav).then(success => {
+			if (success) {
+				setTimeout(() => {
+					this.loading.dismiss();
+				});
+			} else {
+				this.showError("Please try again");
+			}
+		},
+		error => {
+			this.showError(error);
+		});
+	}
+
+	showLoading() {
+		this.loading = this.loadingCtrl.create({
+			content: 'Please wait...'
+		});
+		this.loading.present();
+	}
+
+	showError(text) {
+		setTimeout(() => {
+			this.loading.dismiss();
+		});
+
+		let alert = this.alertCtrl.create({
+			title: 'Fail',
+			subTitle: text,
+			buttons: ['OK']
+		});
+		alert.present(prompt);
 	}
 
 	/*loadAdv(id){

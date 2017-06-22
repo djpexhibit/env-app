@@ -10,17 +10,25 @@ export class User {
   email: string;
   id:number;
   fullName: string;
-  image;
+  image: string;
   type:string;
+  mobile:string;
+  expertType:string;
+  mediaType:string;
+  isJoined:boolean
 
 
-  constructor(name: string, email: string, id: number, fullName: string, image, type:string) {
+  constructor(name: string, email: string, id: number, fullName: string, image, type:string, mobile:string, expertType:string, mediaType: string, isJoined:boolean) {
     this.name = name;
     this.email = email;
     this.id = id;
     this.fullName = fullName;
     this.image = image;
     this.type = type;
+    this.mobile = mobile;
+    this.expertType = expertType;
+    this.mediaType = mediaType;
+    this.isJoined = isJoined;
   }
 }
 
@@ -47,7 +55,7 @@ public login(credentials) {
       let url = config.main.baseUrl + '/login';
       this.http.post(url,{"credentials":credentials}).map(res => res.json()).subscribe( data => {
         if (data.status === "OK"){
-          this.currentUser = new User(data.username, data.email, data.id, data.name, data.image, data.type);
+          this.currentUser = new User(data.username, data.email, data.id, data.name, data.image, data.type, data.mobile, data.expertType, data.mediaType, data.isJoined);
           this.access = true;
           localStorage.setItem("logged","true");
           localStorage.setItem("currentUser",JSON.stringify(this.currentUser));

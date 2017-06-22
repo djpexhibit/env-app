@@ -13,6 +13,21 @@ import { NavController, NavParams } from 'ionic-angular';
 })
 export class EventsPage {
 
+  events = [
+    {
+      title : "Event 1",
+      date: "2017-01-01",
+      location: "Colombo"
+    },
+    {
+      title : "Event 2",
+      date: "2017-01-02",
+      location: "Colombo"
+    }
+  ];
+
+  noInfoMsg="No Events Found";
+
   constructor(public navCtrl: NavController, public navParams: NavParams) {}
 
   ionViewDidLoad() {

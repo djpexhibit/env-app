@@ -16,6 +16,7 @@ import config from '../app/config.json';
 export class ComplaintService {
 
 	data = null;
+	favData = null;
   pollutionTypes = null;
   complain = null;
   expectedActions = null;
@@ -52,6 +53,22 @@ export class ComplaintService {
   		});
   	}
 
+		loadFavorites(id) {
+			if (this.favData) {
+				return Promise.resolve(this.favData);
+			}
+
+			return new Promise(resolve => {
+				this.http.post(config.main.baseUrl + '/loadFavoriteComplains',{user_id:id})
+					.map(res => res.json())
+					.subscribe(data => {
+						console.log(data);
+						this.favData = data;
+						resolve(this.favData);
+					});
+				});
+			}
+
 
   loadPollutionTypes(){
     if (this.pollutionTypes){
@@ -86,9 +103,9 @@ export class ComplaintService {
 
 
 
-  loadComplain(comp_id){
+  loadComplain(comp_id, userId){
     return new Promise(resolve => {
-      this.http.post(config.main.baseUrl + '/loadComplain',{comp_id:comp_id})
+      this.http.post(config.main.baseUrl + '/loadComplain',{comp_id:comp_id, userId:userId})
         .map(res => res.json())
         .subscribe(data => {
           console.log("CCCC"); console.log(data);

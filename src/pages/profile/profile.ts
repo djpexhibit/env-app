@@ -1,6 +1,8 @@
 import { Component } from '@angular/core';
-import { AuthService } from '../../providers/auth-service';
+import { AuthService, User } from '../../providers/auth-service';
 import { NavController,NavParams, AlertController ,LoadingController, Loading  } from 'ionic-angular';
+import {  Camera } from 'ionic-native';
+
 
 @Component({
   selector: 'page-profile',
@@ -10,9 +12,35 @@ export class ProfilePage {
 
   loading: Loading;
   createSuccess = false;
-  registerCredentials = {email: '', password: '',repassword:'',username:'',name:''};
+  loggedUser: User;
+  registerCredentials = {email: '',curPassword:'', password: '',repassword:'',username:'',name:'',image:'',mobile:'',type:'', expertType:'', mediaType:'', isJoined:false};
+  public profileImage :string;
 
-  constructor(public navCtrl: NavController, public navParams: NavParams, private auth: AuthService, private loadingCtrl: LoadingController,  private alertCtrl: AlertController) {}
+
+  constructor(public navCtrl: NavController, public navParams: NavParams, private auth: AuthService, private loadingCtrl: LoadingController,  private alertCtrl: AlertController) {
+    this.loggedUser = auth.getUserInfo();
+    this.registerCredentials.email = this.loggedUser.email;
+    this.registerCredentials.name = this.loggedUser.fullName;
+    this.registerCredentials.image = this.loggedUser.image;
+    this.registerCredentials.mobile = this.loggedUser.mobile;
+    this.registerCredentials.username = this.loggedUser.name;
+    if(this.loggedUser.type){
+      this.registerCredentials.type = this.loggedUser.type;
+    }else{
+      this.registerCredentials.type = 'Public';
+    }
+
+    this.registerCredentials.expertType = this.loggedUser.expertType;
+    this.registerCredentials.mediaType = this.loggedUser.mediaType;
+    this.registerCredentials.isJoined = this.loggedUser.isJoined;
+
+    if(this.loggedUser.image){
+      this.profileImage = this.loggedUser.image;
+    }else{
+      this.profileImage = 'prof.jpg';
+    }
+
+  }
 
   ionViewDidLoad() {
     console.log('ionViewDidLoad ProfilePage');
@@ -50,6 +78,21 @@ export class ProfilePage {
         this.showError("Please try again");
       });
     }
+  }
+
+  selectPicture(){
+    let options = {
+      destinationType : Camera.DestinationType.DATA_URL,
+      sourceType : Camera.PictureSourceType.PHOTOLIBRARY,
+      correctOrientation: true
+    };
+
+    Camera.getPicture(options).then((imageData) => {
+      this.profileImage = "data:image/jpeg;base64," + imageData;
+      this.registerCredentials.image = this.profileImage;
+    }, (err) => {
+      console.log(err);
+    });
   }
 
   showLoading() {

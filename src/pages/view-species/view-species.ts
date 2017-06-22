@@ -56,11 +56,13 @@ export class ViewSpeciesPage {
 
 	constructor(public navCtrl: NavController, public navParams: NavParams, public speciesService: SpeciesService, private alertCtrl: AlertController, private loadingCtrl: LoadingController, private _DomSanitizer: DomSanitizer, private auth: AuthService) {
 
+		this.userId = this.auth.getUserInfo().id;
+
+
 		this.comment.user_id=this.auth.getUserInfo().id;
 		this.loadSpecies(navParams.get("id"));
 		this.loadComments(navParams.get("id"));
 
-		this.userId = this.auth.getUserInfo().id;
 
 		this.speciesId = navParams.get("id");
 
@@ -117,7 +119,7 @@ export class ViewSpeciesPage {
 	}
 
 	loadSpecies(spec_id){
-		this.speciesService.loadSpecies(spec_id)
+		this.speciesService.loadSpecies(spec_id, this.userId)
 		.then(data => {
 			if(data){
 				this.species = data;
@@ -187,6 +189,33 @@ export class ViewSpeciesPage {
 	checkAdminComment(comment){
 		if(comment.type === 'ADMIN') return true
 		else return false;
+	}
+
+
+	toggleFavorite(){
+		this.showLoading();
+
+		let fav={ specId:null, userId:null, isFavorite:false};
+		fav.specId = this.species[0].id;
+		fav.userId = this.userId;
+
+		this.species[0].fav = !this.species[0].fav;
+
+		fav.isFavorite = this.species[0].fav;
+
+
+		this.speciesService.addAsFavorite(fav).then(success => {
+			if (success) {
+				setTimeout(() => {
+					this.loading.dismiss();
+				});
+			} else {
+				this.showError("Please try again");
+			}
+		},
+		error => {
+			this.showError(error);
+		});
 	}
 
 }

@@ -9,10 +9,10 @@
   <ion-grid>
     <ion-row>
       <ion-col width-50>
-        50 Threads
+        {{numberOfPosts}} Threads
       </ion-col>
       <ion-col width-50 class="text-right-align">
-        100 Users
+        {{numberOfUsers}} Users
       </ion-col>
     </ion-row>
   </ion-grid>
@@ -36,7 +36,7 @@
     <div>
       {{loggedUser.email}}
     </div>
-    <div>
+    <div (click)="editProfile()">
       Edit Profile
     </div>
   </div>
@@ -44,13 +44,13 @@
   <ion-grid class="icon-section">
     <ion-row>
       <ion-col width-33 class="text-center-align">
-        <div class="display-number">3 </div>
+        <div class="display-number">{{numberOfFollowings}} </div>
         <div>Followers</div>
       </ion-col>
       <ion-col width-33>
       </ion-col>
       <ion-col width-33 class="text-center-align">
-        <div class="display-number">2</div>
+        <div class="display-number">{{numberOfOwnPosts}}</div>
         <div>Posts</div>
       </ion-col>
     </ion-row>
@@ -62,12 +62,12 @@
         <img (click)="viewComplains()" class="tile-icon" src="tile2.jpg" />
       </ion-col>
       <ion-col width-33>
-        <img class="tile-icon" src="tile3.jpg" />
+        <img (click)="viewFavorites()" class="tile-icon" src="tile3.jpg" />
       </ion-col>
     </ion-row>
     <ion-row>
       <ion-col width-33>
-        <img class="tile-icon" src="tile4.jpg" />
+        <img (click)="viewEvents()" class="tile-icon" src="tile4.jpg" />
       </ion-col>
       <ion-col width-33>
         <img class="tile-icon" src="tile5.jpg" />

@@ -42,17 +42,19 @@ export class EditComplainPage {
 	map: any;
 
 	constructor(public navCtrl: NavController, public navParams: NavParams, public complainService: ComplaintService, private alertCtrl: AlertController, private loadingCtrl: LoadingController, private auth: AuthService, private _DomSanitizer: DomSanitizer) {
-		this.loadComplain(navParams.get("id"));
+    let info = this.auth.getUserInfo();
+		this.username = info.name;
+		this.email = info.email;
+		this.userid = info.id;
+
+    this.loadComplain(navParams.get("id"));
     this.complaint.id = navParams.get("id");
 
 		this.loadPollutionTypes();
 		this.loadExpectedActions();
 		this.imageCounter = 0;
 
-		let info = this.auth.getUserInfo();
-		this.username = info.name;
-		this.email = info.email;
-		this.userid = info.id;
+
 	}
 
 	ionViewDidLoad() {
@@ -216,7 +218,7 @@ export class EditComplainPage {
 
 
 	loadComplain(comp_id){
-		this.complainService.loadComplain(comp_id).then(data => {
+		this.complainService.loadComplain(comp_id, this.userid).then(data => {
     console.log(">>>>>>>"); console.log(data)
 			if(data){
 

@@ -40,15 +40,17 @@ export class EditSpeciesPage {
 
 
 	constructor(public navCtrl: NavController, public navParams: NavParams, public speciesService: SpeciesService, private alertCtrl: AlertController, private loadingCtrl: LoadingController, private auth: AuthService, private _DomSanitizer: DomSanitizer) {
+		let info = this.auth.getUserInfo();
+		this.username = info.name;
+		this.email = info.email;
+		this.userid = info.id;
+
 		this.loadSpecies(navParams.get("id"));
 		this.specie.id = navParams.get("id");
 
 		this.imageCounter = 0;
 
-		let info = this.auth.getUserInfo();
-		this.username = info.name;
-		this.email = info.email;
-		this.userid = info.id;
+
 	}
 
 	ionViewDidLoad() {
@@ -195,7 +197,7 @@ export class EditSpeciesPage {
 
 
 	loadSpecies(spec_id){
-		this.speciesService.loadSpecies(spec_id).then(data => {
+		this.speciesService.loadSpecies(spec_id, this.userid).then(data => {
 			if(data){
 
 				this.species = data;

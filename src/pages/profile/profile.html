@@ -6,6 +6,22 @@
 </ion-header>
 
 <ion-content class="login-content" padding>
+
+  <ion-grid>
+    <ion-row>
+      <ion-col width-25>
+      </ion-col>
+      <ion-col width-50>
+        <div class="picdiv">
+          <img (click)="selectPicture()" class="prof-pic" [src]="profileImage" />
+        <!--  <div class="mask"></div> -->
+        </div>
+      </ion-col>
+      <ion-col width-25>
+      </ion-col>
+    </ion-row>
+  </ion-grid>
+
   <div class="login-box">
 
     <form (ngSubmit)="editProfile()" #profileForm="ngForm">
@@ -13,16 +29,54 @@
         <ion-col>
           <ion-list inset>
 
-            <ion-item>
+        <!--    <ion-item>
               <ion-input type="email" placeholder="Email" name="email" [(ngModel)]="registerCredentials.email" required></ion-input>
-            </ion-item>
+            </ion-item> -->
 
             <ion-item>
               <ion-input type="text" placeholder="Name" name="name" [(ngModel)]="registerCredentials.name" required></ion-input>
             </ion-item>
 
             <ion-item>
+              <ion-input type="text" placeholder="Mobile Number" name="mobile" [(ngModel)]="registerCredentials.mobile" required></ion-input>
+            </ion-item>
+
+            <ion-item>
               <ion-input type="username" placeholder="Display Name" name="username" [(ngModel)]="registerCredentials.username" required></ion-input>
+            </ion-item>
+
+            <ion-list class="type_list" name="type" radio-group [(ngModel)]="registerCredentials.type">
+              <ion-list-header>
+                Type
+              </ion-list-header>
+              <ion-item>
+                <ion-label>Public</ion-label>
+                <ion-radio value="Public"></ion-radio>
+              </ion-item>
+              <ion-item>
+                <ion-label>Expert</ion-label>
+                <ion-radio value="Expert"></ion-radio>
+              </ion-item>
+              <ion-item>
+                <ion-label>Media</ion-label>
+                <ion-radio value="Media"></ion-radio>
+              </ion-item>
+            </ion-list>
+
+            <ion-item *ngIf="registerCredentials.type === 'Expert'">
+        				<ion-label stacked>Expertise On</ion-label>
+        				<ion-select [(ngModel)]="registerCredentials.expertType" name="expertType" >
+          				<ion-option *ngFor="let exType of expertTypes" value={{exType}} >{{exType}}</ion-option>
+        				</ion-select>
+      			</ion-item>
+
+            <ion-item *ngIf="registerCredentials.type === 'Media'">
+                <ion-input type="text" placeholder="Type of a media" name="mediaType" [(ngModel)]="registerCredentials.mediaType" required></ion-input>
+      			</ion-item>
+
+            <ion-item *ngIf="registerCredentials.type === 'Expert' || registerCredentials.type === 'Media' ">
+              <ion-label>Join the panel</ion-label>
+              <ion-toggle (click)="displayJoinedMessage()" name="isJoined" [(ngModel)]="registerCredentials.isJoined" checked="false"></ion-toggle>
             </ion-item>
 
             <ion-item>
@@ -33,13 +87,14 @@
               <ion-input type="password" placeholder="Enter Password Again" name="repassword" [(ngModel)]="registerCredentials.repassword" required></ion-input>
             </ion-item>
 
+
           </ion-list>
         </ion-col>
       </ion-row>
 
       <ion-row>
         <ion-col class="signup-col">
-          <button ion-button class="submit-btn" full type="submit" [disabled]="!registerForm.form.valid">Register</button>
+          <button ion-button class="submit-btn" full type="submit" [disabled]="!profileForm.form.valid">Register</button>
         </ion-col>
       </ion-row>
 

@@ -62,8 +62,12 @@ export class ComplaintPage {
   map: any;
 
   constructor(public navCtrl: NavController, public navParams: NavParams, public complaintService: ComplaintService, private alertCtrl: AlertController, private loadingCtrl: LoadingController, private _DomSanitizer: DomSanitizer, private auth: AuthService) {
+
+    this.userId = this.auth.getUserInfo().id;
+    
     let u = this.auth.getUserInfo();
     this.comment.user_id=u.id;
+    this.comment.type = u.type;
 
     if(u.type === 'Media' || u.type === 'Expert'){
       this.comment.type = 'EXPERT';
@@ -72,7 +76,7 @@ export class ComplaintPage {
     this.loadComplain(navParams.get("id"));
     this.loadComments(navParams.get("id"));
 
-    this.userId = this.auth.getUserInfo().id;
+
 
     this.complainId = navParams.get("id");
 
@@ -134,7 +138,7 @@ export class ComplaintPage {
   }
 
   loadComplain(comp_id){
-    this.complaintService.loadComplain(comp_id)
+    this.complaintService.loadComplain(comp_id, this.userId)
       .then(data => {
 
         if(data){
@@ -229,6 +233,33 @@ export class ComplaintPage {
       let fav={ compId:null, userId:null};
       fav.compId = this.complainId;
       fav.userId = this.userId;
+
+      this.complaintService.addAsFavorite(fav).then(success => {
+        if (success) {
+          setTimeout(() => {
+            this.loading.dismiss();
+          });
+        } else {
+          this.showError("Please try again");
+        }
+      },
+      error => {
+        this.showError(error);
+      });
+    }
+
+
+    toggleFavorite(){
+      this.showLoading();
+
+      let fav={ compId:null, userId:null, isFavorite:false};
+      fav.compId = this.complains[0].id;
+      fav.userId = this.userId;
+
+      this.complains[0].fav = !this.complains[0].fav;
+
+      fav.isFavorite = this.complains[0].fav;
+
 
       this.complaintService.addAsFavorite(fav).then(success => {
         if (success) {

@@ -20,6 +20,10 @@ import { PasswordResetPage } from '../pages/password-reset/password-reset';
 import { VerifyResetPage } from '../pages/verify-reset/verify-reset';
 import { DashboardPage } from '../pages/dashboard/dashboard';
 import { SelectTaskPage } from '../pages/select-task/select-task';
+import { EventsPage } from '../pages/events/events';
+import { DashboardProvider } from '../providers/dashboard-provider';
+import { ProfilePage } from '../pages/profile/profile';
+
 
 import { Camera,Transfer,File } from 'ionic-native';
 
@@ -46,7 +50,9 @@ import { PressDirective } from "../components/press-directive/press-directive";
     VerifyResetPage,
     DashboardPage,
     SelectTaskPage,
-    PressDirective
+    PressDirective,
+    EventsPage,
+    ProfilePage
   ],
   imports: [
     IonicModule.forRoot(MyApp)
@@ -70,8 +76,10 @@ import { PressDirective } from "../components/press-directive/press-directive";
     PasswordResetPage,
     VerifyResetPage,
     DashboardPage,
-    SelectTaskPage
+    SelectTaskPage,
+    EventsPage,
+    ProfilePage
   ],
-  providers: [SplashScreen,AuthService, Camera, Transfer, File]
+  providers: [SplashScreen,AuthService, Camera, Transfer, File, DashboardProvider]
 })
 export class AppModule {}

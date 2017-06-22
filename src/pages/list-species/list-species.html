@@ -25,19 +25,60 @@
 
 <ion-content class="cards-bg">
 
-	<ion-card>
-		<img [src]="adv" />
-	</ion-card>
 
-	<div class="user-details">
+
+	<!-- <div class="user-details">
 		<h3>Welcome, {{username}}!</h3>
 		<span>Your Email is: {{email}}</span>
-	</div>
+	</div> -->
 
 	<ion-list class="list-bak" no-padding *ngIf="species && species.length > 0" >
-		<div  [navPush]="viewSpecies"   *ngFor="let specie of species" [navParams]={id:specie.id} >
+		<div   *ngFor="let specie of species; let i = index"  >
 
-			<ion-card>
+			<ion-grid class="post">
+				<ion-row>
+		      <ion-col width-12>
+		      </ion-col>
+		      <ion-col width-75>
+		        <div class="" [navPush]="viewSpecies"  [navParams]={id:specie.id}>
+							<img class="sca" [src]="_DomSanitizer.bypassSecurityTrustUrl(specie.image )" *ngIf="specie.image"  />
+							<img class="sca"  src="thumbs.jpg" *ngIf="!specie.image"/>
+		        </div>
+		      </ion-col>
+		      <ion-col width-12>
+						<div class="row list-icon" *ngIf="specie.fav">
+                <ion-icon style="color:yellow" name="star" item-right (click)="toggleFavorite(specie.id,i)"></ion-icon>
+            </div>
+            <div class="row list-icon" *ngIf="!specie.fav">
+                <ion-icon style="color:grey" name="star" item-right (click)="toggleFavorite(specie.id,i)"></ion-icon>
+            </div>
+						<div class="row list-icon">
+							<ion-icon style="color:green" name="checkmark-circle" item-right></ion-icon>
+						</div>
+		      </ion-col>
+		    </ion-row>
+				<ion-row>
+					<ion-col width-12></ion-col>
+					<ion-col width-75>
+						<ion-row>
+							<ion-col>
+								location
+							</ion-col>
+							<ion-col>
+								{{ specie.date}}
+							</ion-col>
+						</ion-row>
+					</ion-col>
+					<ion-col width-12></ion-col>
+				</ion-row>
+				<ion-row *ngIf="!specie.anonymous">
+					<ion-col width-12></ion-col>
+					<ion-col width-75>{{specie.user }}</ion-col>
+					<ion-col width-12></ion-col>
+				</ion-row>
+			</ion-grid>
+
+			<!-- <ion-card>
 				<ion-card-header>
 					<p *ngIf="!specie.anonymous">Reported By : {{specie.user }} </p>
 					<p>On : {{ specie.date}} </p>
@@ -69,12 +110,17 @@
 						</button>
 					</ion-col>
 				</ion-row>
-			</ion-card>
+			</ion-card> -->
 		</div>
 	</ion-list>
 
 	<ion-list *ngIf="!species || (species && species.length == 0)" inset>
 		<p>{{noInfoMsg}}</p>
 	</ion-list>
+
+
+	<ion-card>
+		<img [src]="adv" />
+	</ion-card>
 
 </ion-content>

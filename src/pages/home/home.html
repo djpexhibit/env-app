@@ -1,26 +1,59 @@
 
 <ion-header>
   <ion-navbar color="dark">
-    <ion-title>
+    <ion-title *ngIf="!showFAB">
       Complains
     </ion-title>
-    <ion-buttons start>
+  <!--  <ion-buttons start>
       <button ion-button icon-only [navPush]="addComplaint">
         <ion-icon name="add"></ion-icon>
       </button>
-    </ion-buttons>
+    </ion-buttons> -->
 
     <button ion-button menuToggle>
       <ion-icon name="menu"></ion-icon>
     </button>
 
-    <ion-buttons end>
+    <ion-buttons end *ngIf="!showFAB">
+
       <button ion-button (click)="logout()">
         <ion-icon name="log-out"></ion-icon>
       </button>
     </ion-buttons>
+
+    <ion-buttons end *ngIf="showFAB">
+      <button  ion-button icon-only color="royal" small class="toolbar-mod">
+        <ion-icon name="hammer"></ion-icon>
+      </button>
+      <button  ion-button icon-only color="royal" small class="toolbar-mod">
+        <ion-icon name="trash"></ion-icon>
+      </button>
+      <button  ion-button icon-only color="royal" small class="toolbar-mod" (click)="toggleFavorite()">
+        <ion-icon name="star"></ion-icon>
+      </button>
+      <button  ion-button icon-only color="royal" small class="toolbar-mod" (click)="closeFAB()">
+        <ion-icon name="checkmark"></ion-icon>
+      </button>
+    </ion-buttons>
   </ion-navbar>
 
+<!--  <ion-toolbar color="dark" *ngIf="showFAB">
+    <ion-buttons start>
+      <button  ion-button icon-only color="royal" small class="toolbar-mod">
+        <ion-icon name="hammer"></ion-icon>
+      </button>
+      <button  ion-button icon-only color="royal" small class="toolbar-mod">
+        <ion-icon name="trash"></ion-icon>
+      </button>
+      <button  ion-button icon-only color="royal" small class="toolbar-mod">
+        <ion-icon name="star"></ion-icon>
+      </button>
+      <button  ion-button icon-only color="royal" small class="toolbar-mod" (click)="closeFAB()">
+        <ion-icon name="checkmark"></ion-icon>
+      </button>
+    </ion-buttons>
+
+  </ion-toolbar> -->
 </ion-header>
 
 <ion-content class="cards-bg">
@@ -37,15 +70,22 @@
     </ion-fab-list>
   </ion-fab> -->
 
-  <ion-fab top right>
-    <button ion-fab color="dark" mini  [navPush]="addComplaint"><ion-icon name="add"></ion-icon></button>
+  <ion-item>
+
+      <ion-select [(ngModel)]="selectedType" name="selectedType" (ionChange)="navType()" >
+        <ion-option *ngFor="let selectedType of selectedTypes" value={{selectedType.id}} >{{selectedType.value}}</ion-option>
+      </ion-select>
+  </ion-item>
+
+  <ion-fab bottom right>
+    <button ion-fab color="light" mini  [navPush]="addComplaint"><ion-icon name="add"></ion-icon></button>
   </ion-fab>
 
   <ion-list *ngIf="complaints && complaints.length > 0" >
-    <div  [navPush]="complaint"   *ngFor="let complain of complaints" [navParams]={id:complain.id} >
+    <div  [navPush]="complaint"   *ngFor="let complain of complaints; let i = index" [navParams]={id:complain.id} >
 
-      <ion-grid>
-        <ion-row (longPress)="onLongPress($event,complain.id)">
+      <ion-grid class="post">
+        <ion-row (longPress)="onLongPress($event,complain.id,complain.fav,i)">
         <!--  <ion-col width-25>
             <img class="sca" [src]="_DomSanitizer.bypassSecurityTrustUrl(complain.image )" *ngIf="complain.image"  />
             <img  class="sca" src="thumbs.jpg" *ngIf="!complain.image"/>
@@ -56,7 +96,8 @@
             <div class="list-desc">{{complain.details}}...</div>
           </ion-col> -->
           <ion-col  class="list-pic" [style.border]="(seletedComplainId === complain.id)?getb():null"
-            [style.background-image]="(complain.image)?getBackground(complain.image):getBackground('../thumbs.jpg')">
+            [style.background-image]="(complain.image)?getBackground(complain.image):getBackground(thumbsImg)"
+            [style.background-repeat]="getr()"  [style.background-position]="getp()" [style.background-size]="getz()">
             <div class="row list-icon">
               <ion-icon name="person" item-right></ion-icon>
             </div>
@@ -65,8 +106,11 @@
               <img *ngIf="complain.expertReplied && !complain.closed"  src="tr_y.png" style="float:right" />
               <img *ngIf="complain.closed"  src="tr_g.png" style="float:right" />
             </div>
-            <div class="row list-icon">
+            <div class="row list-icon" *ngIf="complain.fav">
                 <ion-icon style="color:yellow" name="star" item-right></ion-icon>
+            </div>
+            <div class="row list-icon" *ngIf="!complain.fav">
+                <ion-icon style="color:grey" name="star" item-right></ion-icon>
             </div>
             <div>
               <span class="list-title">{{complain.type}}</span>
@@ -92,7 +136,7 @@
 
 </ion-content>
 
-<ion-footer no-border *ngIf="showFAB" >
+<!-- <ion-footer no-border *ngIf="showFAB" >
   <ion-toolbar color="dark" >
     <ion-buttons start>
       <button  ion-button icon-only color="royal" small class="toolbar-mod">
@@ -110,4 +154,4 @@
     </ion-buttons>
 
   </ion-toolbar>
-</ion-footer>
+</ion-footer> -->
