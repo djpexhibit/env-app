@@ -75,6 +75,31 @@ public login(credentials) {
 }
 
 
+public verifyPassword(credentials) {
+  if (credentials.email === null || credentials.password === null) {
+    return Observable.throw("Please insert credentials");
+  } else {
+    return Observable.create(observer => {
+      let url = config.main.baseUrl + '/login';
+      this.http.post(url,{"credentials":credentials}).map(res => res.json()).subscribe( data => {
+        if (data.status === "OK"){
+          this.access = true;
+        }else{
+          this.access = false;
+        }
+        observer.next(this.access);
+        observer.complete();
+      }, err => {
+        this.access = false;
+         observer.next(this.access);
+        observer.complete();
+      }
+    );
+    });
+  }
+}
+
+
   /*public register(credentials) {
     if (credentials.email === null || credentials.password === null) {
       return Observable.throw("Please insert credentials");
@@ -113,6 +138,18 @@ public login(credentials) {
   public editProfile(credentials){
     return new Promise( resolve => {
       this.http.post(config.main.baseUrl + '/editProfile',{credentials:credentials})
+        .map(res => res.json())
+        .subscribe(data => {
+          console.log(data);
+          this.success = data;
+          resolve(this.success);
+        })
+    });
+  }
+
+  public editProfileWOPW(credentials){
+    return new Promise( resolve => {
+      this.http.post(config.main.baseUrl + '/editProfileWOPW',{credentials:credentials})
         .map(res => res.json())
         .subscribe(data => {
           console.log(data);

@@ -64,7 +64,7 @@ export class ComplaintPage {
   constructor(public navCtrl: NavController, public navParams: NavParams, public complaintService: ComplaintService, private alertCtrl: AlertController, private loadingCtrl: LoadingController, private _DomSanitizer: DomSanitizer, private auth: AuthService) {
 
     this.userId = this.auth.getUserInfo().id;
-    
+
     let u = this.auth.getUserInfo();
     this.comment.user_id=u.id;
     this.comment.type = u.type;

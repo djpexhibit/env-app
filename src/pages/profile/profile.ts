@@ -2,7 +2,7 @@ import { Component } from '@angular/core';
 import { AuthService, User } from '../../providers/auth-service';
 import { NavController,NavParams, AlertController ,LoadingController, Loading  } from 'ionic-angular';
 import {  Camera } from 'ionic-native';
-
+import { MobileUpdatePage } from '../mobile-update/mobile-update';
 
 @Component({
   selector: 'page-profile',
@@ -13,8 +13,12 @@ export class ProfilePage {
   loading: Loading;
   createSuccess = false;
   loggedUser: User;
-  registerCredentials = {email: '',curPassword:'', password: '',repassword:'',username:'',name:'',image:'',mobile:'',type:'', expertType:'', mediaType:'', isJoined:false};
+  registerCredentials = {id:0,email: '',curPassword:'', password: '',repassword:'',username:'',name:'',image:'',type:'', expertType:'', mediaType:'', isJoined:false};
   public profileImage :string;
+
+  verifyCredentials={email:'',password:''}
+  passwordVerified = false;
+
 
 
   constructor(public navCtrl: NavController, public navParams: NavParams, private auth: AuthService, private loadingCtrl: LoadingController,  private alertCtrl: AlertController) {
@@ -22,8 +26,9 @@ export class ProfilePage {
     this.registerCredentials.email = this.loggedUser.email;
     this.registerCredentials.name = this.loggedUser.fullName;
     this.registerCredentials.image = this.loggedUser.image;
-    this.registerCredentials.mobile = this.loggedUser.mobile;
     this.registerCredentials.username = this.loggedUser.name;
+    this.registerCredentials.id = this.loggedUser.id;
+
     if(this.loggedUser.type){
       this.registerCredentials.type = this.loggedUser.type;
     }else{
@@ -49,42 +54,63 @@ export class ProfilePage {
   public editProfile(){
     this.showLoading();
 
-    if(this.registerCredentials.password !== this.registerCredentials.repassword){
-      this.showError("Password doesn't match");
+    if(this.registerCredentials.curPassword){
+      if(!this.registerCredentials.password || !this.registerCredentials.repassword || (this.registerCredentials.password !== this.registerCredentials.repassword)){
+        this.showError("Cannot have empty passwords or Password doesn't match");
+      }else{
+        this.verifyCredentials.email = this.registerCredentials.email;
+        this.verifyCredentials.password = this.registerCredentials.curPassword;
+        this.auth.verifyPassword(this.verifyCredentials).subscribe(allowed => {
+          if (allowed) {
+            this.auth.editProfile(this.registerCredentials).then(success => {
+              if (success) {
+                setTimeout(() => {
+                  this.loading.dismiss();
+                  this.showPopup("Edit Profile","Successfully Edited");
+                } );
+              } else {
+                this.showError("Please try again");
+              }
+            },
+            error => {
+              this.showError("Please try again");
+            });
+          } else {
+            this.showError("Current password is wrong");
+          }
+        },
+        error => {
+          this.showError("Please try again");
+        });
+
+      }
     }else{
-      this.auth.checkEmailValidity(this.registerCredentials).then(emailCheck => {
-        if (emailCheck["status"] === 'OK' && emailCheck["msg"] && emailCheck["msg"] === 'EMAIL_EXIST') {
+      this.auth.editProfileWOPW(this.registerCredentials).then(success => {
+        if (success) {
           setTimeout(() => {
             this.loading.dismiss();
-            this.showError("Email Already Exists"); return;
-          });
+            this.showPopup("Edit Profile","Successfully Edited");
+          } );
         } else {
-          this.auth.editProfile(this.registerCredentials).then(success => {
-            if (success) {
-              setTimeout(() => {
-                this.loading.dismiss();
-                //this.nav.setRoot(VerifyPage);
-              } );
-            } else {
-              this.showError("Error");
-            }
-          },
-          error => {
-            this.showError("Please try again");
-          });
+          this.showError("Error");
         }
       },
       error => {
         this.showError("Please try again");
       });
     }
+
+
   }
 
   selectPicture(){
     let options = {
       destinationType : Camera.DestinationType.DATA_URL,
       sourceType : Camera.PictureSourceType.PHOTOLIBRARY,
-      correctOrientation: true
+      correctOrientation: true,
+      allowEdit : true,
+  targetWidth: 512,
+  targetHeight: 512
     };
 
     Camera.getPicture(options).then((imageData) => {
@@ -131,6 +157,12 @@ export class ProfilePage {
       ]
     });
     alert.present();
+  }
+
+  navUpdateMobile(){
+    this.navCtrl.push(MobileUpdatePage,{
+      id: this.registerCredentials.id
+    });
   }
 
 }

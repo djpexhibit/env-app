@@ -6,6 +6,8 @@ import { AuthService, User } from '../../providers/auth-service';
 import { EventsPage } from '../events/events';
 import { DashboardProvider} from '../../providers/dashboard-provider';
 import { ProfilePage } from '../profile/profile';
+import {DomSanitizer} from '@angular/platform-browser';
+import { LoginPage } from '../../pages/login/login';
 
 @Component({
   selector: 'page-dashboard',
@@ -19,7 +21,7 @@ export class DashboardPage {
   numberOfFollowings = 0;
   numberOfOwnPosts = 0;
 
-  constructor(public navCtrl: NavController, public navParams: NavParams, private auth: AuthService, private dashboardService : DashboardProvider) {
+  constructor(public navCtrl: NavController, public navParams: NavParams, private auth: AuthService, private dashboardService : DashboardProvider, private _DomSanitizer: DomSanitizer) {
     this.loggedUser = auth.getUserInfo();
   }
 
@@ -81,5 +83,13 @@ export class DashboardPage {
 
   editProfile(){
     this.navCtrl.push(ProfilePage);
+  }
+
+  public logout() {
+    this.auth.logout().subscribe(succ => {
+        localStorage.setItem("logged",null);
+        localStorage.setItem("currentUser",null);
+        this.navCtrl.setRoot(LoginPage);
+    });
   }
 }

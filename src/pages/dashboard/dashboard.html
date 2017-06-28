@@ -1,10 +1,17 @@
 <ion-header>
   <ion-navbar>
-    <ion-title>dashboard</ion-title>
+    <ion-title>Dashboard</ion-title>
+
+    <ion-buttons end >
+
+      <button ion-button (click)="logout()">
+        <ion-icon name="log-out"></ion-icon>
+      </button>
+    </ion-buttons>
   </ion-navbar>
 </ion-header>
 
-<ion-content padding>
+ <ion-content padding>
 
   <ion-grid>
     <ion-row>
@@ -23,8 +30,9 @@
       </ion-col>
       <ion-col width-50>
         <div class="picdiv">
-          <img class="prof-pic" src="prof.jpg" />
-        <!--  <div class="mask"></div> -->
+          <img class="prof-pic" [src]="_DomSanitizer.bypassSecurityTrustUrl(loggedUser.image )" *ngIf="loggedUser.image"  />
+          <img class="prof-pic"  src="prof.jpg" *ngIf="!loggedUser.image"/>
+
         </div>
       </ion-col>
       <ion-col width-25>
@@ -78,3 +86,71 @@
     </ion-row>
   </ion-grid>
 </ion-content>
+
+
+<!-- <ion-content padding>
+
+  <ion-grid>
+    <ion-row>
+      <ion-col width-50>
+        <div style="padding-top:30px">
+          {{loggedUser.email}}
+        </div>
+      </ion-col>
+      <ion-col width-50>
+        <div class="picdiv">
+          <img class="prof-pic" [src]="_DomSanitizer.bypassSecurityTrustUrl(loggedUser.image )" *ngIf="loggedUser.image"  />
+          <img class="prof-pic"  src="prof.jpg" *ngIf="!loggedUser.image"/>
+
+        </div>
+      </ion-col>
+
+    </ion-row>
+  </ion-grid>
+
+  <div class="profile-details">
+    <div>
+      {{loggedUser.email}}
+    </div>
+    <div (click)="editProfile()">
+      Edit Profile
+    </div>
+  </div>
+
+  <ion-grid class="icon-section">
+    <ion-row>
+      <ion-col width-33 class="text-center-align">
+        <div class="display-number">{{numberOfFollowings}} </div>
+        <div>Followers</div>
+      </ion-col>
+      <ion-col width-33>
+      </ion-col>
+      <ion-col width-33 class="text-center-align">
+        <div class="display-number">{{numberOfOwnPosts}}</div>
+        <div>Posts</div>
+      </ion-col>
+    </ion-row>
+    <ion-row>
+      <ion-col width-33>
+        <img (click)="selectTask()" class="tile-icon" src="tile1.jpg" />
+      </ion-col>
+      <ion-col width-33>
+        <img (click)="viewComplains()" class="tile-icon" src="tile2.jpg" />
+      </ion-col>
+      <ion-col width-33>
+        <img (click)="viewFavorites()" class="tile-icon" src="tile3.jpg" />
+      </ion-col>
+    </ion-row>
+    <ion-row>
+      <ion-col width-33>
+        <img (click)="viewEvents()" class="tile-icon" src="tile4.jpg" />
+      </ion-col>
+      <ion-col width-33>
+        <img class="tile-icon" src="tile5.jpg" />
+      </ion-col>
+      <ion-col width-33>
+        <img class="tile-icon" src="tile6.jpg" />
+      </ion-col>
+    </ion-row>
+  </ion-grid>
+</ion-content> -->

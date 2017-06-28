@@ -38,10 +38,6 @@
             </ion-item>
 
             <ion-item>
-              <ion-input type="text" placeholder="Mobile Number" name="mobile" [(ngModel)]="registerCredentials.mobile" required></ion-input>
-            </ion-item>
-
-            <ion-item>
               <ion-input type="username" placeholder="Display Name" name="username" [(ngModel)]="registerCredentials.username" required></ion-input>
             </ion-item>
 
@@ -79,11 +75,18 @@
               <ion-toggle (click)="displayJoinedMessage()" name="isJoined" [(ngModel)]="registerCredentials.isJoined" checked="false"></ion-toggle>
             </ion-item>
 
+            <div>
+              To change the password, please enter the current password
+            </div>
             <ion-item>
+              <ion-input type="password" placeholder="Current Password" name="password" [(ngModel)]="registerCredentials.curPassword" ></ion-input>
+            </ion-item>
+
+            <ion-item *ngIf="registerCredentials.curPassword">
               <ion-input type="password" placeholder="Password" name="password" [(ngModel)]="registerCredentials.password" required></ion-input>
             </ion-item>
 
-             <ion-item>
+             <ion-item *ngIf="registerCredentials.curPassword">
               <ion-input type="password" placeholder="Enter Password Again" name="repassword" [(ngModel)]="registerCredentials.repassword" required></ion-input>
             </ion-item>
 
@@ -94,10 +97,16 @@
 
       <ion-row>
         <ion-col class="signup-col">
-          <button ion-button class="submit-btn" full type="submit" [disabled]="!profileForm.form.valid">Register</button>
+          <button ion-button class="submit-btn" full type="submit" [disabled]="!profileForm.form.valid">Update Profile</button>
         </ion-col>
       </ion-row>
 
     </form>
   </div>
+  <hr/>
+  <ion-row>
+    <ion-col class="signup-col">
+      <button (click)="navUpdateMobile()" ion-button class="submit-btn" full>Change Mobile Number</button>
+    </ion-col>
+  </ion-row>
 </ion-content>
