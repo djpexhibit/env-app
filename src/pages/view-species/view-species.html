@@ -15,10 +15,10 @@
 		</button>
 
 		<ion-buttons end>
-			<button ion-button *ngIf="species[0].fav" (click)="toggleFavorite()">
+			<button ion-button *ngIf="species && species[0].fav" (click)="toggleFavorite()">
         <ion-icon style="color:yellow" name="star" item-right></ion-icon>
       </button>
-      <button ion-button *ngIf="!species[0].fav" (click)="toggleFavorite()">
+      <button ion-button *ngIf="!species || !species[0].fav" (click)="toggleFavorite()">
           <ion-icon style="color:grey" name="star" item-right></ion-icon>
       </button>
 

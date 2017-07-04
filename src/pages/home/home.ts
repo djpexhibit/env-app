@@ -19,6 +19,8 @@ import {ListSpeciesPage} from '../list-species/list-species';
 export class HomePage {
 
   public complaints: any;
+  public tempComplains: any;
+  start; end;
 
   postType:null
 
@@ -59,6 +61,9 @@ export class HomePage {
     //this.loadAdv(Math.floor((Math.random() * 10) + 1));
     let adv_number = Math.floor((Math.random() * 10) + 1);
     this.adv = config.main.baseUrl + '/'+adv_number+'.jpg';
+
+    this.start = 0;
+    this.end = 2;
   }
 
   ionViewDidEnter() {
@@ -84,9 +89,26 @@ export class HomePage {
   }
 
   loadComplaints(id){
-    this.complaintService.load(id)
+    console.log("SSSSSSSSSSSs");
+    console.log(this.start); console.log(this.end);
+    this.tempComplains=[];
+    this.complaintService.loadChunk(id,this.start,this.end)
       .then(data => {
-        this.complaints = data;
+        console.log(data);
+        this.tempComplains = data;
+        if(this.tempComplains && this.tempComplains.length >0){
+          if(!this.complaints || this.complaints.length === 0){
+            console.log("1111111111")
+            this.complaints = data;
+          }else{
+            console.log("22222222222")
+            this.complaints = this.complaints.concat(this.tempComplains);
+
+          }
+          this.start += 2;
+          this.end = 2;
+        }
+
         if(this.complaints.length == 0){
           this.noInfoMsg = "No Complains Found.";
         }
@@ -94,6 +116,7 @@ export class HomePage {
     }
 
     loadFavorites(id){
+      console.log("ddddddddddddd")
       this.complaintService.loadFavorites(id)
         .then(data => {
           this.complaints = data;
@@ -214,6 +237,15 @@ export class HomePage {
       if(this.selectedType === 'SPECIES')
       this.nav.push(ListSpeciesPage);
     }
+
+    doInfinite(infiniteScroll) {
+      setTimeout(() => {
+        let info = this.auth.getUserInfo();
+        this.loadComplaints(info.id);
+        infiniteScroll.complete();
+      }, 500);
+  }
+
 
   /*loadAdv(id){
     this.advService.load(id).then(data => {

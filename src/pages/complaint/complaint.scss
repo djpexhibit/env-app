@@ -1,7 +1,7 @@
 page-complaint {
 
   .complains{
-    background: #28653A;
+    background: white;
 
     #map {
       width: 90%;
@@ -48,6 +48,20 @@ page-complaint {
     .sca{
       height: 320px;
       width: auto;
+    }
+
+    .tile-icon{
+			width: 100px;
+			height: auto;
+			max-height: 100px;
+			border: 2px dashed #acacac;
+			border-radius: 10px;
+		}
+
+    .map-button{
+      background-color: white;
+      border: none;
+      color: black;
     }
 
 	}

@@ -24,7 +24,7 @@ export class EditComplainPage {
 
   loading: Loading;
 	public base64Images : Array<string> = [];
-	complaint = {id:'',person: '', details: '', type:'', action:'',lat:0,lng:0, location:'',user:0, pid: -1, aid: -1};
+	complaint = {id:'',person: '', details: '', type:'', action:'',lat:0,lng:0, location:'',user:0, pid: -1, aid: -1,anonymous:false};
 	public pollutionTypes: any;
 	public expectedActions: any;
 	public imageCounter: number;
@@ -70,8 +70,34 @@ export class EditComplainPage {
   }*/
 
 
-	loadMap(lat,lng){
-		Geolocation.getCurrentPosition().then((position) => {
+	// loadMap(lat,lng){
+	// 	Geolocation.getCurrentPosition().then((position) => {
+  //
+  //     let latLng = null;
+  //     if(lat){
+  //       latLng = new google.maps.LatLng(lat,lng);
+  //     } else{
+  //       latLng = new google.maps.LatLng(position.coords.latitude, position.coords.longitude);
+  //     }
+  //
+  //
+	// 		let mapOptions = {
+	// 			center: latLng,
+	// 			zoom: 15,
+	// 			mapTypeId: google.maps.MapTypeId.ROADMAP
+	// 		}
+  //
+	// 		this.map = new google.maps.Map(this.mapElement.nativeElement, mapOptions);
+	// 		this.addMarker();
+	// 	}, (err) => {
+	// 		console.log(err);
+	// 	});
+	// }
+
+  loadMap(lat,lng){
+    this.showLoadingGeneral();
+
+    Geolocation.getCurrentPosition().then((position) => {
 
       let latLng = null;
       if(lat){
@@ -79,20 +105,26 @@ export class EditComplainPage {
       } else{
         latLng = new google.maps.LatLng(position.coords.latitude, position.coords.longitude);
       }
+      let geocoder = new google.maps.Geocoder;
 
+      geocoder.geocode({"location":latLng},(results,status) => {
+        if(status === "OK"){
+          if(results[0]){
+            console.log(results[0].formatted_address);
+            this.complaint.location = results[0].formatted_address;
+            this.complaint.lat = position.coords.latitude;
+            this.complaint.lng = position.coords.longitude;
+            this.loading.dismiss();
+          }
+        }
+      })
 
-			let mapOptions = {
-				center: latLng,
-				zoom: 15,
-				mapTypeId: google.maps.MapTypeId.ROADMAP
-			}
+    }, (err) => {
+      console.log(err);
+      this.loading.dismiss();
+    });
 
-			this.map = new google.maps.Map(this.mapElement.nativeElement, mapOptions);
-			this.addMarker();
-		}, (err) => {
-			console.log(err);
-		});
-	}
+  }
 
   takePicture(){
     Camera.getPicture({
@@ -120,6 +152,11 @@ export class EditComplainPage {
     }, (err) => {
       console.log(err);
     });
+  }
+
+  deletePicture(index){
+    this.base64Images = [...this.base64Images.slice(0,index), ...this.base64Images.slice(index + 1)];
+    this.imageCounter--;
   }
 
   loadPollutionTypes(){
@@ -173,6 +210,13 @@ export class EditComplainPage {
   showLoading() {
     this.loading = this.loadingCtrl.create({
       content: 'Please wait...'
+    });
+    this.loading.present();
+  }
+
+  showLoadingGeneral() {
+    this.loading = this.loadingCtrl.create({
+      content: 'Loading'
     });
     this.loading.present();
   }

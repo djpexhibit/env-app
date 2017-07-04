@@ -227,4 +227,16 @@ public verifyPassword(credentials) {
       observer.complete();
     });
   }
+
+  public updateMobile(details){
+      return new Promise( resolve => {
+        this.http.post(config.main.baseUrl + '/updateMobile',{credentials:details})
+          .map(res => res.json())
+          .subscribe(data => {
+            console.log(data);
+            this.success = data;
+            resolve(this.success);
+          })
+      });
+  }
 }

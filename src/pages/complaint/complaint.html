@@ -45,57 +45,81 @@
 
 <ion-content class="complains">
 
+
+
 <ion-card>
   <img [src]="adv" />
 </ion-card>
 
 <div *ngIf="complains && complains.length > 0" >
 
-<ion-card>
+  <ion-row>
+    <ion-col width-33>
+      <img imageViewer [src]="_DomSanitizer.bypassSecurityTrustUrl(complains[0].image)" *ngIf="complains[0] && complains[0].image"  class="tile-icon"  />
+      <img  *ngIf="!complains[0] || !complains[0].image"  class="tile-icon" src="plus.jpg" />
+    </ion-col>
+    <ion-col width-33>
+      <img imageViewer [src]="_DomSanitizer.bypassSecurityTrustUrl(complains[1].image)" *ngIf="complains[1] && complains[1].image"  class="tile-icon"  />
+      <img  *ngIf="!complains[1] || !complains[1].image"  class="tile-icon" src="plus.jpg" />
+    </ion-col>
+    <ion-col width-33>
+      <img imageViewer [src]="_DomSanitizer.bypassSecurityTrustUrl(complains[2].image)" *ngIf="complains[2] && complains[2].image"  class="tile-icon"  />
+      <img   *ngIf="!complains[2] || !complains[2].image"  class="tile-icon" src="plus.jpg" />
+    </ion-col>
+  </ion-row>
 
 
-	<ion-item>
-    <ion-buttons end *ngIf="complains[0].uid == userId" >
-      <button [navPush]="editComplain" [navParams]={id:complains[0].id} >
-        <ion-icon name="md-create"></ion-icon>
-      </button>
-    </ion-buttons>
+  <ion-row>
+    <ion-col width-100>
+    <ion-item>
+      <ion-buttons end *ngIf="complains[0].uid == userId" >
+        <button [navPush]="editComplain" [navParams]={id:complains[0].id} >
+          <ion-icon name="md-create"></ion-icon>
+        </button>
+      </ion-buttons>
 
-    <h2 class="det"> Problem  : {{complains[0].type}} </h2>
-        <h2 class="det"> Location : {{complains[0].location}} </h2>
-        <h2 class="det"> Party    : {{complains[0].res_person}} </h2>
-        <h3 *ngIf="!complains[0].anonymous"> Reported By : {{complains[0].user}} </h3>
-        <h3> On : {{complains[0].date}} </h3>
-  </ion-item>
+      <h2 class="det"> Problem  : {{complains[0].type}} </h2>
+      <h2 class="det"> Location : {{complains[0].location}} </h2>
+      <h2 class="det"> Party    : {{complains[0].res_person}} </h2>
+      <h3 *ngIf="!complains[0].anonymous"> Reported By : {{complains[0].user}} </h3>
+      <h3> On : {{complains[0].date}} </h3>
+    </ion-item>
 
+    <ion-row>
+      <ion-col>
+        <div class="des">
+          {{complains[0].details}}
+        </div>
+      </ion-col>
+    </ion-row>
 
+    <button ion-button (click)="facebookShare()">
+      <ion-icon name="logo-facebook"></ion-icon>
+    </button>
+  </ion-col>
+  </ion-row>
 
-	<ion-row>
-		<ion-col>
-      <div class="des">
-			{{complains[0].details}}
-      </div>
-		</ion-col>
-	</ion-row>
-</ion-card>
-
-<ion-card>
+<!-- <ion-card>
 
   <ion-row *ngFor="let comp of complains">
     <ion-col *ngIf="comp.image">
       <img  [src]="_DomSanitizer.bypassSecurityTrustUrl(comp.image)"/>
     </ion-col>
   </ion-row>
-</ion-card>
+</ion-card> -->
 
 <!--<ion-col>
   <video  class="vid_align" #myvideo height="250" width="250" controls poster="vid.png"></video>
 </ion-col> -->
-
 </div>
-  <div *ngIf="complains && complains[0] && complains[0].lat" width="60%" height="100%"  #map id="map"></div>
-<ion-card>
 
+<button ion-button full class="map-button" (click)="toggleMap()">
+  <ion-icon name="arrow-dropdown-circle" *ngIf="hideMap"></ion-icon>
+  <ion-icon name="arrow-dropup-circle" *ngIf="!hideMap"></ion-icon>
+</button>
+<div *ngIf="complains && complains[0] && complains[0].lat" [hidden]="hideMap" width="60%" height="100%"  #map id="map"></div>
+
+<ion-card>
   <ion-list *ngIf="comments && comments.length > 0" inset>
     <div *ngFor="let comment of comments">
       <button  ion-item [class.admin_comment]="checkAdminComment(comment)"  >

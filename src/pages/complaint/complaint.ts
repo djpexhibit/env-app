@@ -8,6 +8,7 @@ import { Geolocation } from 'ionic-native';
 import {DomSanitizer} from '@angular/platform-browser';
 import { AuthService, User } from '../../providers/auth-service';
 import config from '../../app/config.json';
+import { SocialSharing } from '@ionic-native/social-sharing';
 
 
 /*
@@ -58,10 +59,12 @@ export class ComplaintPage {
   editComplain = EditComplainPage;
   home = HomePage;
 
+  hideMap = true;
+
   @ViewChild('map') mapElement: ElementRef;
   map: any;
 
-  constructor(public navCtrl: NavController, public navParams: NavParams, public complaintService: ComplaintService, private alertCtrl: AlertController, private loadingCtrl: LoadingController, private _DomSanitizer: DomSanitizer, private auth: AuthService) {
+  constructor(public navCtrl: NavController, public navParams: NavParams, public complaintService: ComplaintService, private alertCtrl: AlertController, private loadingCtrl: LoadingController, private _DomSanitizer: DomSanitizer, private auth: AuthService, private sharingVar: SocialSharing) {
 
     this.userId = this.auth.getUserInfo().id;
 
@@ -73,8 +76,7 @@ export class ComplaintPage {
       this.comment.type = 'EXPERT';
     }
 
-    this.loadComplain(navParams.get("id"));
-    this.loadComments(navParams.get("id"));
+
 
 
 
@@ -84,6 +86,11 @@ export class ComplaintPage {
     this.adv = config.main.baseUrl + '/'+adv_number+'.jpg';
 
 
+  }
+
+  ionViewDidLoad(){
+    this.loadComplain(this.navParams.get("id"));
+    this.loadComments(this.navParams.get("id"));
   }
 
   /*ionViewDidEnter() {
@@ -103,7 +110,7 @@ export class ComplaintPage {
 
       let mapOptions = {
         center: latLng,
-        zoom: 15,
+        zoom: 7,
         mapTypeId: google.maps.MapTypeId.ROADMAP
       }
 
@@ -114,6 +121,16 @@ export class ComplaintPage {
       }, (err) => {
       console.log(err);
     });
+  }
+
+
+  toggleMap(){
+    if(this.hideMap){
+      this.loadMap(this.complains[0].lat, this.complains[0].lng);
+      this.hideMap = false;
+    }else{
+      this.hideMap=true;
+    }
   }
 
   addMarker(){
@@ -144,9 +161,9 @@ export class ComplaintPage {
         if(data){
         this.complains = data;
 
-          if(this.complains && this.complains[0] && this.complains[0].lat){
-            this.loadMap(this.complains[0].lat, this.complains[0].lng);
-          }
+          // if(this.complains && this.complains[0] && this.complains[0].lat){
+          //   this.loadMap(this.complains[0].lat, this.complains[0].lng);
+          // }
          }else{
           this.showError("Please try again");
          }
@@ -274,5 +291,15 @@ export class ComplaintPage {
         this.showError(error);
       });
     }
+
+    facebookShare(){
+      this.sharingVar.shareViaFacebookWithPasteMessageHint(this.complains[0].details,this.complains[0].image,this.complains[0].details,"https://play.google.com/store/apps/details?id=com.ionicframework.envapp657580")
+      .then(()=>{
+        alert("Success");
+      },
+      ()=>{
+         alert("failed")
+      })
+  }
 
 }

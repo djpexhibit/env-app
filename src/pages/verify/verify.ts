@@ -13,9 +13,11 @@ export class VerifyPage {
   loading: Loading;
   createSuccess = false;
   verifyCredentials = {mobile:'', mobileCode:''};
+  type;
 
   constructor(private nav: NavController, private navParams: NavParams, private auth: AuthService, private alertCtrl: AlertController, private loadingCtrl: LoadingController) {
     this.verifyCredentials.mobile = navParams.get("mobile");
+    this.type = navParams.get("type");
   }
 
   public verify(){
@@ -25,8 +27,19 @@ export class VerifyPage {
       if (mobileCheck["status"] === 'OK' && mobileCheck["msg"] && mobileCheck["msg"] === 'VERIFIED') {
         setTimeout(() => {
           this.loading.dismiss();
-          this.showPopup("Registration","Registration Successful!");
-          this.nav.setRoot(LoginPage);
+          if(this.type === 'MOBUPDATE'){
+            this.showPopup("Update Mobile","Update Successful! Please login again");
+            this.auth.logout().subscribe(succ => {
+                localStorage.setItem("logged",null);
+                localStorage.setItem("currentUser",null);
+                this.nav.setRoot(LoginPage);
+            });
+
+          }else{
+            this.showPopup("Registration","Registration Successful!");
+            this.nav.setRoot(LoginPage);
+          }
+
         } );
       }else {
         this.showError("Error");

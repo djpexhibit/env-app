@@ -1,18 +1,39 @@
 page-edit-complain {
   .editComplain{
-    background: #28653A;
+    background: white;
 
 
     #map {
-          width: 80%;
-          height: 80%;
-          margin: auto;
-        }
+        	width: 80%;
+        	height: 40%;
+        	margin: auto;
+					min-height: 400px;
+      	}
 
-        .new-btn{
-          width: 95%;
-          height: 50px;
-        }
+        .vid_align{
+					margin-left: 10%;
+				}
+
+		.white-font{
+			color: white;
+		}
+
+		.new-btn{
+			width: 95%;
+			height: 50px;
+		}
+
+		.tile-icon{
+			width: 100px;
+			height: auto;
+			max-height: 100px;
+			border: 2px dashed #acacac;
+			border-radius: 10px;
+		}
+
+		.img-close{
+			text-align: center;
+		}
 
   }
 

@@ -53,6 +53,22 @@ export class ComplaintService {
   		});
   	}
 
+		loadChunk(id,start,end) {
+			console.log("DDDDDDDDDDDDDDd")
+	  	/*if (this.data) {
+	  		return Promise.resolve(this.data);
+	  	*/
+	  	return new Promise(resolve => {
+	      this.http.post(config.main.baseUrl + '/loadComplainsChunk',{user_id:id, start:start, end:end})
+	  			.map(res => res.json())
+	  			.subscribe(data => {
+	          console.log(data);
+	  				this.data = data;
+	  				resolve(this.data);
+	  			});
+	  		});
+	  	}
+
 		loadFavorites(id) {
 			if (this.favData) {
 				return Promise.resolve(this.favData);

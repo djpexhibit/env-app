@@ -134,6 +134,11 @@
     <img [src]="adv" />
   </ion-card>
 
+  <ion-infinite-scroll (ionInfinite)="doInfinite($event)">
+    <ion-infinite-scroll-content></ion-infinite-scroll-content>
+  </ion-infinite-scroll>
+
+
 </ion-content>
 
 <!-- <ion-footer no-border *ngIf="showFAB" >

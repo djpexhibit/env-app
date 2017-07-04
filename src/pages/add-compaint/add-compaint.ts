@@ -58,26 +58,53 @@ export class AddCompaintPage {
 
   ionViewDidLoad() {
     console.log('ionViewDidLoad AddCompaintPage');
-    this.loadMap();
+    //this.loadMap();
   }
 
+  // loadMap(){
+  //
+  //   Geolocation.getCurrentPosition().then((position) => {
+  //
+  //     let latLng = new google.maps.LatLng(position.coords.latitude, position.coords.longitude);
+  //
+  //
+  //     let mapOptions = {
+  //       center: latLng,
+  //       zoom: 15,
+  //       mapTypeId: google.maps.MapTypeId.ROADMAP
+  //     }
+  //
+  //     this.map = new google.maps.Map(this.mapElement.nativeElement, mapOptions);
+  //
+  //   }, (err) => {
+  //     console.log(err);
+  //   });
+  //
+  // }
+
   loadMap(){
+    this.showLoadingGeneral();
 
     Geolocation.getCurrentPosition().then((position) => {
 
       let latLng = new google.maps.LatLng(position.coords.latitude, position.coords.longitude);
+      let geocoder = new google.maps.Geocoder;
 
-
-      let mapOptions = {
-        center: latLng,
-        zoom: 15,
-        mapTypeId: google.maps.MapTypeId.ROADMAP
-      }
-
-      this.map = new google.maps.Map(this.mapElement.nativeElement, mapOptions);
+      geocoder.geocode({"location":latLng},(results,status) => {
+        if(status === "OK"){
+          if(results[0]){
+            console.log(results[0].formatted_address);
+            this.complaint.location = results[0].formatted_address;
+            this.complaint.lat = position.coords.latitude;
+            this.complaint.lng = position.coords.longitude;
+            this.loading.dismiss();
+          }
+        }
+      })
 
     }, (err) => {
       console.log(err);
+      this.loading.dismiss();
     });
 
   }
@@ -240,7 +267,17 @@ export class AddCompaintPage {
 
   showLoading() {
     this.loading = this.loadingCtrl.create({
-      content: 'Uploading Content (This will take a while depending on image/video sizes and your network connection)'
+      content: `<div>
+                  <div><img src='./assets/img/logo.jpg' /></div>
+                  <div>Uploading Content (This will take a while depending on image sizes and your network connection)</div>
+                </div>`
+    });
+    this.loading.present();
+  }
+
+  showLoadingGeneral() {
+    this.loading = this.loadingCtrl.create({
+      content: 'Loading'
     });
     this.loading.present();
   }

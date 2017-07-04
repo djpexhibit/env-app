@@ -24,7 +24,8 @@ import { EventsPage } from '../pages/events/events';
 import { DashboardProvider } from '../providers/dashboard-provider';
 import { ProfilePage } from '../pages/profile/profile';
 import { MobileUpdatePage } from '../pages/mobile-update/mobile-update';
-
+import { SocialSharing } from '@ionic-native/social-sharing';
+import { IonicImageViewerModule } from 'ionic-img-viewer';
 
 import { Camera,Transfer,File } from 'ionic-native';
 
@@ -57,7 +58,8 @@ import { PressDirective } from "../components/press-directive/press-directive";
     MobileUpdatePage
   ],
   imports: [
-    IonicModule.forRoot(MyApp)
+    IonicModule.forRoot(MyApp),
+    IonicImageViewerModule
   ],
   bootstrap: [IonicApp],
   entryComponents: [
@@ -83,6 +85,6 @@ import { PressDirective } from "../components/press-directive/press-directive";
     ProfilePage,
     MobileUpdatePage
   ],
-  providers: [SplashScreen,AuthService, Camera, Transfer, File, DashboardProvider]
+  providers: [SplashScreen,AuthService, Camera, Transfer, File, DashboardProvider, SocialSharing]
 })
 export class AppModule {}
