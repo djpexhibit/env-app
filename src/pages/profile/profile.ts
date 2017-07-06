@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
 import { AuthService, User } from '../../providers/auth-service';
-import { NavController,NavParams, AlertController ,LoadingController, Loading  } from 'ionic-angular';
+import { NavController,NavParams, AlertController ,LoadingController, Loading , Platform } from 'ionic-angular';
 import {  Camera } from 'ionic-native';
 import { MobileUpdatePage } from '../mobile-update/mobile-update';
 
@@ -19,9 +19,11 @@ export class ProfilePage {
   verifyCredentials={email:'',password:''}
   passwordVerified = false;
 
+  platform;
 
-
-  constructor(public navCtrl: NavController, public navParams: NavParams, private auth: AuthService, private loadingCtrl: LoadingController,  private alertCtrl: AlertController) {
+  constructor(public navCtrl: NavController, public navParams: NavParams, private auth: AuthService,
+    private loadingCtrl: LoadingController,  private alertCtrl: AlertController, platform: Platform) {
+      this.platform = Platform;
     this.loggedUser = auth.getUserInfo();
     this.registerCredentials.email = this.loggedUser.email;
     this.registerCredentials.name = this.loggedUser.fullName;
@@ -163,6 +165,10 @@ export class ProfilePage {
     this.navCtrl.push(MobileUpdatePage,{
       id: this.registerCredentials.id
     });
+  }
+
+  public exitApp(){
+    this.platform.exitApp();
   }
 
 }

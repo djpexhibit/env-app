@@ -6,6 +6,8 @@ import { AddSpeciesPage } from '../add-species/add-species';
 import { ListSpeciesPage } from '../list-species/list-species';
 import { AddCompaintPage } from '../add-compaint/add-compaint';
 import { DashboardPage } from '../dashboard/dashboard';
+import { AuthService, User } from '../../providers/auth-service';
+import { LoginPage } from '../../pages/login/login';
 
 
 @Component({
@@ -23,7 +25,7 @@ export class MainPage {
   private dashboardPage;
 
 
-  constructor(public navCtrl: NavController, public navParams: NavParams) {
+  constructor(public navCtrl: NavController, public navParams: NavParams, private auth : AuthService) {
     this.rootPage = DashboardPage;
 
     this.homePage = HomePage;
@@ -41,6 +43,14 @@ export class MainPage {
 
   openPage(p) {
     this.rootPage = p;
+  }
+
+  public logout() {
+    this.auth.logout().subscribe(succ => {
+        localStorage.setItem("logged",null);
+        localStorage.setItem("currentUser",null);
+        this.navCtrl.setRoot(LoginPage);
+    });
   }
 
 }

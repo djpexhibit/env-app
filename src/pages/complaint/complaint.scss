@@ -2,12 +2,13 @@ page-complaint {
 
   .complains{
     background: white;
+    margin-top: 16px;
 
     #map {
-      width: 90%;
-      height: 80%;
+      width: 80%;
+      height: 40%;
       margin: auto;
-      min-height: 500px;
+      min-height: 400px;
     }
 
     .default_space{
@@ -28,6 +29,10 @@ page-complaint {
 
     .des{
       margin-left:10px;
+    }
+
+    .comp-text{
+      margin-top: 10px;
     }
 
     .pex-input{

@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { NavController, NavParams } from 'ionic-angular';
+import { NavController, NavParams, Platform } from 'ionic-angular';
 
 /*
   Generated class for the Events page.
@@ -28,10 +28,18 @@ export class EventsPage {
 
   noInfoMsg="No Events Found";
 
-  constructor(public navCtrl: NavController, public navParams: NavParams) {}
+  platform;
+
+  constructor(public navCtrl: NavController, public navParams: NavParams, plaform: Platform) {
+    this.platform = Platform;
+  }
 
   ionViewDidLoad() {
     console.log('ionViewDidLoad EventsPage');
+  }
+
+  public exitApp(){
+    this.platform.exitApp();
   }
 
 }

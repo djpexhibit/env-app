@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { NavController, NavParams } from 'ionic-angular';
+import { NavController, NavParams, Platform} from 'ionic-angular';
 import { SelectTaskPage } from '../select-task/select-task';
 import { HomePage } from '../home/home';
 import { AuthService, User } from '../../providers/auth-service';
@@ -21,8 +21,12 @@ export class DashboardPage {
   numberOfFollowings = 0;
   numberOfOwnPosts = 0;
 
-  constructor(public navCtrl: NavController, public navParams: NavParams, private auth: AuthService, private dashboardService : DashboardProvider, private _DomSanitizer: DomSanitizer) {
+  platform;
+
+  constructor(public navCtrl: NavController, public navParams: NavParams, private auth: AuthService,
+    private dashboardService : DashboardProvider, private _DomSanitizer: DomSanitizer, platform: Platform) {
     this.loggedUser = auth.getUserInfo();
+    this.platform = platform;
   }
 
   ionViewDidLoad() {
@@ -91,5 +95,9 @@ export class DashboardPage {
         localStorage.setItem("currentUser",null);
         this.navCtrl.setRoot(LoginPage);
     });
+  }
+
+  public exitApp(){
+    this.platform.exitApp();
   }
 }

@@ -14,15 +14,23 @@
     <ion-title>
       Complain Details
     </ion-title>
-    <ion-buttons start>
+  <!--  <ion-buttons start>
       <button ion-button icon-only [navPush]="addComplaint">
         <ion-icon name="add"></ion-icon>
       </button>
-    </ion-buttons>
+    </ion-buttons> -->
+
+
 
     <button ion-button menuToggle>
       <ion-icon name="menu"></ion-icon>
     </button>
+
+    <ion-buttons start>
+        <button ion-button icon-only (click)="facebookShare()">
+          <ion-icon name="logo-facebook"></ion-icon>
+        </button>
+      </ion-buttons>
 
     <ion-buttons end *ngIf="complains && complains.length > 0">
       <button ion-button *ngIf="complains[0].fav" (click)="toggleFavorite()">
@@ -31,10 +39,16 @@
       <button ion-button *ngIf="!complains[0].fav" (click)="toggleFavorite()">
           <ion-icon style="color:grey" name="star" item-right></ion-icon>
       </button>
-      <button ion-button (click)="logout()">
-        <ion-icon name="log-out"></ion-icon>
-      </button>
 
+
+      <!--  <button ion-button (click)="logout()">
+          <ion-icon name="log-out"></ion-icon>
+        </button> -->
+
+        <button ion-button (click)="exitApp()">
+            <ion-icon name="exit"></ion-icon>
+          </button>
+    
 
     </ion-buttons>
   </ion-navbar>
@@ -43,13 +57,11 @@
 </ion-header>
 
 
-<ion-content class="complains">
+<ion-content class="complains" >
 
 
 
-<ion-card>
-  <img [src]="adv" />
-</ion-card>
+
 
 <div *ngIf="complains && complains.length > 0" >
 
@@ -78,24 +90,22 @@
         </button>
       </ion-buttons>
 
-      <h2 class="det"> Problem  : {{complains[0].type}} </h2>
-      <h2 class="det"> Location : {{complains[0].location}} </h2>
-      <h2 class="det"> Party    : {{complains[0].res_person}} </h2>
-      <h3 *ngIf="!complains[0].anonymous"> Reported By : {{complains[0].user}} </h3>
-      <h3> On : {{complains[0].date}} </h3>
+      <p class="comp-text"> Problem  : {{complains[0].type}} </p>
+      <p class="comp-text"> Location : {{complains[0].location}} </p>
+      <p class="comp-text"> Party    : {{complains[0].res_person}} </p>
+      <p class="comp-text" *ngIf="!complains[0].anonymous"> Reported By : {{complains[0].user}} </p>
+      <p class="comp-text"> On : {{complains[0].date}} </p>
     </ion-item>
 
     <ion-row>
       <ion-col>
         <div class="des">
-          {{complains[0].details}}
+          <p>{{complains[0].details}} </p>
         </div>
       </ion-col>
     </ion-row>
 
-    <button ion-button (click)="facebookShare()">
-      <ion-icon name="logo-facebook"></ion-icon>
-    </button>
+
   </ion-col>
   </ion-row>
 
@@ -114,8 +124,8 @@
 </div>
 
 <button ion-button full class="map-button" (click)="toggleMap()">
-  <ion-icon name="arrow-dropdown-circle" *ngIf="hideMap"></ion-icon>
-  <ion-icon name="arrow-dropup-circle" *ngIf="!hideMap"></ion-icon>
+  <ion-icon style="font-size:30px" name="arrow-dropdown-circle" *ngIf="hideMap"></ion-icon>
+  <ion-icon style="font-size:30px" name="arrow-dropup-circle" *ngIf="!hideMap"></ion-icon>
 </button>
 <div *ngIf="complains && complains[0] && complains[0].lat" [hidden]="hideMap" width="60%" height="100%"  #map id="map"></div>
 
@@ -130,9 +140,9 @@
     </div>
   </ion-list>
 
-  <ion-list *ngIf="!comments || (comments && comments.length == 0)" inset>
+<!--  <ion-list *ngIf="!comments || (comments && comments.length == 0)" inset>
    <p>No Comments Found.</p>
-  </ion-list>
+ </ion-list> -->
 </ion-card>
 <ion-card>
   <ion-row class="pex-input">
@@ -145,9 +155,13 @@
   </ion-row>
   <ion-row>
     <ion-col>
-      <button ion-button color="dark" type="button" (click)="addComment()"  >Add Comment</button>
+      <button ion-button color="dark" type="button" (click)="addComment()"  >+ Comment</button>
     </ion-col>
   </ion-row>
+</ion-card>
+
+<ion-card>
+  <img [src]="adv" />
 </ion-card>
 
 </ion-content>

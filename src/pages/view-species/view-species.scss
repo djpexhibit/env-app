@@ -4,9 +4,14 @@ page-view-species {
     background: #28653A;
 
     #map {
-      width: 90%;
-      height: 80%;
+      width: 80%;
+      height: 40%;
       margin: auto;
+      min-height: 400px;
+    }
+
+    .comp-text{
+      margin-top: 10px;
     }
 
     .default_space{

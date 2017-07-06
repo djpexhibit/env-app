@@ -16,9 +16,14 @@
 
     <ion-buttons end *ngIf="!showFAB">
 
-      <button ion-button (click)="logout()">
-        <ion-icon name="log-out"></ion-icon>
-      </button>
+
+      <!--  <button ion-button (click)="logout()">
+          <ion-icon name="log-out"></ion-icon>
+        </button> -->
+
+        <button ion-button (click)="exitApp()">
+            <ion-icon name="exit"></ion-icon>
+          </button>
     </ion-buttons>
 
     <ion-buttons end *ngIf="showFAB">

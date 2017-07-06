@@ -1,5 +1,5 @@
 import { Component ,ViewChild, ElementRef} from '@angular/core';
-import { NavController, NavParams ,AlertController, LoadingController, Loading  } from 'ionic-angular';
+import { NavController, NavParams ,AlertController, LoadingController, Loading,Platform  } from 'ionic-angular';
 import {ComplaintService} from '../../providers/complaint-service';
 import { HomePage } from '../home/home';
 import { Geolocation } from 'ionic-native';
@@ -45,7 +45,12 @@ export class AddCompaintPage {
 
   @ViewChild('subb') subb : ElementRef;
 
-  constructor(public navCtrl: NavController, public navParams: NavParams, public complainService: ComplaintService, private alertCtrl: AlertController, private loadingCtrl: LoadingController, private auth: AuthService, private _DomSanitizer: DomSanitizer) {
+  platform;
+
+  constructor(public navCtrl: NavController, public navParams: NavParams,
+    public complainService: ComplaintService, private alertCtrl: AlertController, private loadingCtrl: LoadingController,
+    private auth: AuthService, private _DomSanitizer: DomSanitizer, platform: Platform) {
+    this.platform = platform;
     this.loadPollutionTypes();
     this.loadExpectedActions();
     this.imageCounter = 0;
@@ -112,6 +117,7 @@ export class AddCompaintPage {
   takePicture(){
     Camera.getPicture({
       destinationType: Camera.DestinationType.DATA_URL,
+      quality: 100,
       targetWidth: 320,
       targetHeight: 320,
       correctOrientation: true
@@ -320,6 +326,10 @@ export class AddCompaintPage {
     google.maps.event.addListener(marker, 'click', () => {
       infoWindow.open(this.map, marker);
     });
+  }
+
+  public exitApp(){
+    this.platform.exitApp();
   }
 
 

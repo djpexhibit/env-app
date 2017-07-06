@@ -1,5 +1,5 @@
 import { Component ,ViewChild, ElementRef} from '@angular/core';
-import { NavController, NavParams ,AlertController, LoadingController, Loading  } from 'ionic-angular';
+import { NavController, NavParams ,AlertController, LoadingController, Loading, Platform  } from 'ionic-angular';
 import {ComplaintService} from '../../providers/complaint-service';
 import { HomePage } from '../home/home';
 import { AuthService } from '../../providers/auth-service';
@@ -37,11 +37,14 @@ export class EditComplainPage {
   videoFilePath;
   videoPath
 
-
+  platform;
 	@ViewChild('map') mapElement: ElementRef;
 	map: any;
 
-	constructor(public navCtrl: NavController, public navParams: NavParams, public complainService: ComplaintService, private alertCtrl: AlertController, private loadingCtrl: LoadingController, private auth: AuthService, private _DomSanitizer: DomSanitizer) {
+	constructor(public navCtrl: NavController, public navParams: NavParams, public complainService: ComplaintService,
+     private alertCtrl: AlertController, private loadingCtrl: LoadingController, private auth: AuthService,
+     private _DomSanitizer: DomSanitizer, platform: Platform) {
+       this.platform = platform;
     let info = this.auth.getUserInfo();
 		this.username = info.name;
 		this.email = info.email;
@@ -328,5 +331,7 @@ export class EditComplainPage {
     })
   }*/
 
-
+  public exitApp(){
+    this.platform.exitApp();
+  }
 }

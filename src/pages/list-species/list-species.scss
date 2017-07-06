@@ -1,23 +1,27 @@
 page-list-species {
+  background-color: black;
+  color: white;
   .home {
-    background: white;
+    background: black;
   }
 
   .list-bak{
-  	background: white;
+  	background: black;
+    color: white;
   }
 
   .cards-bg{
-  	background: white;
+  	background: black;
   }
 
   .user-details{
-  	color:white;
+  	color:black;
   	margin-left:10px;
   }
 
   .sca{
     width:100%; /* you can use % */
     height: auto;
+    max-height: 125px;
   }
 }

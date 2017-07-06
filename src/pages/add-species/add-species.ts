@@ -1,5 +1,5 @@
 import { Component ,ViewChild, ElementRef} from '@angular/core';
-import { NavController, NavParams ,AlertController, LoadingController, Loading  } from 'ionic-angular';
+import { NavController, NavParams ,AlertController, LoadingController, Loading , Platform } from 'ionic-angular';
 import {SpeciesService} from '../../providers/species-service';
 import { ListSpeciesPage } from '../list-species/list-species';
 import { Geolocation } from 'ionic-native';
@@ -41,7 +41,12 @@ export class AddSpeciesPage {
   @ViewChild('map') mapElement: ElementRef;
   map: any;
 
-  constructor(public navCtrl: NavController, public navParams: NavParams, public speciesService: SpeciesService, private alertCtrl: AlertController, private loadingCtrl: LoadingController, private auth: AuthService, private _DomSanitizer: DomSanitizer) {
+  platform;
+
+  constructor(public navCtrl: NavController, public navParams: NavParams, public speciesService: SpeciesService,
+    private alertCtrl: AlertController, private loadingCtrl: LoadingController, private auth: AuthService,
+    private _DomSanitizer: DomSanitizer, platform: Platform) {
+      this.platform = platform;
     this.imageCounter = 0;
 
     let typ = navParams.get("type");
@@ -84,6 +89,7 @@ export class AddSpeciesPage {
       destinationType: Camera.DestinationType.DATA_URL,
       targetWidth: 320,
       targetHeight: 320,
+      quality:100,
       correctOrientation: true
     }).then((imageData) => {
       // imageData is a base64 encoded string
@@ -265,6 +271,9 @@ export class AddSpeciesPage {
     });
   }
 
+  public exitApp(){
+    this.platform.exitApp();
+  }
 
 
 }

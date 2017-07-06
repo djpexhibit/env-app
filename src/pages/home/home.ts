@@ -1,6 +1,6 @@
 
 import {Component} from '@angular/core';
-import {NavController,AlertController,Loading, LoadingController, NavParams} from 'ionic-angular';
+import {NavController,AlertController,Loading, LoadingController, NavParams, Platform} from 'ionic-angular';
 import { AuthService } from '../../providers/auth-service';
 import { LoginPage } from '../login/login';
 import { ComplaintPage } from '../complaint/complaint';
@@ -48,8 +48,13 @@ export class HomePage {
 
   loading: Loading;
 
+  platform;
+
   constructor(private alertCtrl: AlertController,private nav: NavController,
-    private auth: AuthService, public navParams: NavParams, public complaintService: ComplaintService, private _DomSanitizer: DomSanitizer, private loadingCtrl: LoadingController) {
+    private auth: AuthService, public navParams: NavParams, public complaintService: ComplaintService,
+    private _DomSanitizer: DomSanitizer, private loadingCtrl: LoadingController, platform: Platform) {
+
+      this.platform = platform;
     let info = this.auth.getUserInfo();
     this.username = info.name;
     this.email = info.email;
@@ -252,4 +257,9 @@ export class HomePage {
       this.adv = data;
     })
   }*/
+
+
+  public exitApp(){
+    this.platform.exitApp();
+  }
 }

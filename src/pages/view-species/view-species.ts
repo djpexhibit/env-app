@@ -1,5 +1,5 @@
 import { Component, ViewChild, ElementRef } from '@angular/core';
-import { NavController, NavParams ,AlertController, LoadingController, Loading  } from 'ionic-angular';
+import { NavController, NavParams ,AlertController, LoadingController, Loading , Platform } from 'ionic-angular';
 import {AddSpeciesPage} from '../add-species/add-species';
 import {EditSpeciesPage} from '../edit-species/edit-species';
 import {SpeciesService} from '../../providers/species-service';
@@ -7,7 +7,8 @@ import { Geolocation } from 'ionic-native';
 import {DomSanitizer} from '@angular/platform-browser';
 import { AuthService } from '../../providers/auth-service';
 import config from '../../app/config.json';
-
+import {HomePage} from '../home/home';
+import {ListSpeciesPage} from '../list-species/list-species';
 
 declare var google;
 
@@ -54,12 +55,24 @@ export class ViewSpeciesPage {
 	@ViewChild('map') mapElement: ElementRef;
 	map: any;
 
-	constructor(public navCtrl: NavController, public navParams: NavParams, public speciesService: SpeciesService, private alertCtrl: AlertController, private loadingCtrl: LoadingController, private _DomSanitizer: DomSanitizer, private auth: AuthService) {
+	platform;
+
+	constructor(public navCtrl: NavController, public navParams: NavParams, public speciesService: SpeciesService,
+		private alertCtrl: AlertController, private loadingCtrl: LoadingController, private _DomSanitizer: DomSanitizer,
+		 private auth: AuthService, platform: Platform) {
+
+			 this.platform = platform;
 
 		this.userId = this.auth.getUserInfo().id;
 
+let u = this.auth.getUserInfo();
+this.comment.user_id=u.id;
+this.comment.type = u.type;
 
-		this.comment.user_id=this.auth.getUserInfo().id;
+if(u.type === 'Media' || u.type === 'Expert'){
+	this.comment.type = 'Expert';
+}
+
 		this.loadSpecies(navParams.get("id"));
 		this.loadComments(navParams.get("id"));
 
@@ -216,6 +229,17 @@ export class ViewSpeciesPage {
 		error => {
 			this.showError(error);
 		});
+	}
+
+
+	public exitApp(){
+    this.platform.exitApp();
+  }
+
+	backHome(){
+		//this.navCtrl.pop();
+		this.navCtrl.setRoot(ListSpeciesPage); // previous view will be cached
+	this.navCtrl.setRoot(ListSpeciesPage);
 	}
 
 }

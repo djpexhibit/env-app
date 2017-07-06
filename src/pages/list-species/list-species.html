@@ -1,5 +1,11 @@
 <ion-header>
-	<ion-navbar color="dark">
+	<ion-navbar color="dark" hideBackButton>
+		<ion-buttons left>
+        <button ion-button (click)="backHome()">
+            <ion-icon class="customIcon" name="arrow-back"></ion-icon>
+        </button>
+    </ion-buttons>
+
 		<ion-title>
 			Species
 		</ion-title>
@@ -14,11 +20,16 @@
 			<ion-icon name="menu"></ion-icon>
 		</button>
 
-		<ion-buttons end>
-			<button ion-button (click)="logout()">
-				<ion-icon name="log-out"></ion-icon>
-			</button>
-		</ion-buttons>
+		<ion-buttons end >
+
+    <!--  <button ion-button (click)="logout()">
+        <ion-icon name="log-out"></ion-icon>
+      </button> -->
+
+      <button ion-button (click)="exitApp()">
+          <ion-icon name="exit"></ion-icon>
+        </button>
+    </ion-buttons>
 	</ion-navbar>
 </ion-header>
 
@@ -36,7 +47,7 @@
 		<div   *ngFor="let specie of species; let i = index"  >
 
 			<ion-grid class="post">
-				<ion-row>
+				<ion-row style="padding-bottom:0px">
 		      <ion-col width-12>
 		      </ion-col>
 		      <ion-col width-75>
@@ -44,6 +55,11 @@
 							<img class="sca" [src]="_DomSanitizer.bypassSecurityTrustUrl(specie.image )" *ngIf="specie.image"  />
 							<img class="sca"  src="thumbs.jpg" *ngIf="!specie.image"/>
 		        </div>
+
+						<span style="margin-top:5px; margin-right:20px">{{ (specie.location.length>20)? specie.location.substring(0,20)+"...":specie.location}}</span><span style="float:right">{{ specie.date}}</span>
+						<p *ngIf="!specie.anonymous">
+							{{specie.user }}
+						</p>
 		      </ion-col>
 		      <ion-col width-12>
 						<div class="row list-icon" *ngIf="specie.fav">
@@ -52,30 +68,12 @@
             <div class="row list-icon" *ngIf="!specie.fav">
                 <ion-icon style="color:grey" name="star" item-right (click)="toggleFavorite(specie.id,i)"></ion-icon>
             </div>
-						<div class="row list-icon">
+						<div class="row list-icon" *ngIf="specie.expertReplied">
 							<ion-icon style="color:green" name="checkmark-circle" item-right></ion-icon>
 						</div>
 		      </ion-col>
 		    </ion-row>
-				<ion-row>
-					<ion-col width-12></ion-col>
-					<ion-col width-75>
-						<ion-row>
-							<ion-col>
-								location
-							</ion-col>
-							<ion-col>
-								{{ specie.date}}
-							</ion-col>
-						</ion-row>
-					</ion-col>
-					<ion-col width-12></ion-col>
-				</ion-row>
-				<ion-row *ngIf="!specie.anonymous">
-					<ion-col width-12></ion-col>
-					<ion-col width-75>{{specie.user }}</ion-col>
-					<ion-col width-12></ion-col>
-				</ion-row>
+
 			</ion-grid>
 
 			<!-- <ion-card>

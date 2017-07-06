@@ -1,5 +1,11 @@
 <ion-header>
-	<ion-navbar color="dark">
+	<ion-navbar color="dark" hideBackButton>
+		<ion-buttons left>
+        <button ion-button (click)="backHome()">
+            <ion-icon class="customIcon" name="arrow-back"></ion-icon>
+        </button>
+    </ion-buttons>
+
 		<ion-title>
 			Species Details
 		</ion-title>
@@ -22,9 +28,13 @@
           <ion-icon style="color:grey" name="star" item-right></ion-icon>
       </button>
 
-			<button ion-button (click)="logout()">
-				<ion-icon name="log-out"></ion-icon>
-			</button>
+	    <!--  <button ion-button (click)="logout()">
+	        <ion-icon name="log-out"></ion-icon>
+	      </button> -->
+
+	      <button ion-button (click)="exitApp()">
+	          <ion-icon name="exit"></ion-icon>
+	        </button>
 		</ion-buttons>
 	</ion-navbar>
 </ion-header>
@@ -49,11 +59,17 @@
 					</button>
 				</ion-buttons>
 
-				<h2 class="det"> Name  : {{species[0].name}} </h2>
+				<p class="comp-text"> Name  : {{species[0].name}} </p>
+				<p class="comp-text"> Location : {{species[0].location}} </p>
+				<p class="comp-text"> Type    : {{species[0].type}} </p>
+				<p class="comp-text" *ngIf="!species[0].anonymous" > Reported By : {{species[0].user}} </p>
+				<p class="comp-text"> On : {{species[0].date}} </p>
+
+		<!--		<h2 class="det"> Name  : {{species[0].name}} </h2>
 				<h2 class="det"> Location : {{species[0].location}} </h2>
 				<h2 class="det"> Type    : {{species[0].type}} </h2>
 				<h3 *ngIf="!species[0].anonymous"> Reported By : {{species[0].user}} </h3>
-				<h3> On : {{species[0].date}} </h3>
+				<h3> On : {{species[0].date}} </h3> -->
 			</ion-item>
 
 			<ion-row>
@@ -78,7 +94,9 @@
 
 	<!-- <video #myvideo height="300" width="300" controls ></video> -->
 
-	<div width="60%" #map id="map"></div>
+	<!-- <div width="60%" #map id="map"></div> -->
+	<div *ngIf="species && species[0] && species[0].lat"  width="60%" height="100%"  #map id="map"></div>
+
 		<ion-card>
 			<ion-list *ngIf="comments && comments.length > 0" inset>
 				<div *ngFor="let comment of comments">

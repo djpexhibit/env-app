@@ -1,5 +1,5 @@
 import { Component, ViewChild, ElementRef } from '@angular/core';
-import { NavController, NavParams ,AlertController, LoadingController, Loading  } from 'ionic-angular';
+import { NavController, NavParams ,AlertController, LoadingController, Loading , Platform } from 'ionic-angular';
 import {AddCompaintPage} from '../add-compaint/add-compaint';
 import {EditComplainPage} from '../edit-complain/edit-complain';
 import {HomePage} from '../home/home';
@@ -64,16 +64,19 @@ export class ComplaintPage {
   @ViewChild('map') mapElement: ElementRef;
   map: any;
 
-  constructor(public navCtrl: NavController, public navParams: NavParams, public complaintService: ComplaintService, private alertCtrl: AlertController, private loadingCtrl: LoadingController, private _DomSanitizer: DomSanitizer, private auth: AuthService, private sharingVar: SocialSharing) {
+  platform;
 
+  constructor(public navCtrl: NavController, public navParams: NavParams, public complaintService: ComplaintService,
+    private alertCtrl: AlertController, private loadingCtrl: LoadingController, private _DomSanitizer: DomSanitizer,
+    private auth: AuthService, private sharingVar: SocialSharing, platform:Platform) {
+      this.platform = platform;
     this.userId = this.auth.getUserInfo().id;
-
     let u = this.auth.getUserInfo();
     this.comment.user_id=u.id;
     this.comment.type = u.type;
 
     if(u.type === 'Media' || u.type === 'Expert'){
-      this.comment.type = 'EXPERT';
+      this.comment.type = 'Expert';
     }
 
 
@@ -300,6 +303,10 @@ export class ComplaintPage {
       ()=>{
          alert("failed")
       })
+  }
+
+  public exitApp(){
+    this.platform.exitApp();
   }
 
 }
