@@ -94,10 +94,11 @@ export class EditSpeciesPage {
 
   takePicture(){
     Camera.getPicture({
-      destinationType: Camera.DestinationType.DATA_URL,
-      targetWidth: 320,
-      targetHeight: 320,
-			correctOrientation: true
+			destinationType: Camera.DestinationType.DATA_URL,
+      quality: 70,
+      targetWidth: 640,
+      targetHeight: 640,
+      correctOrientation: true
     }).then((imageData) => {
       // imageData is a base64 encoded string
       this.base64Images[this.imageCounter++] = "data:image/jpeg;base64," + imageData;

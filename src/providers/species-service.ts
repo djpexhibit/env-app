@@ -36,6 +36,21 @@ export class SpeciesService {
 		});
 	}
 
+	loadChunk(id,start,end) {
+		/*if (this.data) {
+			return Promise.resolve(this.data);
+		*/
+		return new Promise(resolve => {
+			this.http.post(config.main.baseUrl + '/loadSpeciesChunk',{user_id:id, start:start, end:end})
+				.map(res => res.json())
+				.subscribe(data => {
+					console.log(data);
+					this.data = data;
+					resolve(this.data);
+				});
+			});
+		}
+
 
 
 	loadSpecies(spec_id,userId){
@@ -43,16 +58,29 @@ export class SpeciesService {
 			this.http.post(config.main.baseUrl + '/loadSpecie',{spec_id:spec_id , userId:userId})
 			.map(res => res.json())
 			.subscribe(data => {
-				console.log("CCCC"); console.log(data);
 				this.specie = data;
 				resolve(this.specie);
 			}, err=> {
-				console.log("CCCC 1");
 				this.specie = null;
 				resolve(this.specie);
 			});
 		});
 	}
+
+	loadFavoritesSpeciesChunk(id,start,end) {
+
+		return new Promise(resolve => {
+			this.http.post(config.main.baseUrl + '/loadFavoriteSpeciesChunk',{user_id:id, start:start, end:end})
+				.map(res => res.json())
+				.subscribe(data => {
+					console.log(data);
+					this.data = data;
+					resolve(this.data);
+				});
+			});
+		}
+
+
 
 
 	loadComments(spec_id){

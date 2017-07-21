@@ -52,12 +52,12 @@
 		      </ion-col>
 		      <ion-col width-75>
 		        <div class="" [navPush]="viewSpecies"  [navParams]={id:specie.id}>
-							<img class="sca" [src]="_DomSanitizer.bypassSecurityTrustUrl(specie.image )" *ngIf="specie.image"  />
+							<img class="sca" [src]="getImgUrl(specie.id)" *ngIf="specie.image"  />
 							<img class="sca"  src="thumbs.jpg" *ngIf="!specie.image"/>
 		        </div>
 
 						<span style="margin-top:5px; margin-right:20px">{{ (specie.location.length>20)? specie.location.substring(0,20)+"...":specie.location}}</span><span style="float:right">{{ specie.date}}</span>
-						<p *ngIf="!specie.anonymous">
+						<p *ngIf="!specie.anonymous" style="margin-top:5px">
 							{{specie.user }}
 						</p>
 		      </ion-col>
@@ -120,5 +120,10 @@
 	<ion-card>
 		<img [src]="adv" />
 	</ion-card>
+
+	<ion-infinite-scroll (ionInfinite)="doInfinite($event)" style="color:white">
+    <ion-infinite-scroll-content style="color:white" loadingSpinner="bubbles"
+      loadingText="Loading more data..."></ion-infinite-scroll-content>
+  </ion-infinite-scroll>
 
 </ion-content>

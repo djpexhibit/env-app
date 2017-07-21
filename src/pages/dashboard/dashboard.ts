@@ -4,16 +4,22 @@ import { SelectTaskPage } from '../select-task/select-task';
 import { HomePage } from '../home/home';
 import { AuthService, User } from '../../providers/auth-service';
 import { EventsPage } from '../events/events';
+import { LawPage } from '../law/law';
+
 import { DashboardProvider} from '../../providers/dashboard-provider';
 import { ProfilePage } from '../profile/profile';
 import {DomSanitizer} from '@angular/platform-browser';
 import { LoginPage } from '../../pages/login/login';
+
+import { TranslateService } from 'ng2-translate';
 
 @Component({
   selector: 'page-dashboard',
   templateUrl: 'dashboard.html'
 })
 export class DashboardPage {
+
+  selectedLanguage = 'en';
 
   loggedUser : User;
   numberOfPosts = 0;
@@ -23,10 +29,16 @@ export class DashboardPage {
 
   platform;
 
+  private translate: TranslateService;
+
   constructor(public navCtrl: NavController, public navParams: NavParams, private auth: AuthService,
-    private dashboardService : DashboardProvider, private _DomSanitizer: DomSanitizer, platform: Platform) {
+    private dashboardService : DashboardProvider, private _DomSanitizer: DomSanitizer, platform: Platform,translate: TranslateService) {
     this.loggedUser = auth.getUserInfo();
     this.platform = platform;
+
+    this.translate = translate;
+    this.translate.use(this.selectedLanguage);
+
   }
 
   ionViewDidLoad() {
@@ -35,6 +47,7 @@ export class DashboardPage {
     this.loadNumberOfUsers();
     this.loadNumberOfFollwings(this.loggedUser.id);
     this.loadNumberOfOwnPosts(this.loggedUser.id);
+
   }
 
   loadNumberOfPosts(){
@@ -83,6 +96,11 @@ export class DashboardPage {
 
   viewEvents(){
     this.navCtrl.push(EventsPage);
+  }
+
+  viewLaws(){
+    this.navCtrl.push(LawPage);
+
   }
 
   editProfile(){

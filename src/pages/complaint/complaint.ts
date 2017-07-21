@@ -9,7 +9,7 @@ import {DomSanitizer} from '@angular/platform-browser';
 import { AuthService, User } from '../../providers/auth-service';
 import config from '../../app/config.json';
 import { SocialSharing } from '@ionic-native/social-sharing';
-
+import { PhotoViewer } from '@ionic-native/photo-viewer';
 
 /*
   Generated class for the Complaint page.
@@ -68,7 +68,7 @@ export class ComplaintPage {
 
   constructor(public navCtrl: NavController, public navParams: NavParams, public complaintService: ComplaintService,
     private alertCtrl: AlertController, private loadingCtrl: LoadingController, private _DomSanitizer: DomSanitizer,
-    private auth: AuthService, private sharingVar: SocialSharing, platform:Platform) {
+    private auth: AuthService, private sharingVar: SocialSharing, platform:Platform,private photoViewer: PhotoViewer) {
       this.platform = platform;
     this.userId = this.auth.getUserInfo().id;
     let u = this.auth.getUserInfo();
@@ -114,7 +114,7 @@ export class ComplaintPage {
       let mapOptions = {
         center: latLng,
         zoom: 7,
-        mapTypeId: google.maps.MapTypeId.ROADMAP
+        mapTypeId: google.maps.MapTypeId.TERRAIN
       }
 
       this.map = new google.maps.Map(this.mapElement.nativeElement, mapOptions);
@@ -298,15 +298,19 @@ export class ComplaintPage {
     facebookShare(){
       this.sharingVar.shareViaFacebookWithPasteMessageHint(this.complains[0].details,this.complains[0].image,this.complains[0].details,"https://play.google.com/store/apps/details?id=com.ionicframework.envapp657580")
       .then(()=>{
-        alert("Success");
+        //alert("Success");
       },
       ()=>{
-         alert("failed")
+         alert("Please login into Facebbook and try again!")
       })
   }
 
   public exitApp(){
     this.platform.exitApp();
+  }
+
+  zoomImg(img){
+    this.photoViewer.show(img);
   }
 
 }

@@ -1,5 +1,6 @@
 import { Component } from '@angular/core';
 import { NavController, NavParams, Platform } from 'ionic-angular';
+import {EventService} from '../../providers/event-service';
 
 /*
   Generated class for the Events page.
@@ -9,33 +10,33 @@ import { NavController, NavParams, Platform } from 'ionic-angular';
 */
 @Component({
   selector: 'page-events',
-  templateUrl: 'events.html'
+  templateUrl: 'events.html',
+  providers: [EventService],
+
 })
 export class EventsPage {
 
-  events = [
-    {
-      title : "Event 1",
-      date: "2017-01-01",
-      location: "Colombo"
-    },
-    {
-      title : "Event 2",
-      date: "2017-01-02",
-      location: "Colombo"
-    }
-  ];
+  events;
 
   noInfoMsg="No Events Found";
 
   platform;
 
-  constructor(public navCtrl: NavController, public navParams: NavParams, plaform: Platform) {
+  constructor(public navCtrl: NavController, public navParams: NavParams, plaform: Platform, public eventService:EventService) {
     this.platform = Platform;
   }
 
+
+
   ionViewDidLoad() {
-    console.log('ionViewDidLoad EventsPage');
+    this.loadEvents();
+  }
+
+  loadEvents(){
+    this.eventService.load()
+      .then(data => {
+        this.events = data;
+    });
   }
 
   public exitApp(){

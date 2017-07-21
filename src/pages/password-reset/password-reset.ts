@@ -21,24 +21,36 @@ export class PasswordResetPage {
 
 
     public reset(){
+
+
       this.showLoading();
 
-      this.auth.verifyEmailWithMobile(this.resetCredentials).then(emailCheckPw => {
-        if (emailCheckPw["status"] === 'OK' && emailCheckPw["msg"] && emailCheckPw["msg"] === 'VERIFIED') {
-          setTimeout(() => {
-            this.loading.dismiss();
-            this.nav.push(VerifyResetPage, {
-              mobile: this.resetCredentials.mobile
-            });
-          } );
-        }else {
-          this.showError("Email and Mobile number doesn't match !");
+      if(this.resetCredentials.email || this.resetCredentials.mobile){
+
+
+        this.auth.verifyEmailWithMobile(this.resetCredentials).then(emailCheckPw => {
+          if (emailCheckPw["status"] === 'OK' && emailCheckPw["msg"] && emailCheckPw["msg"] === 'VERIFIED') {
+            setTimeout(() => {
+              this.loading.dismiss();
+              this.nav.push(VerifyResetPage, {
+                mobile: this.resetCredentials.mobile,
+                email: this.resetCredentials.email
+              });
+            } );
+          }else {
+            this.showError("Email and Mobile number doesn't match !");
+            this.nav.setRoot(LoginPage);
+          }
+        },error => {
+          this.showError("Please try again");
           this.nav.setRoot(LoginPage);
-        }
-      },error => {
-        this.showError("Please try again");
-        this.nav.setRoot(LoginPage);
-      });
+        });
+
+      }else{
+        this.showError("Email or Mobile number needs to enter !");
+        return;
+      }
+
     }
 
 

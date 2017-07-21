@@ -10,14 +10,24 @@ import { VerifyPage } from '../verify/verify';
 })
 export class RegisterPage {
 
+  type= "password";
+  show = false;
+
   loading: Loading;
   createSuccess = false;
   registerCredentials = {email: '', password: '',repassword:'',username:'',name:'',mobile:'', type:'', expertType:'', mediaType:'', isJoined:false};
 
   expertTypes = [
-    'Bio',
-    'Animal',
-    'Plant'
+    'Marine and Coastal Ecologist',
+    'Terrestrial ecologist',
+    'Environmental Laws regulation and Institutional',
+    'Water Quality & pollution',
+    'Hydrologist',
+    'Air Quality',
+    'Geologist',
+    'Archaeologist',
+    'Solid waste & Waste water',
+    'Quarantine & customs'
   ];
 
   constructor(private nav: NavController, private auth: AuthService, private alertCtrl: AlertController, private loadingCtrl: LoadingController) {}
@@ -123,4 +133,14 @@ export class RegisterPage {
   displayJoinedMessage(){
     if(this.registerCredentials.isJoined) this.showPopup("Join to panel","You can only join after the verification process");
   }
+
+  toggleShow(){
+        this.show = !this.show;
+        if (this.show){
+            this.type = "text";
+        }
+        else {
+            this.type = "password";
+        }
+    }
 }

@@ -18,9 +18,13 @@ import {HomePage} from '../home/home';
 export class ListSpeciesPage {
 
 	public species: any;
+	public tempSpecies: any;
+  start; end;
 
 	username = '';
 	email = '';
+
+	postType:null
 
 	//adv = '';
 	adv = config.main.baseUrl +  '/1.jpg';
@@ -37,17 +41,37 @@ export class ListSpeciesPage {
 	platform;
 
 	constructor(private nav: NavController, private auth: AuthService, public alertCtrl: AlertController ,
-		public loadingCtrl:LoadingController ,public speciesService: SpeciesService, private _DomSanitizer: DomSanitizer, platform: Platform) {
+		public loadingCtrl:LoadingController ,public speciesService: SpeciesService, private _DomSanitizer: DomSanitizer,
+		 platform: Platform,public navParams: NavParams) {
 			this.platform = platform;
 		let info = this.auth.getUserInfo();
 		this.username = info.name;
 		this.email = info.email;
 		this.userId = info.id;
 
-		this.loadSpecies(info.id);
+		this.start = 0;
+    this.end = 15;
+
+		this.postType = navParams.get("type");
+
+
+		if(this.postType === 'SPEC'){
+      this.loadSpecies(info.id);
+    }else if(this.postType === 'FAV'){
+      this.loadFavorites(info.id);
+    }else{
+      this.loadSpecies(info.id);
+    }
+
 		//this.loadAdv(Math.floor((Math.random() * 10) + 1));
 		let adv_number = Math.floor((Math.random() * 10) + 1);
 		this.adv = config.main.baseUrl + '/'+adv_number+'.jpg';
+
+
+	}
+
+	ionViewDidEnter(){
+		console.log("test")
 	}
 
 	public logout() {
@@ -58,15 +82,38 @@ export class ListSpeciesPage {
 		});
 	}
 
+	// loadSpecies(id){
+	// 	this.speciesService.load(id)
+	// 	.then(data => {
+	// 		this.species = data;
+  //     if(this.species.length ==0 ){
+  //       this.noInfoMsg = "No Species Found.";
+  //     }
+	// 	});
+	// }
+
 	loadSpecies(id){
-		this.speciesService.load(id)
-		.then(data => {
-			this.species = data;
-      if(this.species.length ==0 ){
-        this.noInfoMsg = "No Species Found.";
-      }
-		});
-	}
+    this.tempSpecies=[];
+    this.speciesService.loadChunk(id,this.start,this.end)
+      .then(data => {
+        console.log(data);
+        this.tempSpecies = data;
+        if(this.tempSpecies && this.tempSpecies.length >0){
+          if(!this.species || this.species.length === 0){
+            this.species = data;
+          }else{
+            this.species = this.species.concat(this.tempSpecies);
+
+          }
+          this.start += 15;
+          this.end = 15;
+        }
+
+        if(this.species.length == 0){
+          this.noInfoMsg = "No Species Found.";
+        }
+      });
+    }
 
 
 	toggleFavorite(specId,index){
@@ -129,7 +176,67 @@ export class ListSpeciesPage {
 
 	backHome(){
 		//this.navCtrl.pop();
-		this.nav.setRoot(HomePage); // previous view will be cached
-	this.nav.setRoot(HomePage);
+
+
+	if(this.postType === 'SPEC'){
+		this.nav.push(HomePage); // previous view will be cached
+		this.nav.push(HomePage,);
+	}else if(this.postType === 'FAV'){
+		this.nav.push(HomePage,{
+      type: 'FAV'
+    }); // previous view will be cached
+	this.nav.push(HomePage,{
+		type: 'FAV'
+	});
+	}else{
+		this.nav.push(HomePage); // previous view will be cached
+		this.nav.push(HomePage);
 	}
+	}
+
+
+		doInfinite(infiniteScroll) {
+			setTimeout(() => {
+				let info = this.auth.getUserInfo();
+				if(this.postType === 'SPEC'){
+					this.loadSpecies(info.id);
+				}else if(this.postType === 'FAV'){
+					this.loadFavorites(info.id);
+				}else{
+					this.loadSpecies(info.id);
+				}
+				infiniteScroll.complete();
+			}, 5000);
+	}
+
+
+
+	loadFavorites(id){
+		this.tempSpecies=[];
+		this.speciesService.loadFavoritesSpeciesChunk(id,this.start,this.end)
+			.then(data => {
+				console.log(data);
+				this.tempSpecies = data;
+				if(this.tempSpecies && this.tempSpecies.length >0){
+					if(!this.species || this.species.length === 0){
+						this.species = data;
+					}else{
+						this.species = this.species.concat(this.tempSpecies);
+
+					}
+					this.start += 15;
+					this.end = 15;
+				}
+
+				if(this.species.length == 0){
+					this.noInfoMsg = "No Complains Found.";
+				}
+			});
+		}
+
+		getImgUrl(id){
+			let loc = config.main.baseUrl + '/species/thumb/'+id+'_0_thumb.jpg';
+
+      return this._DomSanitizer.bypassSecurityTrustUrl(loc);
+		}
 }

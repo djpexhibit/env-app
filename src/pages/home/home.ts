@@ -3,6 +3,8 @@ import {Component} from '@angular/core';
 import {NavController,AlertController,Loading, LoadingController, NavParams, Platform} from 'ionic-angular';
 import { AuthService } from '../../providers/auth-service';
 import { LoginPage } from '../login/login';
+import { DashboardPage } from '../dashboard/dashboard';
+
 import { ComplaintPage } from '../complaint/complaint';
 import {ComplaintService} from '../../providers/complaint-service';
 import {AddCompaintPage} from '../add-compaint/add-compaint';
@@ -42,7 +44,7 @@ export class HomePage {
   complaint = ComplaintPage;
   addComplaint = AddCompaintPage;
 
-  noInfoMsg:string = "Loading";
+  noInfoMsg:string = "Loading...";
 
   thumbsImg = './assets/img/thumbs.jpg';
 
@@ -68,7 +70,7 @@ export class HomePage {
     this.adv = config.main.baseUrl + '/'+adv_number+'.jpg';
 
     this.start = 0;
-    this.end = 2;
+    this.end = 15;
   }
 
   ionViewDidEnter() {
@@ -94,8 +96,6 @@ export class HomePage {
   }
 
   loadComplaints(id){
-    console.log("SSSSSSSSSSSs");
-    console.log(this.start); console.log(this.end);
     this.tempComplains=[];
     this.complaintService.loadChunk(id,this.start,this.end)
       .then(data => {
@@ -103,15 +103,13 @@ export class HomePage {
         this.tempComplains = data;
         if(this.tempComplains && this.tempComplains.length >0){
           if(!this.complaints || this.complaints.length === 0){
-            console.log("1111111111")
             this.complaints = data;
           }else{
-            console.log("22222222222")
             this.complaints = this.complaints.concat(this.tempComplains);
 
           }
-          this.start += 2;
-          this.end = 2;
+          this.start += 15;
+          this.end = 15;
         }
 
         if(this.complaints.length == 0){
@@ -120,11 +118,34 @@ export class HomePage {
       });
     }
 
+    // loadFavorites(id){
+    //   console.log("ddddddddddddd")
+    //   this.complaintService.loadFavorites(id)
+    //     .then(data => {
+    //       this.complaints = data;
+    //       if(this.complaints.length == 0){
+    //         this.noInfoMsg = "No Complains Found.";
+    //       }
+    //     });
+    //   }
+
     loadFavorites(id){
-      console.log("ddddddddddddd")
-      this.complaintService.loadFavorites(id)
+      this.tempComplains=[];
+      this.complaintService.loadFavoritesChunk(id,this.start,this.end)
         .then(data => {
-          this.complaints = data;
+          console.log(data);
+          this.tempComplains = data;
+          if(this.tempComplains && this.tempComplains.length >0){
+            if(!this.complaints || this.complaints.length === 0){
+              this.complaints = data;
+            }else{
+              this.complaints = this.complaints.concat(this.tempComplains);
+
+            }
+            this.start += 15;
+            this.end = 15;
+          }
+
           if(this.complaints.length == 0){
             this.noInfoMsg = "No Complains Found.";
           }
@@ -172,6 +193,12 @@ export class HomePage {
 
     getBackground (image) {
       return this._DomSanitizer.bypassSecurityTrustStyle(`url(${image})`);
+    }
+
+    getBackgroundThumb (id) {
+      let loc = config.main.baseUrl + '/complains/thumb/'+id+'_0_thumb.jpg';
+
+      return this._DomSanitizer.bypassSecurityTrustStyle(`url(${loc})`);
     }
 
     toggleFavorite(){
@@ -239,17 +266,37 @@ export class HomePage {
     }
 
     navType(){
-      if(this.selectedType === 'SPECIES')
-      this.nav.push(ListSpeciesPage);
+      if(this.selectedType === 'SPECIES' && this.postType !== 'FAV'){
+        this.nav.push(ListSpeciesPage,{type:'SPEC'});
+
+      }else if (this.selectedType === 'SPECIES' && this.postType === 'FAV'){
+        this.nav.push(ListSpeciesPage,{type:'FAV'});
+
+      }
     }
 
     doInfinite(infiniteScroll) {
       setTimeout(() => {
         let info = this.auth.getUserInfo();
-        this.loadComplaints(info.id);
+        if(this.postType === 'COMP'){
+          this.loadComplaints(info.id);
+        }else if(this.postType === 'FAV'){
+          this.loadFavorites(info.id);
+        }else{
+          this.loadComplaints(info.id);
+        }
         infiniteScroll.complete();
-      }, 500);
+      }, 5000);
   }
+
+
+
+
+      backHome(){
+        //this.navCtrl.pop();
+        this.nav.setRoot(DashboardPage); // previous view will be cached
+      this.nav.setRoot(DashboardPage);
+      }
 
 
   /*loadAdv(id){

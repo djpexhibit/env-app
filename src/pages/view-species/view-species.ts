@@ -9,6 +9,8 @@ import { AuthService } from '../../providers/auth-service';
 import config from '../../app/config.json';
 import {HomePage} from '../home/home';
 import {ListSpeciesPage} from '../list-species/list-species';
+import { PhotoViewer } from '@ionic-native/photo-viewer';
+
 
 declare var google;
 
@@ -59,7 +61,7 @@ export class ViewSpeciesPage {
 
 	constructor(public navCtrl: NavController, public navParams: NavParams, public speciesService: SpeciesService,
 		private alertCtrl: AlertController, private loadingCtrl: LoadingController, private _DomSanitizer: DomSanitizer,
-		 private auth: AuthService, platform: Platform) {
+		 private auth: AuthService, platform: Platform,private photoViewer: PhotoViewer) {
 
 			 this.platform = platform;
 
@@ -99,7 +101,7 @@ if(u.type === 'Media' || u.type === 'Expert'){
 			let mapOptions = {
 				center: latLng,
 				zoom: 15,
-				mapTypeId: google.maps.MapTypeId.ROADMAP
+				mapTypeId: google.maps.MapTypeId.TERRAIN
 			}
 
 			this.map = new google.maps.Map(this.mapElement.nativeElement, mapOptions);
@@ -238,8 +240,12 @@ if(u.type === 'Media' || u.type === 'Expert'){
 
 	backHome(){
 		//this.navCtrl.pop();
-		this.navCtrl.setRoot(ListSpeciesPage); // previous view will be cached
-	this.navCtrl.setRoot(ListSpeciesPage);
+		this.navCtrl.push(ListSpeciesPage); // previous view will be cached
+	this.navCtrl.push(ListSpeciesPage);
 	}
+
+	zoomImg(img){
+    this.photoViewer.show(img);
+  }
 
 }

@@ -12,10 +12,11 @@ export class VerifyResetPage {
 
   loading: Loading;
   createSuccess = false;
-  verifyCredentials = {mobile:'', mobileCode:'', password:'', repassword:''};
+  verifyCredentials = {mobile:'', mobileCode:'', password:'', repassword:'', email:''};
 
   constructor(private nav: NavController, private navParams: NavParams, private auth: AuthService, private alertCtrl: AlertController, private loadingCtrl: LoadingController) {
     this.verifyCredentials.mobile = navParams.get("mobile");
+    this.verifyCredentials.email = navParams.get("email");
   }
 
   public verify(){

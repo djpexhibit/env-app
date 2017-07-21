@@ -48,7 +48,7 @@
         <button ion-button (click)="exitApp()">
             <ion-icon name="exit"></ion-icon>
           </button>
-    
+
 
     </ion-buttons>
   </ion-navbar>
@@ -67,36 +67,40 @@
 
   <ion-row>
     <ion-col width-33>
-      <img imageViewer [src]="_DomSanitizer.bypassSecurityTrustUrl(complains[0].image)" *ngIf="complains[0] && complains[0].image"  class="tile-icon"  />
+      <img (click)="zoomImg(complains[0].image)"  [src]="_DomSanitizer.bypassSecurityTrustUrl(complains[0].image)" *ngIf="complains[0] && complains[0].image"  class="tile-icon"  />
       <img  *ngIf="!complains[0] || !complains[0].image"  class="tile-icon" src="plus.jpg" />
     </ion-col>
     <ion-col width-33>
-      <img imageViewer [src]="_DomSanitizer.bypassSecurityTrustUrl(complains[1].image)" *ngIf="complains[1] && complains[1].image"  class="tile-icon"  />
+      <img (click)="zoomImg(complains[1].image)" [src]="_DomSanitizer.bypassSecurityTrustUrl(complains[1].image)" *ngIf="complains[1] && complains[1].image"  class="tile-icon"  />
       <img  *ngIf="!complains[1] || !complains[1].image"  class="tile-icon" src="plus.jpg" />
     </ion-col>
     <ion-col width-33>
-      <img imageViewer [src]="_DomSanitizer.bypassSecurityTrustUrl(complains[2].image)" *ngIf="complains[2] && complains[2].image"  class="tile-icon"  />
+      <img (click)="zoomImg(complains[2].image)" [src]="_DomSanitizer.bypassSecurityTrustUrl(complains[2].image)" *ngIf="complains[2] && complains[2].image"  class="tile-icon"  />
       <img   *ngIf="!complains[2] || !complains[2].image"  class="tile-icon" src="plus.jpg" />
     </ion-col>
   </ion-row>
 
+  <ion-card>
 
-  <ion-row>
-    <ion-col width-100>
-    <ion-item>
+  <ion-row >
+     <ion-col width-100>
+
       <ion-buttons end *ngIf="complains[0].uid == userId" >
         <button [navPush]="editComplain" [navParams]={id:complains[0].id} >
           <ion-icon name="md-create"></ion-icon>
         </button>
       </ion-buttons>
-
+      <div class="main-det">
       <p class="comp-text"> Problem  : {{complains[0].type}} </p>
-      <p class="comp-text"> Location : {{complains[0].location}} </p>
+      <p class="comp-text">
+        Location : {{complains[0].location}} <br/>
+        <span *ngIf="complains[0].lat">(Lat : {{complains[0].lat}}, Lng : {{complains[0].lng}} ) </span>
+      </p>
       <p class="comp-text"> Party    : {{complains[0].res_person}} </p>
       <p class="comp-text" *ngIf="!complains[0].anonymous"> Reported By : {{complains[0].user}} </p>
       <p class="comp-text"> On : {{complains[0].date}} </p>
-    </ion-item>
 
+    </div>
     <ion-row>
       <ion-col>
         <div class="des">
@@ -108,7 +112,7 @@
 
   </ion-col>
   </ion-row>
-
+</ion-card>
 <!-- <ion-card>
 
   <ion-row *ngFor="let comp of complains">
@@ -130,11 +134,15 @@
 <div *ngIf="complains && complains[0] && complains[0].lat" [hidden]="hideMap" width="60%" height="100%"  #map id="map"></div>
 
 <ion-card>
+  <ion-item>
+    <ion-label>Comments</ion-label>
+  </ion-item>
+
   <ion-list *ngIf="comments && comments.length > 0" inset>
     <div *ngFor="let comment of comments">
-      <button  ion-item [class.admin_comment]="checkAdminComment(comment)"  >
-        <h2>{{comment.user}}</h2>
-        <h4>{{comment.date}}</h4>
+      <button class="com"  [class.admin_comment]="checkAdminComment(comment)"  >
+        <p>{{comment.user}}</p>
+        <p>{{comment.date}}</p>
         <p [class.admin_comment]="checkAdminComment(comment)">{{comment.details}}</p>
       </button>
     </div>
@@ -148,8 +156,8 @@
   <ion-row class="pex-input">
     <ion-col>
       <ion-item>
-        <ion-label stacked>Put your comment here.</ion-label>
-        <ion-textarea [(ngModel)]="comment.details" name="location" placeholder="Enter information" ></ion-textarea>
+        <ion-label stacked>Make a Comment</ion-label>
+        <ion-textarea [(ngModel)]="comment.details" name="location" placeholder="" ></ion-textarea>
       </ion-item>
     </ion-col>
   </ion-row>
@@ -160,7 +168,7 @@
   </ion-row>
 </ion-card>
 
-<ion-card>
+<ion-card style="margin-bottom:30px">
   <img [src]="adv" />
 </ion-card>
 

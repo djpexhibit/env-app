@@ -111,8 +111,8 @@
 			</ion-item>
 
 			<ion-item>
-				<ion-label stacked>Person/Firm</ion-label>
-				 <ion-input type="text" placeholder="Violated by" name="person" [(ngModel)]="complaint.person" required></ion-input>
+				<ion-label stacked>Violated Person/Firm</ion-label>
+				 <ion-input type="text" placeholder="" name="person" [(ngModel)]="complaint.person" required></ion-input>
 			</ion-item>
 
 
@@ -157,7 +157,7 @@
   </ion-item>
   <ion-item *ngIf="complaint.lat && complaint.lat != 0">
       <ion-label stacked>  <ion-icon name="locate"></ion-icon>Latitude : {{complaint.lat}} </ion-label><br/>
-      <ion-label stacked>  <ion-icon name="locate"></ion-icon>longitude : {{complaint.lng}} </ion-label>
+      <ion-label style="margin-top:2px; margin-bottom:10px" stacked>  <ion-icon name="locate"></ion-icon>Longitude : {{complaint.lng}} </ion-label>
   </ion-item>
   <ion-buttons style="text-align:center">
     <button ion-button  color="dark" (click)="loadMap()"><ion-icon name="add"></ion-icon>Mark Current Location</button>

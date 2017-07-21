@@ -1,6 +1,6 @@
 <ion-header>
   <ion-navbar color="dark">
-    <ion-title>Dashboard</ion-title>
+    <ion-title>ecoforce</ion-title>
 
     <ion-buttons end >
 
@@ -20,7 +20,7 @@
   <ion-grid>
     <ion-row>
       <ion-col width-50>
-        {{numberOfPosts}} Threads
+        {{numberOfPosts}}  {{ 'THREADS' | translate }}
       </ion-col>
       <ion-col width-50 class="text-right-align">
         {{numberOfUsers}} Users
@@ -29,7 +29,7 @@
   </ion-grid>
 
   <ion-grid>
-    <ion-row>
+    <ion-row (longPress)="editProfile($event)">
       <ion-col width-25>
       </ion-col>
       <ion-col width-50>
@@ -48,9 +48,9 @@
     <div>
       {{loggedUser.email}}
     </div>
-    <div (click)="editProfile()">
+  <!--  <div (click)="editProfile()">
       Edit Profile
-    </div>
+    </div> -->
   </div>
 
   <ion-grid class="icon-section">
@@ -82,7 +82,7 @@
         <img (click)="viewEvents()" class="tile-icon" src="tile4.jpg" />
       </ion-col>
       <ion-col width-33>
-        <img class="tile-icon" src="tile5.jpg" />
+        <img (click)="viewLaws()" class="tile-icon" src="tile5.jpg" />
       </ion-col>
       <ion-col width-33>
         <img class="tile-icon" src="tile6.jpg" />

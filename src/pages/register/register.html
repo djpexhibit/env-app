@@ -63,12 +63,13 @@
               <ion-toggle (click)="displayJoinedMessage()" name="isJoined" [(ngModel)]="registerCredentials.isJoined" checked="false"></ion-toggle>
             </ion-item>
 
+            <a (click)="toggleShow()">show/hide</a>
             <ion-item>
-              <ion-input type="password" placeholder="Password" name="password" [(ngModel)]="registerCredentials.password" required></ion-input>
+              <ion-input type="{{type}}" placeholder="Password" name="password" [(ngModel)]="registerCredentials.password" required></ion-input>
             </ion-item>
 
              <ion-item>
-              <ion-input type="password" placeholder="Enter Password Again" name="repassword" [(ngModel)]="registerCredentials.repassword" required></ion-input>
+              <ion-input type="{{type}}" placeholder="Enter Password Again" name="repassword" [(ngModel)]="registerCredentials.repassword" required></ion-input>
             </ion-item>
 
           </ion-list>

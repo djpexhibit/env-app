@@ -132,8 +132,9 @@ export class EditComplainPage {
   takePicture(){
     Camera.getPicture({
       destinationType: Camera.DestinationType.DATA_URL,
-      targetWidth: 320,
-      targetHeight: 320,
+      quality: 70,
+      targetWidth: 640,
+      targetHeight: 640,
       correctOrientation: true
     }).then((imageData) => {
       // imageData is a base64 encoded string

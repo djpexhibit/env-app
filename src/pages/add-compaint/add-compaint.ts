@@ -117,9 +117,9 @@ export class AddCompaintPage {
   takePicture(){
     Camera.getPicture({
       destinationType: Camera.DestinationType.DATA_URL,
-      quality: 100,
-      targetWidth: 320,
-      targetHeight: 320,
+      quality: 70,
+      targetWidth: 640,
+      targetHeight: 640,
       correctOrientation: true
     }).then((imageData) => {
       // imageData is a base64 encoded string
@@ -216,14 +216,14 @@ export class AddCompaintPage {
 
   addComplain(){
     this.showLoading();
-    if((this.complaint.person && this.complaint.location)
-        || (this.complaint.person && this.complaint.lat)
-        || (this.complaint.person && this.imageCounter > 0)
-        || (this.complaint.details && this.complaint.location)
-        || (this.complaint.details && this.complaint.lat)
-        || (this.complaint.details && this.imageCounter > 0)
-        || (this.complaint.location && this.imageCounter > 0)
-        || (this.complaint.lat && this.imageCounter > 0)
+    if((this.complaint.person && this.complaint.location && this.complaint.type)
+        || (this.complaint.person && this.complaint.lat && this.complaint.type)
+        || (this.complaint.person && this.imageCounter > 0 && this.complaint.type)
+        || (this.complaint.details && this.complaint.location && this.complaint.type)
+        || (this.complaint.details && this.complaint.lat && this.complaint.type)
+        || (this.complaint.details && this.imageCounter > 0 && this.complaint.type)
+        || (this.complaint.location && this.imageCounter > 0 && this.complaint.type)
+        || (this.complaint.lat && this.imageCounter > 0 && this.complaint.type)
       ){
       console.log("SAVING COMPLAIN");
       this.complaint.user=this.userid;

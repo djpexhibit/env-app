@@ -25,11 +25,19 @@ import { DashboardProvider } from '../providers/dashboard-provider';
 import { ProfilePage } from '../pages/profile/profile';
 import { MobileUpdatePage } from '../pages/mobile-update/mobile-update';
 import { SocialSharing } from '@ionic-native/social-sharing';
-import { IonicImageViewerModule } from 'ionic-img-viewer';
-
+//import { IonicImageViewerModule } from 'ionic-img-viewer';
+import { PhotoViewer } from '@ionic-native/photo-viewer';
 import { Camera,Transfer,File } from 'ionic-native';
 
 import { PressDirective } from "../components/press-directive/press-directive";
+import { TranslateModule } from 'ng2-translate/ng2-translate';
+import { TranslateLoader, TranslateStaticLoader } from 'ng2-translate/src/translate.service';
+import { Http } from '@angular/http';
+
+
+export function createTranslateLoader(http: Http){
+  return new TranslateStaticLoader(http,'assets/i18n','.json')
+}
 
 
 @NgModule({
@@ -59,7 +67,12 @@ import { PressDirective } from "../components/press-directive/press-directive";
   ],
   imports: [
     IonicModule.forRoot(MyApp),
-    IonicImageViewerModule
+    //IonicImageViewerModule,
+    TranslateModule.forRoot({
+      provide: TranslateLoader,
+			useFactory: (createTranslateLoader),
+			deps: [Http]
+    })
   ],
   bootstrap: [IonicApp],
   entryComponents: [
@@ -85,6 +98,6 @@ import { PressDirective } from "../components/press-directive/press-directive";
     ProfilePage,
     MobileUpdatePage
   ],
-  providers: [SplashScreen,AuthService, Camera, Transfer, File, DashboardProvider, SocialSharing]
+  providers: [SplashScreen,AuthService, Camera, Transfer, File, DashboardProvider, SocialSharing,PhotoViewer]
 })
 export class AppModule {}

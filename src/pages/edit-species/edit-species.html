@@ -40,17 +40,42 @@
 	</ion-row>
 	<span class="white-font">(Max 3 images)</span>
 
+	<ion-row>
+    <ion-col width-33>
+      <img [src]="_DomSanitizer.bypassSecurityTrustUrl(base64Images[0])" *ngIf="base64Images[0]"  class="tile-icon"  />
+      <img  *ngIf="!base64Images[0]"  class="tile-icon" src="plus.jpg" />
+    </ion-col>
+    <ion-col width-33>
+      <img [src]="_DomSanitizer.bypassSecurityTrustUrl(base64Images[1])" *ngIf="base64Images[1]"  class="tile-icon"  />
+      <img  *ngIf="!base64Images[1]"  class="tile-icon" src="plus.jpg" />
+    </ion-col>
+    <ion-col width-33>
+      <img [src]="_DomSanitizer.bypassSecurityTrustUrl(base64Images[2])" *ngIf="base64Images[2]"  class="tile-icon"  />
+      <img  *ngIf="!base64Images[2]"  class="tile-icon" src="plus.jpg" />
+    </ion-col>
+  </ion-row>
+  <ion-row>
+    <ion-col width-33>
+      <button *ngIf="base64Images[0]" class="img-close" ion-button color="dark" type="button" (click)="deletePicture(0)">X</button>
+    </ion-col>
+    <ion-col width-33>
+      <button *ngIf="base64Images[1]" class="img-close" ion-button color="dark" type="button" (click)="deletePicture(1)">X</button>
+    </ion-col>
+    <ion-col width-33>
+      <button *ngIf="base64Images[2]" class="img-close" ion-button color="dark" type="button" (click)="deletePicture(2)">X</button>
+    </ion-col>
+  </ion-row>
 
-	<ion-row *ngFor="let base64Image of base64Images" >
+	<!--<ion-row *ngFor="let base64Image of base64Images" >
 		<ion-col width-80>
 			<img [src]="_DomSanitizer.bypassSecurityTrustUrl(base64Image)" *ngIf="base64Image" />
 		</ion-col>
-	</ion-row>
+	</ion-row> -->
 
 
 	<ion-item>
 			<ion-label stacked>Select Type</ion-label>
-			<ion-select [(ngModel)]="species.type" name="type" >
+			<ion-select [(ngModel)]="specie.type" name="type" >
 				<ion-option  value="Plant" >Plant</ion-option>
 				<ion-option  value="Animal" >Animal</ion-option>
 			</ion-select>
@@ -58,12 +83,12 @@
 
 	<ion-item>
 		<ion-label stacked>Common name / Scientific name</ion-label>
-		<ion-textarea [(ngModel)]="species.name" name="name" placeholder="Enter information"></ion-textarea>
+		<ion-textarea [(ngModel)]="specie.name" name="name" placeholder="Enter information"></ion-textarea>
 	</ion-item>
 
 	<ion-item>
 		<ion-label stacked>Genus name and the species name</ion-label>
-		<ion-textarea [(ngModel)]="species.specname" name="specname" placeholder="Enter information"></ion-textarea>
+		<ion-textarea [(ngModel)]="specie.specname" name="specname" placeholder="Enter information"></ion-textarea>
 	</ion-item>
 
 
@@ -74,7 +99,7 @@
 
 	<ion-item>
 		<ion-label>Date/Time</ion-label>
-		<ion-datetime displayFormat="MMM DD, YYYY HH:mm" [(ngModel)]="species.datetime"></ion-datetime>
+		<ion-datetime displayFormat="MMM DD, YYYY HH:mm" [(ngModel)]="specie.datetime"></ion-datetime>
 	</ion-item>
 
 

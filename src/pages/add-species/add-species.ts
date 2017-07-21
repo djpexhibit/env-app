@@ -28,7 +28,7 @@ export class AddSpeciesPage {
 
   loading: Loading;
   public base64Images : Array<string> = [];
-  species = {type: '', name:'', specname: '',lat:0,lng:0, location:'',datetime:'',user:0,anonymous:false};
+  species = {type: '', name:'', specname: '',lat:0,lng:0, location:'',datetime:new Date().toISOString(),user:0,anonymous:false};
   public imageCounter: number;
 
   username = '';
@@ -42,6 +42,8 @@ export class AddSpeciesPage {
   map: any;
 
   platform;
+
+  marker;
 
   constructor(public navCtrl: NavController, public navParams: NavParams, public speciesService: SpeciesService,
     private alertCtrl: AlertController, private loadingCtrl: LoadingController, private auth: AuthService,
@@ -73,7 +75,7 @@ export class AddSpeciesPage {
       let mapOptions = {
         center: latLng,
         zoom: 15,
-        mapTypeId: google.maps.MapTypeId.ROADMAP
+        mapTypeId: google.maps.MapTypeId.TERRAIN
       }
 
       this.map = new google.maps.Map(this.mapElement.nativeElement, mapOptions);
@@ -87,9 +89,9 @@ export class AddSpeciesPage {
   takePicture(){
     Camera.getPicture({
       destinationType: Camera.DestinationType.DATA_URL,
-      targetWidth: 320,
-      targetHeight: 320,
-      quality:100,
+      targetWidth: 640,
+      targetHeight: 640,
+      quality:70,
       correctOrientation: true
     }).then((imageData) => {
       // imageData is a base64 encoded string
@@ -247,7 +249,9 @@ export class AddSpeciesPage {
 
 
   addMarker(){
-    let marker = new google.maps.Marker({
+    if(this.marker)
+           	this.marker.setMap(null)
+    this.marker = new google.maps.Marker({
       map: this.map,
       animation: google.maps.Animation.DROP,
       position: this.map.getCenter()
@@ -258,7 +262,7 @@ export class AddSpeciesPage {
 
 
     let content = "<h4>Marked Place!</h4>";
-    this.addInfoWindow(marker, content);
+    this.addInfoWindow(this.marker, content);
   }
 
   addInfoWindow(marker, content){

@@ -21,6 +21,18 @@ page-add-species {
 					width: 95%;
 					height: 50px;
 				}
+
+				.tile-icon{
+					width: 100px;
+					height: auto;
+					max-height: 100px;
+					border: 2px dashed #acacac;
+					border-radius: 10px;
+				}
+
+				.img-close{
+					text-align: center;
+				}
 	}
 
 }

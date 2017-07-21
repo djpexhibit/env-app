@@ -1,8 +1,16 @@
 
 <ion-header>
-  <ion-navbar color="dark">
+  <ion-navbar color="dark" hideBackButton>
+
+
+    <ion-buttons left>
+        <button ion-button (click)="backHome()">
+            <ion-icon class="customIcon" name="arrow-back"></ion-icon>
+        </button>
+    </ion-buttons>
+
     <ion-title *ngIf="!showFAB">
-      Complains
+      Crime Log
     </ion-title>
   <!--  <ion-buttons start>
       <button ion-button icon-only [navPush]="addComplaint">
@@ -10,9 +18,9 @@
       </button>
     </ion-buttons> -->
 
-    <button ion-button menuToggle>
+  <!--  <button ion-button menuToggle>
       <ion-icon name="menu"></ion-icon>
-    </button>
+    </button> -->
 
     <ion-buttons end *ngIf="!showFAB">
 
@@ -75,12 +83,27 @@
     </ion-fab-list>
   </ion-fab> -->
 
-  <ion-item>
+  <!-- <ion-item>
 
       <ion-select [(ngModel)]="selectedType" name="selectedType" (ionChange)="navType()" >
         <ion-option *ngFor="let selectedType of selectedTypes" value={{selectedType.id}} >{{selectedType.value}}</ion-option>
       </ion-select>
-  </ion-item>
+  </ion-item> -->
+
+  <ion-row name="selectedType" radio-group [(ngModel)]="selectedType" (ionChange)="navType()">
+    <ion-col>
+      <ion-item>
+        <ion-label>Complains</ion-label>
+        <ion-radio value="COMPLAIN"></ion-radio>
+      </ion-item>
+    </ion-col>
+    <ion-col>
+      <ion-item>
+        <ion-label>Species</ion-label>
+        <ion-radio value="SPECIES"></ion-radio>
+      </ion-item>
+    </ion-col>
+  </ion-row>
 
   <ion-fab bottom right>
     <button ion-fab color="light" mini  [navPush]="addComplaint"><ion-icon name="add"></ion-icon></button>
@@ -101,7 +124,7 @@
             <div class="list-desc">{{complain.details}}...</div>
           </ion-col> -->
           <ion-col  class="list-pic" [style.border]="(seletedComplainId === complain.id)?getb():null"
-            [style.background-image]="(complain.image)?getBackground(complain.image):getBackground(thumbsImg)"
+            [style.background-image]="(complain.image)?getBackgroundThumb(complain.id):getBackground(thumbsImg)"
             [style.background-repeat]="getr()"  [style.background-position]="getp()" [style.background-size]="getz()">
             <div class="row list-icon">
               <ion-icon name="person" item-right></ion-icon>

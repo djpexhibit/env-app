@@ -3,6 +3,8 @@ import { AuthService, User } from '../../providers/auth-service';
 import { NavController,NavParams, AlertController ,LoadingController, Loading , Platform } from 'ionic-angular';
 import {  Camera } from 'ionic-native';
 import { MobileUpdatePage } from '../mobile-update/mobile-update';
+import { LoginPage } from '../login/login';
+
 
 @Component({
   selector: 'page-profile',
@@ -20,6 +22,19 @@ export class ProfilePage {
   passwordVerified = false;
 
   platform;
+
+  expertTypes = [
+    'Marine and Coastal Ecologist',
+    'Terrestrial ecologist',
+    'Environmental Laws regulation and Institutional',
+    'Water Quality & pollution',
+    'Hydrologist',
+    'Air Quality',
+    'Geologist',
+    'Archaeologist',
+    'Solid waste & Waste water',
+    'Quarantine & customs'
+  ];
 
   constructor(public navCtrl: NavController, public navParams: NavParams, private auth: AuthService,
     private loadingCtrl: LoadingController,  private alertCtrl: AlertController, platform: Platform) {
@@ -68,7 +83,8 @@ export class ProfilePage {
               if (success) {
                 setTimeout(() => {
                   this.loading.dismiss();
-                  this.showPopup("Edit Profile","Successfully Edited");
+                  this.showPopup("Edit Profile","Successfully Edited. Please Login to the system again !!!");
+                  this.logout();
                 } );
               } else {
                 this.showError("Please try again");
@@ -91,7 +107,8 @@ export class ProfilePage {
         if (success) {
           setTimeout(() => {
             this.loading.dismiss();
-            this.showPopup("Edit Profile","Successfully Edited");
+            this.showPopup("Edit Profile","Successfully Edited. Please Login to the system again !!!");
+            this.logout();
           } );
         } else {
           this.showError("Error");
@@ -169,6 +186,14 @@ export class ProfilePage {
 
   public exitApp(){
     this.platform.exitApp();
+  }
+
+  public logout() {
+    this.auth.logout().subscribe(succ => {
+        localStorage.setItem("logged",null);
+        localStorage.setItem("currentUser",null);
+        this.navCtrl.setRoot(LoginPage);
+    });
   }
 
 }

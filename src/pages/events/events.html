@@ -23,17 +23,19 @@
 
 <ion-content class="cards-bg">
   <ion-list *ngIf="events && events.length > 0" >
-    <div  *ngFor="let event of events; let i = index">
+    <div  *ngFor="let event of events; let i = index" >
 
-      <ion-grid class="post">
-        <ion-row>
+      <ion-grid class="post" >
+        <ion-row class="eve">
           <ion-col width-25>
             <img  class="sca" src="./assets/img/event.png" />
           </ion-col>
           <ion-col width-75>
-            <div class="list-title">{{event.title}}</div>
-            <div class="list-reportedBy">{{event.location }} </div>
             <div class="list-desc">{{event.date}}</div>
+
+            <div class="list-reportedBy">{{event.location }} </div>
+            <div class="list-title">{{event.name}}</div>
+
           </ion-col>
 
         </ion-row>
