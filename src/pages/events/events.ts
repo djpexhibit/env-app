@@ -18,7 +18,7 @@ export class EventsPage {
 
   events;
 
-  noInfoMsg="No Events Found";
+  noInfoMsg="Loading...";
 
   platform;
 
@@ -36,6 +36,10 @@ export class EventsPage {
     this.eventService.load()
       .then(data => {
         this.events = data;
+
+        if(!this.events || this.events.length == 0){
+          this.noInfoMsg = "No Events Found";
+        }
     });
   }
 

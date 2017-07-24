@@ -59,7 +59,7 @@ export class RegisterPage {
         if (emailCheck["status"] === 'OK' && emailCheck["msg"] && emailCheck["msg"] === 'EMAIL_EXIST') {
           setTimeout(() => {
             this.loading.dismiss();
-            this.showError("Email Already Exists"); return;
+            this.showError("Email or Mobile Number Already Exists"); return;
           });
         } else {
           this.auth.register(this.registerCredentials).then(success => {

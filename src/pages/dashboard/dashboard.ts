@@ -5,7 +5,7 @@ import { HomePage } from '../home/home';
 import { AuthService, User } from '../../providers/auth-service';
 import { EventsPage } from '../events/events';
 import { LawPage } from '../law/law';
-
+import { AboutusPage } from '../aboutus/aboutus';
 import { DashboardProvider} from '../../providers/dashboard-provider';
 import { ProfilePage } from '../profile/profile';
 import {DomSanitizer} from '@angular/platform-browser';
@@ -100,6 +100,11 @@ export class DashboardPage {
 
   viewLaws(){
     this.navCtrl.push(LawPage);
+
+  }
+
+  viewAU(){
+    this.navCtrl.push(AboutusPage);
 
   }
 

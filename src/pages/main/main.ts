@@ -8,6 +8,8 @@ import { AddCompaintPage } from '../add-compaint/add-compaint';
 import { DashboardPage } from '../dashboard/dashboard';
 import { AuthService, User } from '../../providers/auth-service';
 import { LoginPage } from '../../pages/login/login';
+import { Tutorial1Page } from '../../pages/tutorial1/tutorial1';
+import { AboutusPage } from '../../pages/aboutus/aboutus';
 
 
 @Component({
@@ -23,7 +25,8 @@ export class MainPage {
   private listSpeciesPage;
   private addCompaintPage;
   private dashboardPage;
-
+  private tutorial1Page;
+  private aboutusPage;
 
   constructor(public navCtrl: NavController, public navParams: NavParams, private auth : AuthService) {
     this.rootPage = DashboardPage;
@@ -34,6 +37,8 @@ export class MainPage {
     this.listSpeciesPage = ListSpeciesPage;
     this.addCompaintPage = AddCompaintPage;
     this.dashboardPage = DashboardPage;
+    this.tutorial1Page = Tutorial1Page;
+    this.aboutusPage = AboutusPage;
 
   }
 
@@ -43,6 +48,10 @@ export class MainPage {
 
   openPage(p) {
     this.rootPage = p;
+  }
+
+  changeLanguage(){
+
   }
 
   public logout() {

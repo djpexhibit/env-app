@@ -1,5 +1,9 @@
 <ion-header>
   <ion-navbar color="dark">
+    <button ion-button menuToggle>
+      <ion-icon name="menu"></ion-icon>
+    </button>
+
     <ion-title>ecoforce</ion-title>
 
     <ion-buttons end >
@@ -85,7 +89,7 @@
         <img (click)="viewLaws()" class="tile-icon" src="tile5.jpg" />
       </ion-col>
       <ion-col width-33>
-        <img class="tile-icon" src="tile6.jpg" />
+        <img (click)="viewAU()" class="tile-icon" src="tile6.jpg" />
       </ion-col>
     </ion-row>
   </ion-grid>

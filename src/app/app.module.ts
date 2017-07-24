@@ -10,6 +10,11 @@ import { AddCompaintPage } from '../pages/add-compaint/add-compaint';
 import { EditComplainPage } from '../pages/edit-complain/edit-complain';
 import { MainPage } from '../pages/main/main';
 import { LawPage } from '../pages/law/law';
+import { AboutusPage } from '../pages/aboutus/aboutus';
+import { Tutorial1Page } from '../pages/tutorial1/tutorial1';
+import { Tutorial2Page } from '../pages/tutorial2/tutorial2';
+import { Tutorial3Page } from '../pages/tutorial3/tutorial3';
+
 import { AddSpeciesPage } from '../pages/add-species/add-species';
 import { ListSpeciesPage } from '../pages/list-species/list-species';
 import { ViewSpeciesPage } from '../pages/view-species/view-species';
@@ -51,6 +56,7 @@ export function createTranslateLoader(http: Http){
     EditComplainPage,
     MainPage,
     LawPage,
+    AboutusPage,
     AddSpeciesPage,
     ListSpeciesPage,
     ViewSpeciesPage,
@@ -63,7 +69,10 @@ export function createTranslateLoader(http: Http){
     PressDirective,
     EventsPage,
     ProfilePage,
-    MobileUpdatePage
+    MobileUpdatePage,
+    Tutorial1Page,
+    Tutorial2Page,
+    Tutorial3Page
   ],
   imports: [
     IonicModule.forRoot(MyApp),
@@ -85,6 +94,7 @@ export function createTranslateLoader(http: Http){
     EditComplainPage,
     MainPage,
     LawPage,
+    AboutusPage,
     AddSpeciesPage,
     ListSpeciesPage,
     ViewSpeciesPage,
@@ -96,7 +106,10 @@ export function createTranslateLoader(http: Http){
     SelectTaskPage,
     EventsPage,
     ProfilePage,
-    MobileUpdatePage
+    MobileUpdatePage,
+    Tutorial1Page,
+    Tutorial2Page,
+    Tutorial3Page
   ],
   providers: [SplashScreen,AuthService, Camera, Transfer, File, DashboardProvider, SocialSharing,PhotoViewer]
 })

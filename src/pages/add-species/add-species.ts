@@ -51,6 +51,11 @@ export class AddSpeciesPage {
       this.platform = platform;
     this.imageCounter = 0;
 
+    let newTime_date = new Date(this.species.datetime);
+    newTime_date.setHours(newTime_date.getHours()+5);
+    newTime_date.setMinutes(newTime_date.getMinutes()+30);
+    this.species.datetime = newTime_date.toISOString();
+
     let typ = navParams.get("type");
     this.species.type = typ;
 
@@ -91,7 +96,7 @@ export class AddSpeciesPage {
       destinationType: Camera.DestinationType.DATA_URL,
       targetWidth: 640,
       targetHeight: 640,
-      quality:70,
+      quality:90,
       correctOrientation: true
     }).then((imageData) => {
       // imageData is a base64 encoded string

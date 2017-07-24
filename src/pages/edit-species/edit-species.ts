@@ -95,7 +95,7 @@ export class EditSpeciesPage {
   takePicture(){
     Camera.getPicture({
 			destinationType: Camera.DestinationType.DATA_URL,
-      quality: 70,
+      quality: 90,
       targetWidth: 640,
       targetHeight: 640,
       correctOrientation: true

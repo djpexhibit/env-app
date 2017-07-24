@@ -26,20 +26,34 @@ export class MobileUpdatePage {
 
   updateMobile(){
     this.showLoading();
-    this.auth.updateMobile({"id":this.userId, "mobile":this.mobile}).then(success => {
-    if (success) {
-      setTimeout(() => {
-        this.loading.dismiss();
-        //this.nav.setRoot(VerifyPage);
-        this.nav.push(VerifyPage, {
-          mobile: this.mobile,
-          type:'MOBUPDATE'
+    this.auth.checkMobileValidity(this.userId,this.mobile).then(mobileCheck => {
+      if (mobileCheck["status"] === 'OK' && mobileCheck["msg"] && mobileCheck["msg"] === 'EMAIL_EXIST') {
+        setTimeout(() => {
+          this.loading.dismiss();
+          this.showError("Mobile Number Already Exists"); return;
         });
-      } );
-    } else {
-      this.showError("Error");
-    }
-  });
+      } else {
+          this.auth.updateMobile({"id":this.userId, "mobile":this.mobile}).then(success => {
+          if (success) {
+            setTimeout(() => {
+              this.loading.dismiss();
+              //this.nav.setRoot(VerifyPage);
+              this.nav.push(VerifyPage, {
+                mobile: this.mobile,
+                type:'MOBUPDATE'
+              });
+            } );
+          } else {
+            this.showError("Error");
+          }
+        });
+      }
+    },
+    error => {
+      this.showError("Please try again");
+    });
+
+
   }
 
 

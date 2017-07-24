@@ -112,7 +112,7 @@ export class HomePage {
           this.end = 15;
         }
 
-        if(this.complaints.length == 0){
+        if(!this.complaints || this.complaints.length == 0){
           this.noInfoMsg = "No Complains Found.";
         }
       });
@@ -146,7 +146,7 @@ export class HomePage {
             this.end = 15;
           }
 
-          if(this.complaints.length == 0){
+          if(!this.complaints || this.complaints.length == 0){
             this.noInfoMsg = "No Complains Found.";
           }
         });
@@ -196,7 +196,7 @@ export class HomePage {
     }
 
     getBackgroundThumb (id) {
-      let loc = config.main.baseUrl + '/complains/thumb/'+id+'_0_thumb.jpg';
+      let loc = config.main.baseUrl + '/complains/'+id+'_0.jpg';
 
       return this._DomSanitizer.bypassSecurityTrustStyle(`url(${loc})`);
     }

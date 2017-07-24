@@ -38,6 +38,7 @@ export class AuthService {
   access:boolean;
   success = null;
   emailCheck = null;
+  mobileCheck = null;
   emailCheckPw = null;
 
   constructor(public http: Http) {
@@ -196,6 +197,19 @@ public verifyPassword(credentials) {
           console.log(data);
           this.emailCheck = data;
           resolve(this.emailCheck);
+        })
+    });
+  }
+
+  public checkMobileValidity(id,mobile){
+  console.log(id);
+    return new Promise( resolve => {
+      this.http.post(config.main.baseUrl + '/checkMobileValidity',{id:id, mobile:mobile})
+        .map(res => res.json())
+        .subscribe(data => {
+          console.log(data);
+          this.mobileCheck = data;
+          resolve(this.mobileCheck);
         })
     });
   }

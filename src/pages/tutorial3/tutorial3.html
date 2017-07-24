@@ -1,0 +1,43 @@
+<ion-header>
+  <ion-navbar color="dark">
+    <ion-title>
+      Tour
+    </ion-title>
+
+
+    <button ion-button menuToggle>
+      <ion-icon name="menu"></ion-icon>
+    </button>
+
+    <ion-buttons end >
+
+    <!--  <button ion-button (click)="logout()">
+        <ion-icon name="log-out"></ion-icon>
+      </button> -->
+
+      <button ion-button (click)="exitApp()">
+          <ion-icon name="exit"></ion-icon>
+        </button>
+    </ion-buttons>
+  </ion-navbar>
+
+</ion-header>
+
+
+<ion-content padding>
+  <img  class="tile-icon" src="./assets/img/t3.png" />
+
+  <ion-row>
+      <ion-col >
+          <button class="new-btn" ion-button color="dark" type="button" (click)="prev()" >
+              Previous
+          </button>
+      </ion-col>
+      <ion-col >
+        <button class="new-btn" ion-button color="dark" (click)="close()">
+          close
+        </button>
+      </ion-col> 
+
+  </ion-row>
+</ion-content>

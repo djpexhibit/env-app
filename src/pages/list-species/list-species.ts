@@ -109,7 +109,7 @@ export class ListSpeciesPage {
           this.end = 15;
         }
 
-        if(this.species.length == 0){
+        if(!this.species || this.species.length == 0){
           this.noInfoMsg = "No Species Found.";
         }
       });
@@ -228,14 +228,15 @@ export class ListSpeciesPage {
 					this.end = 15;
 				}
 
-				if(this.species.length == 0){
-					this.noInfoMsg = "No Complains Found.";
+				if(!this.species || this.species.length == 0){
+					this.noInfoMsg = "No Species Found.";
 				}
 			});
 		}
 
 		getImgUrl(id){
-			let loc = config.main.baseUrl + '/species/thumb/'+id+'_0_thumb.jpg';
+			//let loc = config.main.baseUrl + '/species/thumb/'+id+'_0_thumb.jpg';
+			let loc = config.main.baseUrl + '/species/'+id+'_0.jpg';
 
       return this._DomSanitizer.bypassSecurityTrustUrl(loc);
 		}
