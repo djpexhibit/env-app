@@ -31,6 +31,15 @@ export class DashboardPage {
 
   private translate: TranslateService;
 
+  tile1 = './assets/img/tile1.jpg';
+  tile2 = './assets/img/tile2.jpg';
+  tile3 = './assets/img/tile3.jpg';
+  tile4 = './assets/img/tile4.jpg';
+  tile5 = './assets/img/tile5.jpg';
+  tile6 = './assets/img/tile6.jpg';
+
+
+
   constructor(public navCtrl: NavController, public navParams: NavParams, private auth: AuthService,
     private dashboardService : DashboardProvider, private _DomSanitizer: DomSanitizer, platform: Platform,translate: TranslateService) {
     this.loggedUser = auth.getUserInfo();
@@ -122,5 +131,9 @@ export class DashboardPage {
 
   public exitApp(){
     this.platform.exitApp();
+  }
+
+  getBackground() {
+    return "url('../assets/img/bk.jpg')";
   }
 }

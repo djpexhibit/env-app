@@ -9,6 +9,10 @@ import { AddSpeciesPage } from '../add-species/add-species';
 })
 export class SelectTaskPage {
 
+  bird = './assets/img/Bird.jpg';
+  police = './assets/img/Policeman.jpg';
+  tree = './assets/img/tree3.jpg';
+
   constructor(public navCtrl: NavController, public navParams: NavParams) {}
 
   ionViewDidLoad() {
