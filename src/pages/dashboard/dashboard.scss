@@ -1,7 +1,11 @@
 page-dashboard {
-   background-image: url('../assets/img/bk.jpg');
-   background-repeat: no-repeat;
-   background-size: cover;
+  //  background-image: url('../assets/img/bk.jpg');
+  //  background-repeat: no-repeat;
+  //  background-size: cover;
+   background: url(../assets/img/bk.jpg) no-repeat ;
+    -webkit-background-size: 100%;
+    -moz-background-size: 100%;
+    background-size: 100%;
 
   .content-md{
     background-color: transparent
