@@ -19,7 +19,8 @@
   </ion-navbar>
 </ion-header>
 
- <ion-content padding>
+ <ion-content padding [style.background-image]="getBackground()"
+ [style.background-repeat]="getr()"  [style.background-position]="getp()" [style.background-size]="getz()">
 
   <ion-grid>
     <ion-row>
@@ -39,7 +40,7 @@
       <ion-col width-50>
         <div class="picdiv">
           <img class="prof-pic" [src]="_DomSanitizer.bypassSecurityTrustUrl(loggedUser.image )" *ngIf="loggedUser.image"  />
-          <img class="prof-pic"  src="prof.jpg" *ngIf="!loggedUser.image"/>
+          <img class="prof-pic"  [src]="profileImage" *ngIf="!loggedUser.image"/>
 
         </div>
       </ion-col>

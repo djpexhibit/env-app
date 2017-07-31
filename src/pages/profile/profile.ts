@@ -59,7 +59,7 @@ export class ProfilePage {
     if(this.loggedUser.image){
       this.profileImage = this.loggedUser.image;
     }else{
-      this.profileImage = 'prof.jpg';
+      this.profileImage = './assets/img/prof.jpg';
     }
 
   }

@@ -26,13 +26,17 @@
       <ion-icon name="menu"></ion-icon>
     </button>
 
-    <ion-buttons start>
+  <!--  <ion-buttons start>
         <button ion-button icon-only (click)="facebookShare()">
           <ion-icon name="logo-facebook"></ion-icon>
         </button>
-      </ion-buttons>
+      </ion-buttons> -->
 
     <ion-buttons end *ngIf="complains && complains.length > 0">
+      <button ion-button icon-only (click)="facebookShare()">
+        <ion-icon name="logo-facebook"></ion-icon>
+      </button>
+
       <button ion-button *ngIf="complains[0].fav" (click)="toggleFavorite()">
         <ion-icon style="color:yellow" name="star" item-right></ion-icon>
       </button>
@@ -67,15 +71,15 @@
 
   <ion-row>
     <ion-col width-33>
-      <img (click)="zoomImg(complains[0].image)"  [src]="_DomSanitizer.bypassSecurityTrustUrl(complains[0].image)" *ngIf="complains[0] && complains[0].image"  class="tile-icon"  />
+      <img (click)="zoomImg(complains[0].id,0)"  [src]="_DomSanitizer.bypassSecurityTrustUrl(complains[0].image)" *ngIf="complains[0] && complains[0].image"  class="tile-icon"  />
       <img  *ngIf="!complains[0] || !complains[0].image"  class="tile-icon" src="plus.jpg" />
     </ion-col>
     <ion-col width-33>
-      <img (click)="zoomImg(complains[1].image)" [src]="_DomSanitizer.bypassSecurityTrustUrl(complains[1].image)" *ngIf="complains[1] && complains[1].image"  class="tile-icon"  />
+      <img (click)="zoomImg(complains[1].id,1)" [src]="_DomSanitizer.bypassSecurityTrustUrl(complains[1].image)" *ngIf="complains[1] && complains[1].image"  class="tile-icon"  />
       <img  *ngIf="!complains[1] || !complains[1].image"  class="tile-icon" src="plus.jpg" />
     </ion-col>
     <ion-col width-33>
-      <img (click)="zoomImg(complains[2].image)" [src]="_DomSanitizer.bypassSecurityTrustUrl(complains[2].image)" *ngIf="complains[2] && complains[2].image"  class="tile-icon"  />
+      <img (click)="zoomImg(complains[2].id,2)" [src]="_DomSanitizer.bypassSecurityTrustUrl(complains[2].image)" *ngIf="complains[2] && complains[2].image"  class="tile-icon"  />
       <img   *ngIf="!complains[2] || !complains[2].image"  class="tile-icon" src="plus.jpg" />
     </ion-col>
   </ion-row>

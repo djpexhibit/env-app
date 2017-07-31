@@ -25,7 +25,9 @@ export class PasswordResetPage {
 
       this.showLoading();
 
-      if(this.resetCredentials.email || this.resetCredentials.mobile){
+      if(!this.validatePhoneNumber(this.resetCredentials.mobile)){
+        this.showError("Invalid Phone Number");
+      }else if(this.resetCredentials.email || this.resetCredentials.mobile){
 
 
         this.auth.verifyEmailWithMobile(this.resetCredentials).then(emailCheckPw => {
@@ -51,6 +53,17 @@ export class PasswordResetPage {
         return;
       }
 
+    }
+
+    validatePhoneNumber(value) {
+      if(value){
+        if (!(/^0[1-9]{9}$/.test(value))) {
+          return false;
+        }
+        return true;
+      }
+
+      return true;
     }
 
 

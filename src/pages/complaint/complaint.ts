@@ -309,8 +309,9 @@ export class ComplaintPage {
     this.platform.exitApp();
   }
 
-  zoomImg(img){
-    this.photoViewer.show(img);
+  zoomImg(img,index){
+    let loc = config.main.baseUrl + '/complains/'+img+'_'+index+'.jpg'
+    this.photoViewer.show(loc);
   }
 
 }

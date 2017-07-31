@@ -50,15 +50,15 @@
 
 		<ion-row>
 			<ion-col width-33>
-				<img (click)="zoomImg(species[0].image)" [src]="_DomSanitizer.bypassSecurityTrustUrl(species[0].image)" *ngIf="species[0] && species[0].image"  class="tile-icon"  />
+				<img (click)="zoomImg(species[0].id,0)" [src]="_DomSanitizer.bypassSecurityTrustUrl(species[0].image)" *ngIf="species[0] && species[0].image"  class="tile-icon"  />
 				<img  *ngIf="!species[0] || !species[0].image"  class="tile-icon" src="plus.jpg" />
 			</ion-col>
 			<ion-col width-33>
-				<img (click)="zoomImg(species[1].image)" [src]="_DomSanitizer.bypassSecurityTrustUrl(species[1].image)" *ngIf="species[1] && species[1].image"  class="tile-icon"  />
+				<img (click)="zoomImg(species[1].id,1)" [src]="_DomSanitizer.bypassSecurityTrustUrl(species[1].image)" *ngIf="species[1] && species[1].image"  class="tile-icon"  />
 				<img  *ngIf="!species[1] || !species[1].image"  class="tile-icon" src="plus.jpg" />
 			</ion-col>
 			<ion-col width-33>
-				<img imageVi(click)="zoomImg(species[2].image)"ewer [src]="_DomSanitizer.bypassSecurityTrustUrl(species[2].image)" *ngIf="species[2] && species[2].image"  class="tile-icon"  />
+				<img (click)="zoomImg(species[2].id,2)"ewer [src]="_DomSanitizer.bypassSecurityTrustUrl(species[2].image)" *ngIf="species[2] && species[2].image"  class="tile-icon"  />
 				<img   *ngIf="!species[2] || !species[2].image"  class="tile-icon" src="plus.jpg" />
 			</ion-col>
 		</ion-row>

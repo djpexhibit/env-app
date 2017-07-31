@@ -24,6 +24,8 @@ export class ListSpeciesPage {
 	username = '';
 	email = '';
 
+	searchTerm: string = null;
+
 	postType:null
 
 	//adv = '';
@@ -93,8 +95,13 @@ export class ListSpeciesPage {
 	// }
 
 	loadSpecies(id){
+		let searchTermLocal = localStorage.getItem("term");
+		if(searchTermLocal){
+			this.searchTerm = searchTermLocal;
+		}
+
     this.tempSpecies=[];
-    this.speciesService.loadChunk(id,this.start,this.end)
+    this.speciesService.loadChunk(id,this.start,this.end,this.searchTerm)
       .then(data => {
         console.log(data);
         this.tempSpecies = data;
@@ -176,6 +183,7 @@ export class ListSpeciesPage {
 
 	backHome(){
 		//this.navCtrl.pop();
+		localStorage.setItem("term",'');
 
 
 	if(this.postType === 'SPEC'){
@@ -212,8 +220,12 @@ export class ListSpeciesPage {
 
 
 	loadFavorites(id){
+		let searchTermLocal = localStorage.getItem("term");
+		if(searchTermLocal){
+			this.searchTerm = searchTermLocal;
+		}
 		this.tempSpecies=[];
-		this.speciesService.loadFavoritesSpeciesChunk(id,this.start,this.end)
+		this.speciesService.loadFavoritesSpeciesChunk(id,this.start,this.end,this.searchTerm)
 			.then(data => {
 				console.log(data);
 				this.tempSpecies = data;
@@ -232,6 +244,47 @@ export class ListSpeciesPage {
 					this.noInfoMsg = "No Species Found.";
 				}
 			});
+		}
+
+		/*setFilteredSpecies() {
+				console.log("Filtering species...")
+        this.tempSpecies=[];
+				this.speciesService.loadFilteredSpeciesChunk(this.auth.getUserInfo().id,'%'+this.searchTerm+'%', this.start, this.end).then(data => {
+					console.log(data);
+					this.tempSpecies = data;
+					if(this.tempSpecies && this.tempSpecies.length >0){
+						if(!this.species || this.species.length === 0){
+							this.species = data;
+						}else{
+							this.species = this.species.concat(this.tempSpecies);
+
+						}
+						this.start += 15;
+						this.end = 15;
+					}
+
+					if(!this.species || this.species.length == 0){
+						this.noInfoMsg = "No Species Found.";
+					}
+				});
+    }*/
+
+		searchSpecies(){
+			localStorage.setItem("term",this.searchTerm);
+
+			let info = this.auth.getUserInfo();
+			this.start = 0;
+			this.end = 15;
+			this.species = [];
+			this.tempSpecies=[];
+
+			if(this.postType === 'SPEC'){
+	      this.loadSpecies(info.id);
+	    }else if(this.postType === 'FAV'){
+	      this.loadFavorites(info.id);
+	    }else{
+	      this.loadSpecies(info.id);
+	    }
 		}
 
 		getImgUrl(id){

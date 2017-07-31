@@ -36,12 +36,12 @@ export class SpeciesService {
 		});
 	}
 
-	loadChunk(id,start,end) {
+	loadChunk(id,start,end,term) {
 		/*if (this.data) {
 			return Promise.resolve(this.data);
 		*/
 		return new Promise(resolve => {
-			this.http.post(config.main.baseUrl + '/loadSpeciesChunk',{user_id:id, start:start, end:end})
+			this.http.post(config.main.baseUrl + '/loadSpeciesChunk',{user_id:id, start:start, end:end,term:term})
 				.map(res => res.json())
 				.subscribe(data => {
 					console.log(data);
@@ -67,10 +67,10 @@ export class SpeciesService {
 		});
 	}
 
-	loadFavoritesSpeciesChunk(id,start,end) {
+	loadFavoritesSpeciesChunk(id,start,end,term) {
 
 		return new Promise(resolve => {
-			this.http.post(config.main.baseUrl + '/loadFavoriteSpeciesChunk',{user_id:id, start:start, end:end})
+			this.http.post(config.main.baseUrl + '/loadFavoriteSpeciesChunk',{user_id:id, start:start, end:end, term:term})
 				.map(res => res.json())
 				.subscribe(data => {
 					console.log(data);
@@ -80,6 +80,17 @@ export class SpeciesService {
 			});
 		}
 
+		loadFilteredSpeciesChunk(id,term,start,end){
+			return new Promise(resolve => {
+				this.http.post(config.main.baseUrl + '/loadFilteredSpeciesChunk',{user_id:id,term:term, start:start, end:end})
+					.map(res => res.json())
+					.subscribe(data => {
+						console.log(data);
+						this.data = data;
+						resolve(this.data);
+					});
+				});
+		}
 
 
 

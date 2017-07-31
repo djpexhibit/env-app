@@ -54,6 +54,8 @@ export class RegisterPage {
 
     if(this.registerCredentials.password !== this.registerCredentials.repassword){
       this.showError("Password doesn't match");
+    }else if(!this.validatePhoneNumber(this.registerCredentials.mobile)){
+      this.showError("Invalid Phone Number");
     }else{
       this.auth.checkEmailValidity(this.registerCredentials).then(emailCheck => {
         if (emailCheck["status"] === 'OK' && emailCheck["msg"] && emailCheck["msg"] === 'EMAIL_EXIST') {
@@ -89,6 +91,13 @@ export class RegisterPage {
     }
 
 
+  }
+
+  validatePhoneNumber(value) {
+    if (value === undefined || value === null || !(/^0[1-9]{9}$/.test(value))) {
+      return false;
+    }
+    return true;
   }
 
 

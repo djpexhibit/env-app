@@ -17,6 +17,7 @@ export class DashboardProvider {
   numberOfUsers = 0;
   numberOfFollowings = 0;
   numberOfOwnPosts = 0;
+  appVersion;
 
   constructor(public http: Http) {
     console.log('Hello DashboardProvider Provider');
@@ -81,6 +82,17 @@ export class DashboardProvider {
         .subscribe(data => {
           this.numberOfPosts = data[0].species + data[0].complains;
           resolve(this.numberOfPosts);
+        });
+    });
+  }
+
+  loadAppVersion(){
+    return new Promise(resolve => {
+      this.http.get(config.main.baseUrl + '/loadAppVersion')
+        .map(res => res.json())
+        .subscribe(data => {
+          this.appVersion = data;
+          resolve(this.appVersion);
         });
     });
   }

@@ -26,6 +26,11 @@ export class MobileUpdatePage {
 
   updateMobile(){
     this.showLoading();
+
+    if(!this.validatePhoneNumber(this.mobile)){
+      this.showError("Invalid Phone Number");
+      return;
+    }
     this.auth.checkMobileValidity(this.userId,this.mobile).then(mobileCheck => {
       if (mobileCheck["status"] === 'OK' && mobileCheck["msg"] && mobileCheck["msg"] === 'EMAIL_EXIST') {
         setTimeout(() => {
@@ -54,6 +59,13 @@ export class MobileUpdatePage {
     });
 
 
+  }
+
+  validatePhoneNumber(value) {
+    if (value === undefined || value === null || !(/^0[1-9]{9}$/.test(value))) {
+      return false;
+    }
+    return true;
   }
 
 

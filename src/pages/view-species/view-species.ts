@@ -244,8 +244,9 @@ if(u.type === 'Media' || u.type === 'Expert'){
 	this.navCtrl.push(ListSpeciesPage);
 	}
 
-	zoomImg(img){
-    this.photoViewer.show(img);
-  }
+	zoomImg(img,index){
+		let loc = config.main.baseUrl + '/species/'+img+'_'+index+'.jpg'
+		this.photoViewer.show(loc);
+	}
 
 }
