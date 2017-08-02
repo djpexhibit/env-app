@@ -4,7 +4,7 @@ import { NavController,NavParams, AlertController ,LoadingController, Loading , 
 import {  Camera } from 'ionic-native';
 import { MobileUpdatePage } from '../mobile-update/mobile-update';
 import { LoginPage } from '../login/login';
-
+import { AgreementPage } from '../agreement/agreement';
 
 @Component({
   selector: 'page-profile',
@@ -193,6 +193,12 @@ export class ProfilePage {
         localStorage.setItem("logged",null);
         localStorage.setItem("currentUser",null);
         this.navCtrl.setRoot(LoginPage);
+    });
+  }
+
+  viewAgreement(){
+    this.navCtrl.push(AgreementPage,{
+      showNav: true
     });
   }
 

@@ -213,7 +213,10 @@ export class EditComplainPage {
 
   showLoading() {
     this.loading = this.loadingCtrl.create({
-      content: 'Please wait...'
+      content: `<div>
+                  <div><img src='./assets/img/logo.jpg' /></div>
+                  <div>Uploading Content (This will take a while depending on image sizes and your network connection)</div>
+                </div>`
     });
     this.loading.present();
   }

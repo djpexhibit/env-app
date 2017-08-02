@@ -26,9 +26,9 @@ export class PasswordResetPage {
       this.showLoading();
 
       if(!this.validatePhoneNumber(this.resetCredentials.mobile)){
+        this.loading.dismiss();
         this.showError("Invalid Phone Number");
       }else if(this.resetCredentials.email || this.resetCredentials.mobile){
-
 
         this.auth.verifyEmailWithMobile(this.resetCredentials).then(emailCheckPw => {
           if (emailCheckPw["status"] === 'OK' && emailCheckPw["msg"] && emailCheckPw["msg"] === 'VERIFIED') {
@@ -40,15 +40,18 @@ export class PasswordResetPage {
               });
             } );
           }else {
-            this.showError("Email and Mobile number doesn't match !");
-            this.nav.setRoot(LoginPage);
+            this.loading.dismiss();
+            this.showError("Email or Mobile number doesn't match !");
+            //this.nav.setRoot(LoginPage);
           }
         },error => {
+          this.loading.dismiss();
           this.showError("Please try again");
-          this.nav.setRoot(LoginPage);
+          //this.nav.setRoot(LoginPage);
         });
 
       }else{
+        this.loading.dismiss();
         this.showError("Email or Mobile number needs to enter !");
         return;
       }

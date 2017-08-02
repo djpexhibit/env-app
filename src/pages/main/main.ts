@@ -10,6 +10,10 @@ import { AuthService, User } from '../../providers/auth-service';
 import { LoginPage } from '../../pages/login/login';
 import { Tutorial1Page } from '../../pages/tutorial1/tutorial1';
 import { AboutusPage } from '../../pages/aboutus/aboutus';
+import { AgreementPage } from '../../pages/agreement/agreement';
+
+import { DashboardProvider} from '../../providers/dashboard-provider';
+
 
 
 @Component({
@@ -27,8 +31,15 @@ export class MainPage {
   private dashboardPage;
   private tutorial1Page;
   private aboutusPage;
+  private agreementPage;
 
-  constructor(public navCtrl: NavController, public navParams: NavParams, private auth : AuthService) {
+  loggedUser : User;
+  agreed=false;
+
+  constructor(public navCtrl: NavController, public navParams: NavParams, private auth : AuthService,private dashboardService : DashboardProvider) {
+
+    this.loggedUser = auth.getUserInfo();
+
     this.rootPage = DashboardPage;
 
     this.homePage = HomePage;
@@ -39,11 +50,22 @@ export class MainPage {
     this.dashboardPage = DashboardPage;
     this.tutorial1Page = Tutorial1Page;
     this.aboutusPage = AboutusPage;
+    this.agreementPage = AgreementPage;
 
   }
 
   ionViewDidLoad() {
     console.log('ionViewDidLoad MainPage');
+    this.loadAgreement();
+  }
+
+  loadAgreement(){
+    this.dashboardService.loadAgreement(this.loggedUser.id).then(data => {
+      this.agreed=data[0].agreed;
+      if(!this.agreed){
+        this.rootPage = AgreementPage;
+      }
+    });
   }
 
   openPage(p) {

@@ -18,6 +18,8 @@ export class DashboardProvider {
   numberOfFollowings = 0;
   numberOfOwnPosts = 0;
   appVersion;
+  agreement;
+  agreed;
 
   constructor(public http: Http) {
     console.log('Hello DashboardProvider Provider');
@@ -93,6 +95,28 @@ export class DashboardProvider {
         .subscribe(data => {
           this.appVersion = data;
           resolve(this.appVersion);
+        });
+    });
+  }
+
+  loadAgreement(id){
+    return new Promise(resolve => {
+      this.http.post(config.main.baseUrl + '/loadAgreement',{user_id:id})
+        .map(res => res.json())
+        .subscribe(data => {
+          this.agreement = data;
+          resolve(this.agreement);
+        });
+    });
+  }
+
+  updateAgree(id){
+    return new Promise(resolve => {
+      this.http.post(config.main.baseUrl + '/updateAgree',{user_id:id})
+        .map(res => res.json())
+        .subscribe(data => {
+          this.agreed = data;
+          resolve(this.agreed);
         });
     });
   }

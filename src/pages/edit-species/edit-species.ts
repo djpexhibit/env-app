@@ -153,12 +153,15 @@ export class EditSpeciesPage {
   }
 
 
-  showLoading() {
-    this.loading = this.loadingCtrl.create({
-      content: 'Please wait...'
-    });
-    this.loading.present();
-  }
+	showLoading() {
+		this.loading = this.loadingCtrl.create({
+			content: `<div>
+									<div><img src='./assets/img/logo.jpg' /></div>
+									<div>Uploading Content (This will take a while depending on image sizes and your network connection)</div>
+								</div>`
+		});
+		this.loading.present();
+	}
 
   showError(text) {
     /*setTimeout(() => {

@@ -34,10 +34,12 @@
             </ion-item> -->
 
             <ion-item>
+              <ion-label stacked>Name</ion-label>
               <ion-input type="text" placeholder="Name" name="name" [(ngModel)]="registerCredentials.name" required></ion-input>
             </ion-item>
 
             <ion-item>
+              <ion-label stacked>Display Name</ion-label>
               <ion-input type="username" placeholder="Display Name" name="username" [(ngModel)]="registerCredentials.username" required></ion-input>
             </ion-item>
 
@@ -109,4 +111,12 @@
       <button (click)="navUpdateMobile()" ion-button class="submit-btn" full>Change Mobile Number</button>
     </ion-col>
   </ion-row>
+
+  <hr/>
+  <ion-row>
+    <ion-col class="signup-col">
+      <button (click)="viewAgreement()" class="new-btn" ion-button color="dark" full>Privacy Policy Agreement</button>
+    </ion-col>
+  </ion-row>
+
 </ion-content>

@@ -232,9 +232,20 @@ export class AddSpeciesPage {
   }
 
 
+
   showLoading() {
     this.loading = this.loadingCtrl.create({
-      content: 'Uploading Content (This will take a while depending on image/video sizes and your network connection)'
+      content: `<div>
+                  <div><img src='./assets/img/logo.jpg' /></div>
+                  <div>Uploading Content (This will take a while depending on image sizes and your network connection)</div>
+                </div>`
+    });
+    this.loading.present();
+  }
+
+  showLoadingGeneral() {
+    this.loading = this.loadingCtrl.create({
+      content: 'Loading'
     });
     this.loading.present();
   }

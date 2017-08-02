@@ -14,6 +14,7 @@ import { AboutusPage } from '../pages/aboutus/aboutus';
 import { Tutorial1Page } from '../pages/tutorial1/tutorial1';
 import { Tutorial2Page } from '../pages/tutorial2/tutorial2';
 import { Tutorial3Page } from '../pages/tutorial3/tutorial3';
+import { AgreementPage } from '../pages/agreement/agreement';
 
 import { AddSpeciesPage } from '../pages/add-species/add-species';
 import { ListSpeciesPage } from '../pages/list-species/list-species';
@@ -72,7 +73,8 @@ export function createTranslateLoader(http: Http){
     MobileUpdatePage,
     Tutorial1Page,
     Tutorial2Page,
-    Tutorial3Page
+    Tutorial3Page,
+    AgreementPage
   ],
   imports: [
     IonicModule.forRoot(MyApp),
@@ -109,7 +111,8 @@ export function createTranslateLoader(http: Http){
     MobileUpdatePage,
     Tutorial1Page,
     Tutorial2Page,
-    Tutorial3Page
+    Tutorial3Page,
+    AgreementPage
   ],
   providers: [SplashScreen,AuthService, Camera, Transfer, File, DashboardProvider, SocialSharing,PhotoViewer]
 })
