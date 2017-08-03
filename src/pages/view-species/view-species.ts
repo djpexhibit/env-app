@@ -240,7 +240,7 @@ if(u.type === 'Media' || u.type === 'Expert'){
 
 	backHome(){
 		//this.navCtrl.pop();
-		this.navCtrl.push(ListSpeciesPage); // previous view will be cached
+		//this.navCtrl.push(ListSpeciesPage); // previous view will be cached
 	this.navCtrl.push(ListSpeciesPage);
 	}
 

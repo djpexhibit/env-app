@@ -32,7 +32,7 @@ export class Tutorial3Page {
   }
 
   close(){
-    this.navCtrl.push(DashboardPage)
+    this.navCtrl.setRoot(DashboardPage)
   }
 
   prev(){

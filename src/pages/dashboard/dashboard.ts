@@ -26,10 +26,10 @@ export class DashboardPage {
   selectedLanguage = 'en';
 
   loggedUser : User;
-  numberOfPosts = 0;
-  numberOfUsers = 0;
-  numberOfFollowings = 0;
-  numberOfOwnPosts = 0;
+  numberOfPosts;
+  numberOfUsers;
+  numberOfFollowings;
+  numberOfOwnPosts;
   appVersion;
 
   platform;
@@ -56,7 +56,7 @@ export class DashboardPage {
 
   }
 
-  ionViewDidLoad() {
+  ionViewDidEnter() {
     console.log('ionViewDidLoad DashboardPage');
 
 

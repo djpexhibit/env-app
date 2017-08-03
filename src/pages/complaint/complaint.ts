@@ -241,9 +241,10 @@ export class ComplaintPage {
     }
 
     backHome(){
-      //this.navCtrl.pop();
-      this.navCtrl.setRoot(HomePage); // previous view will be cached
-    this.navCtrl.setRoot(HomePage);
+      this.navCtrl.push(HomePage)
+    //  this.navCtrl.pop();
+      //this.navCtrl.setRoot(HomePage); // previous view will be cached
+    //this.navCtrl.setRoot(HomePage);
     }
 
 

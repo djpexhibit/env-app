@@ -21,6 +21,8 @@ export class ListSpeciesPage {
 	public tempSpecies: any;
   start; end;
 
+
+
 	username = '';
 	email = '';
 
@@ -57,13 +59,7 @@ export class ListSpeciesPage {
 		this.postType = navParams.get("type");
 
 
-		if(this.postType === 'SPEC'){
-      this.loadSpecies(info.id);
-    }else if(this.postType === 'FAV'){
-      this.loadFavorites(info.id);
-    }else{
-      this.loadSpecies(info.id);
-    }
+
 
 		//this.loadAdv(Math.floor((Math.random() * 10) + 1));
 		let adv_number = Math.floor((Math.random() * 10) + 1);
@@ -73,7 +69,14 @@ export class ListSpeciesPage {
 	}
 
 	ionViewDidEnter(){
-		console.log("test")
+		console.log("test");
+		if(this.postType === 'SPEC'){
+      this.loadSpecies(this.userId);
+    }else if(this.postType === 'FAV'){
+      this.loadFavorites(this.userId);
+    }else{
+      this.loadSpecies(this.userId);
+    }
 	}
 
 	public logout() {

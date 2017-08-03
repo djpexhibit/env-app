@@ -48,9 +48,10 @@ export class AgreementPage {
   }
 
   agree(){
+    this.menu.swipeEnable(true);
     this.dashboardService.updateAgree(this.loggedUser.id).then(data => {
 
-        this.navCtrl.push(DashboardPage);
+        this.navCtrl.setRoot(DashboardPage);
 
     });
   }

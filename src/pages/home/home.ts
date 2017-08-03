@@ -294,7 +294,7 @@ export class HomePage {
 
       backHome(){
         //this.navCtrl.pop();
-        this.nav.setRoot(DashboardPage); // previous view will be cached
+    //   this.nav.setRoot(DashboardPage); // previous view will be cached
       this.nav.setRoot(DashboardPage);
       }
 

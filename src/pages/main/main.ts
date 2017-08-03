@@ -68,6 +68,13 @@ export class MainPage {
     });
   }
 
+  test(){
+    console.log("DDDDDDDDDDDDDDDDDDD");
+    if(this.rootPage === this.tutorial1Page){
+      this.rootPage = this.dashboardPage;
+    }
+  }
+
   openPage(p) {
     this.rootPage = p;
   }

@@ -26,9 +26,9 @@ export class DashboardProvider {
   }
 
   loadNumberOfPosts(){
-    if (this.numberOfPosts !== 0){
-      return Promise.resolve(this.numberOfPosts);
-    }
+    // if (this.numberOfPosts !== 0){
+    //   return Promise.resolve(this.numberOfPosts);
+    // }
 
     return new Promise(resolve => {
       this.http.post(config.main.baseUrl + '/loadNumberOfPosts',{user_id:0})
@@ -42,9 +42,9 @@ export class DashboardProvider {
 
 
   loadNumberOfUsers(){
-    if (this.numberOfUsers !== 0){
-      return Promise.resolve(this.numberOfUsers);
-    }
+    // if (this.numberOfUsers !== 0){
+    //   return Promise.resolve(this.numberOfUsers);
+    // }
 
     return new Promise(resolve => {
       this.http.post(config.main.baseUrl + '/loadNumberOfUsers',{user_id:0})
@@ -58,9 +58,9 @@ export class DashboardProvider {
 
 
   loadNumberOfFollwings(id){
-    if (this.numberOfFollowings !== 0){
-      return Promise.resolve(this.numberOfFollowings);
-    }
+    // if (this.numberOfFollowings !== 0){
+    //   return Promise.resolve(this.numberOfFollowings);
+    // }
 
     return new Promise(resolve => {
       this.http.post(config.main.baseUrl + '/loadNumberOfFollwings',{user_id:id})
@@ -74,9 +74,9 @@ export class DashboardProvider {
 
 
   loadNumberOfOwnPosts(id){
-    if (this.numberOfPosts !== 0){
-      return Promise.resolve(this.numberOfPosts);
-    }
+    // if (this.numberOfPosts !== 0){
+    //   return Promise.resolve(this.numberOfPosts);
+    // }
 
     return new Promise(resolve => {
       this.http.post(config.main.baseUrl + '/loadNumberOfOwnPosts',{user_id:id})
