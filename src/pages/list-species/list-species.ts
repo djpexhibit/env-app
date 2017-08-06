@@ -190,17 +190,17 @@ export class ListSpeciesPage {
 
 
 	if(this.postType === 'SPEC'){
-		this.nav.push(HomePage); // previous view will be cached
+	//	this.nav.push(HomePage); // previous view will be cached
 		this.nav.push(HomePage,);
 	}else if(this.postType === 'FAV'){
-		this.nav.push(HomePage,{
-      type: 'FAV'
-    }); // previous view will be cached
+		// this.nav.push(HomePage,{
+    //   type: 'FAV'
+    // }); // previous view will be cached
 	this.nav.push(HomePage,{
 		type: 'FAV'
 	});
 	}else{
-		this.nav.push(HomePage); // previous view will be cached
+		//this.nav.push(HomePage); // previous view will be cached
 		this.nav.push(HomePage);
 	}
 	}
