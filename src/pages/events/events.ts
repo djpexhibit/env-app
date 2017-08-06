@@ -22,8 +22,8 @@ export class EventsPage {
 
   platform;
 
-  constructor(public navCtrl: NavController, public navParams: NavParams, plaform: Platform, public eventService:EventService) {
-    this.platform = Platform;
+  constructor(public navCtrl: NavController, public navParams: NavParams, platform: Platform, public eventService:EventService) {
+    this.platform = platform;
   }
 
 

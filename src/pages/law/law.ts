@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { NavController, NavParams } from 'ionic-angular';
+import { NavController, NavParams,Platform } from 'ionic-angular';
 import {AddCompaintPage} from '../add-compaint/add-compaint';
 
 /*
@@ -16,10 +16,19 @@ export class LawPage {
 
 	addComplaint = AddCompaintPage;
 
-  constructor(public navCtrl: NavController, public navParams: NavParams) {}
+  platform;
+
+  constructor(public navCtrl: NavController, public navParams: NavParams, platform: Platform) {
+    this.platform = platform;
+
+  }
 
   ionViewDidLoad() {
     console.log('ionViewDidLoad LawPage');
+  }
+
+  public exitApp(){
+    this.platform.exitApp();
   }
 
 }

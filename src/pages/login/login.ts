@@ -52,7 +52,7 @@ export class LoginPage {
         this.nav.setRoot(MainPage)
         });
       } else {
-        this.showError("Access Denied");
+        this.showError("Access Denied - Incorrect username or password, to reset, use forget password option");
       }
     },
     error => {
