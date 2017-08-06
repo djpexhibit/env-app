@@ -32,7 +32,7 @@
 	        <ion-icon name="log-out"></ion-icon>
 	      </button> -->
 
-	      <button ion-button (click)="exitApp()">
+	      <button *ngIf="platform.is('android')" ion-button (click)="exitApp()">
 	          <ion-icon name="exit"></ion-icon>
 	        </button>
 		</ion-buttons>

@@ -15,7 +15,7 @@
         <ion-icon name="log-out"></ion-icon>
       </button> -->
 
-      <button ion-button (click)="exitApp()">
+      <button *ngIf="platform.is('android')" ion-button (click)="exitApp()">
           <ion-icon name="exit"></ion-icon>
         </button>
     </ion-buttons>
@@ -37,7 +37,7 @@
         <button class="new-btn" ion-button color="dark" (click)="close()">
           close
         </button>
-      </ion-col> 
+      </ion-col>
 
   </ion-row>
 </ion-content>

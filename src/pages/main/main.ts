@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { NavController, NavParams } from 'ionic-angular';
+import { NavController, NavParams ,MenuController} from 'ionic-angular';
 import { HomePage } from '../home/home';
 import { LawPage } from '../law/law';
 import { AddSpeciesPage } from '../add-species/add-species';
@@ -36,7 +36,7 @@ export class MainPage {
   loggedUser : User;
   agreed=false;
 
-  constructor(public navCtrl: NavController, public navParams: NavParams, private auth : AuthService,private dashboardService : DashboardProvider) {
+  constructor(public navCtrl: NavController, public navParams: NavParams, private auth : AuthService,private dashboardService : DashboardProvider, private menu: MenuController) {
 
     this.loggedUser = auth.getUserInfo();
 
@@ -59,6 +59,7 @@ export class MainPage {
     this.loadAgreement();
   }
 
+
   loadAgreement(){
     this.dashboardService.loadAgreement(this.loggedUser.id).then(data => {
       this.agreed=data[0].agreed;
@@ -69,8 +70,7 @@ export class MainPage {
   }
 
   test(){
-    console.log("DDDDDDDDDDDDDDDDDDD");
-    if(this.rootPage === this.tutorial1Page){
+    if(this.rootPage == this.tutorial1Page){
       this.rootPage = this.dashboardPage;
     }
   }
@@ -78,6 +78,12 @@ export class MainPage {
   openPage(p) {
     this.rootPage = p;
   }
+
+  // openPage1(p){
+  //   this.menu.close();
+  //   this.navCtrl.setRoot(p);
+  //   this.menu.swipeEnable(true);
+  // }
 
   changeLanguage(){
 
