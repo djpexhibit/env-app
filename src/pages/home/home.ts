@@ -11,6 +11,8 @@ import {AddCompaintPage} from '../add-compaint/add-compaint';
 import {DomSanitizer} from '@angular/platform-browser';
 import config from '../../app/config.json';
 import {ListSpeciesPage} from '../list-species/list-species';
+import {EditComplainPage} from '../edit-complain/edit-complain';
+
 
 
 @Component({
@@ -34,9 +36,13 @@ export class HomePage {
   selectedTypes = [{id:'COMPLAIN', value:"Complains"},{id:'SPECIES', value:"Species"}]
 
   seletedComplainId = 0;
+  selectedComplainUid = 0;
   showFAB = false;
   selectedFav = false;
   selectedIndex = 0;
+
+  editComplain = EditComplainPage;
+
 
   //adv = '';
   adv = config.main.baseUrl +  '/1.jpg';
@@ -152,19 +158,21 @@ export class HomePage {
         });
       }
 
-    onLongPress(e,id,fav, i){
-      console.log(i)
+    onLongPress(e,id,fav,uid, i){
+      console.log(uid)
       //this.showPopup("ss","ss "+id);
       if(this.showFAB){
         this.seletedComplainId = 0;
         this.showFAB = false;
         this.selectedFav = false;
         this.selectedIndex = 0;
+        this.selectedComplainUid = 0;
       }else{
         this.seletedComplainId = id;
         this.showFAB = true;
         this.selectedFav = fav;
         this.selectedIndex  = i;
+        this.selectedComplainUid = uid;
       }
 
     }

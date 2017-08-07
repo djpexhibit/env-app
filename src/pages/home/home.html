@@ -35,12 +35,12 @@
     </ion-buttons>
 
     <ion-buttons end *ngIf="showFAB">
-      <button  ion-button icon-only color="royal" small class="toolbar-mod">
+      <button *ngIf="selectedComplainUid == userId"  ion-button icon-only color="royal" small class="toolbar-mod" [navPush]="editComplain" [navParams]={id:seletedComplainId}>
         <ion-icon name="hammer"></ion-icon>
       </button>
-      <button  ion-button icon-only color="royal" small class="toolbar-mod">
+      <!-- <button  ion-button icon-only color="royal" small class="toolbar-mod">
         <ion-icon name="trash"></ion-icon>
-      </button>
+      </button> -->
       <button  ion-button icon-only color="royal" small class="toolbar-mod" (click)="toggleFavorite()">
         <ion-icon name="star"></ion-icon>
       </button>
@@ -113,7 +113,7 @@
     <div  [navPush]="complaint"   *ngFor="let complain of complaints; let i = index" [navParams]={id:complain.id} >
 
       <ion-grid class="post">
-        <ion-row (longPress)="onLongPress($event,complain.id,complain.fav,i)">
+        <ion-row (longPress)="onLongPress($event,complain.id,complain.fav,complain.user_id,i)">
         <!--  <ion-col width-25>
             <img class="sca" [src]="_DomSanitizer.bypassSecurityTrustUrl(complain.image )" *ngIf="complain.image"  />
             <img  class="sca" src="thumbs.jpg" *ngIf="!complain.image"/>

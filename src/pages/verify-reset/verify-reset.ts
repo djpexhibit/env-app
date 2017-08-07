@@ -34,7 +34,7 @@ export class VerifyResetPage {
           this.nav.setRoot(LoginPage);
         } );
       }else {
-        this.showError("Error");
+        this.showError("Incorrect pin number , please check the sms message ");
       }
     },error => {
       this.showError("Please try again");
