@@ -60,7 +60,7 @@ export class PasswordResetPage {
 
     validatePhoneNumber(value) {
       if(value){
-        if (!(/^0[1-9]{9}$/.test(value))) {
+        if (!(/^0[0-9]{9}$/.test(value))) {
           return false;
         }
         return true;

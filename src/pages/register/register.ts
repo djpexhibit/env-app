@@ -94,7 +94,7 @@ export class RegisterPage {
   }
 
   validatePhoneNumber(value) {
-    if (value === undefined || value === null || !(/^0[1-9]{9}$/.test(value))) {
+    if (value === undefined || value === null || !(/^0[0-9]{9}$/.test(value))) {
       return false;
     }
     return true;
