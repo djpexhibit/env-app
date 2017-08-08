@@ -61,30 +61,30 @@ export class ViewSpeciesPage {
 
 	constructor(public navCtrl: NavController, public navParams: NavParams, public speciesService: SpeciesService,
 		private alertCtrl: AlertController, private loadingCtrl: LoadingController, private _DomSanitizer: DomSanitizer,
-		 private auth: AuthService, platform: Platform,private photoViewer: PhotoViewer) {
+		private auth: AuthService, platform: Platform,private photoViewer: PhotoViewer) {
 
-			 this.platform = platform;
+			this.platform = platform;
+			this.userId = this.auth.getUserInfo().id;
 
-		this.userId = this.auth.getUserInfo().id;
+			let u = this.auth.getUserInfo();
+			this.comment.user_id=u.id;
+			this.comment.type = u.type;
 
-let u = this.auth.getUserInfo();
-this.comment.user_id=u.id;
-this.comment.type = u.type;
-
-if(u.type === 'Media' || u.type === 'Expert'){
-	this.comment.type = 'Expert';
-}
-
-		this.loadSpecies(navParams.get("id"));
-		this.loadComments(navParams.get("id"));
+			if(u.type === 'Media' || u.type === 'Expert'){
+				this.comment.type = 'Expert';
+			}
 
 
-		this.speciesId = navParams.get("id");
+			this.speciesId = navParams.get("id");
 
-		let adv_number = Math.floor((Math.random() * 10) + 1);
-		this.adv = config.main.baseUrl + '/'+adv_number+'.jpg';
+			// this.loadSpecies(navParams.get("id"));
+			// this.loadComments(navParams.get("id"));
 
-	}
+
+			let adv_number = Math.floor((Math.random() * 10) + 1);
+			this.adv = config.main.baseUrl + '/'+adv_number+'.jpg';
+
+		}
 
 	/*ionViewDidEnter() {
 		console.log('ionViewDidLoad AddCompaintPage');
@@ -93,6 +93,12 @@ if(u.type === 'Media' || u.type === 'Expert'){
 		video.load();
 		video.play();
 	}*/
+
+	ionViewDidEnter() {
+		this.loadSpecies(this.speciesId);
+		this.loadComments(this.speciesId);
+
+	}
 
 	loadMap(lat,lng){
 		Geolocation.getCurrentPosition().then((position) => {

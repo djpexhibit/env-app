@@ -26,7 +26,7 @@ export class ListSpeciesPage {
 	username = '';
 	email = '';
 
-	searchTerm: string = null;
+	searchTerm: string = '';
 
 	postType:null
 
@@ -273,6 +273,12 @@ export class ListSpeciesPage {
     }*/
 
 		searchSpecies(){
+			if(!this.searchTerm){
+				this.searchTerm = '';
+				this.showLoading();
+
+				this.showError('Search term cannot be empty');
+			}
 			localStorage.setItem("term",this.searchTerm);
 
 			let info = this.auth.getUserInfo();
