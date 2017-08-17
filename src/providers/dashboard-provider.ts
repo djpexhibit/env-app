@@ -88,9 +88,9 @@ export class DashboardProvider {
     });
   }
 
-  loadAppVersion(){
+  loadAppVersion(pform){
     return new Promise(resolve => {
-      this.http.get(config.main.baseUrl + '/loadAppVersion')
+      this.http.post(config.main.baseUrl + '/loadAppVersion',{pform:pform})
         .map(res => res.json())
         .subscribe(data => {
           this.appVersion = data;

@@ -4,6 +4,7 @@
 		"_serverUrl":"http://139.59.58.196:3000",
 		"_server2Url":"http://139.59.63.193:3000",
 		"_localUrl" :"http://localhost:3000",
-		"appVersion": "1.1.5"
+		"appVersion": "1.1.6",
+		"appVersionIOS": "1.1.6"
 	}
 }

@@ -167,7 +167,7 @@ export class ViewSpeciesPage {
 		this.showLoading();
 
 		if(!this.comment.details){
-			this.showError("Please enter details");
+			this.showError("Please enter details"); return;
 		}
 
 		this.comment.species_id = this.speciesId;

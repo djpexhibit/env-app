@@ -70,11 +70,14 @@ export class DashboardPage {
   }
 
   loadAppVersion(){
+
+    let pform = this.platform.is('android')?"ANDROID":"IOS";
+
     this.showLoading();
-    this.dashboardService.loadAppVersion()
+    this.dashboardService.loadAppVersion(pform)
     .then(data => {
       this.appVersion=data[0].appVersion;
-      let locAppVersion = config.main.appVersion;
+      let locAppVersion = this.platform.is('android')?config.main.appVersion:config.main.appVersionIOS;
       console.log("^^^^^^^^^^00"); console.log(this.appVersion); console.log(locAppVersion)
 
       if(locAppVersion !== this.appVersion){
