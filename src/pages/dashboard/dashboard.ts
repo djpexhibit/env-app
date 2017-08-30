@@ -82,7 +82,11 @@ export class DashboardPage {
 
       if(locAppVersion !== this.appVersion){
         console.log("NOT");
-        this.showError("Please update ecoforce application to a newer version. Otherwise some features will not work correctly. Go to <a href='https://play.google.com/store/apps/details?id=com.ionicframework.envapp657580'>Update</a>");
+        if(this.platform.is('android')){
+          this.showError("Please update ecoforce application to a newer version. Otherwise some features will not work correctly. Go to <a href='https://play.google.com/store/apps/details?id=com.ionicframework.envapp657580'>Update</a>");
+        }else{
+          this.showError("Please update ecoforce application to a newer version. Otherwise some features will not work correctly. Go to <a href='https://itunes.apple.com/us/app/eco-force/id1250552654?mt=8'>Update</a>");
+        }
       }else{
         console.log("APP VERSION SAME");
         this.loading.dismiss();
