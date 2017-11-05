@@ -60,7 +60,7 @@ export class DashboardPage {
     console.log('ionViewDidLoad DashboardPage');
 
 
-    this.loadAppVersion();
+    //this.loadAppVersion();
 
     this.loadNumberOfPosts();
     this.loadNumberOfUsers();
