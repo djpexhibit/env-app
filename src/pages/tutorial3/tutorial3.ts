@@ -3,6 +3,8 @@ import { NavController, NavParams,Platform } from 'ionic-angular';
 
 import { DashboardPage } from '../dashboard/dashboard';
 import { Tutorial2Page } from '../../pages/tutorial2/tutorial2';
+import { DashboardProvider} from '../../providers/dashboard-provider';
+import { AuthService, User } from '../../providers/auth-service';
 
 
 
@@ -18,8 +20,12 @@ import { Tutorial2Page } from '../../pages/tutorial2/tutorial2';
 })
 export class Tutorial3Page {
     platform;
+    loggedUser : User;
 
-  constructor(public navCtrl: NavController, public navParams: NavParams,  platform: Platform) {
+
+  constructor(public navCtrl: NavController, public navParams: NavParams,  platform: Platform, private dashboardService: DashboardProvider,private auth : AuthService) {
+    this.loggedUser = auth.getUserInfo();
+
     this.platform = platform;
   }
 
@@ -31,6 +37,11 @@ export class Tutorial3Page {
     this.platform.exitApp();
   }
 
+  // close(){
+  //   this.dashboardService.updateTutorial(this.loggedUser.id).then(data => {
+  //     this.navCtrl.setRoot(DashboardPage);
+  //   });
+  // }
   close(){
     this.navCtrl.setRoot(DashboardPage)
   }

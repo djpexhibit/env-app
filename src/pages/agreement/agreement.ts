@@ -7,6 +7,7 @@ import { AuthService, User } from '../../providers/auth-service';
 import { DashboardPage } from '../dashboard/dashboard';
 import { LoginPage } from '../login/login';
 import {ProfilePage } from '../profile/profile';
+import { Tutorial1Page } from '../../pages/tutorial1/tutorial1';
 
 /*
   Generated class for the Aboutus page.
@@ -51,7 +52,7 @@ export class AgreementPage {
     this.menu.swipeEnable(true);
     this.dashboardService.updateAgree(this.loggedUser.id).then(data => {
 
-        this.navCtrl.setRoot(DashboardPage);
+        this.navCtrl.setRoot(Tutorial1Page);
 
     });
   }

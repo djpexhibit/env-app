@@ -20,6 +20,8 @@ export class DashboardProvider {
   appVersion;
   agreement;
   agreed;
+  tutorial;
+  tutorialDid;
 
   constructor(public http: Http) {
     console.log('Hello DashboardProvider Provider');
@@ -110,6 +112,17 @@ export class DashboardProvider {
     });
   }
 
+  loadTutorial(id){
+    return new Promise(resolve => {
+      this.http.post(config.main.baseUrl + '/loadTutorial',{user_id:id})
+        .map(res => res.json())
+        .subscribe(data => {
+          this.tutorial = data;
+          resolve(this.tutorial);
+        })
+    })
+  }
+
   updateAgree(id){
     return new Promise(resolve => {
       this.http.post(config.main.baseUrl + '/updateAgree',{user_id:id})
@@ -117,6 +130,17 @@ export class DashboardProvider {
         .subscribe(data => {
           this.agreed = data;
           resolve(this.agreed);
+        });
+    });
+  }
+
+  updateTutorial(id){
+    return new Promise(resolve => {
+      this.http.post(config.main.baseUrl + '/updateTutorial',{user_id:id})
+        .map(res => res.json())
+        .subscribe(data => {
+          this.tutorialDid = data;
+          resolve(this.tutorialDid);
         });
     });
   }

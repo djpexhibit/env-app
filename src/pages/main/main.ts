@@ -35,6 +35,7 @@ export class MainPage {
 
   loggedUser : User;
   agreed=false;
+  tutorialDid = false;
 
   constructor(public navCtrl: NavController, public navParams: NavParams, private auth : AuthService,private dashboardService : DashboardProvider, private menu: MenuController) {
 
@@ -57,17 +58,43 @@ export class MainPage {
   ionViewDidLoad() {
     console.log('ionViewDidLoad MainPage');
     this.loadAgreement();
+    //this.loadTutorial();
   }
 
 
-  loadAgreement(){
-    this.dashboardService.loadAgreement(this.loggedUser.id).then(data => {
-      this.agreed=data[0].agreed;
-      if(!this.agreed){
-        this.rootPage = AgreementPage;
-      }
-    });
-  }
+    loadAgreement(){
+      this.dashboardService.loadAgreement(this.loggedUser.id).then(data => {
+        this.agreed=data[0].agreed;
+        if(!this.agreed){
+          this.rootPage = AgreementPage;
+        }
+      });
+    }
+
+  // loadAgreement(){
+  //   this.dashboardService.loadAgreement(this.loggedUser.id).then(data => {
+  //     this.agreed=data[0].agreed;
+  //     if(!this.agreed){
+  //       this.rootPage = AgreementPage;
+  //     }else{
+  //         this.dashboardService.loadTutorial(this.loggedUser.id).then(data => {
+  //           this.tutorialDid = data[0].tutorialDid;
+  //           if(!this.tutorialDid){
+  //             this.rootPage = this.tutorial1Page
+  //           }
+  //         })
+  //     }
+  //   });
+  // }
+
+  // loadTutorial(){
+  //   this.dashboardService.loadTutorial(this.loggedUser.id).then(data => {
+  //     this.tutorialDid = data[0].tutorialDid;
+  //     if(!this.tutorialDid){
+  //       this.rootPage = this.tutorial1Page
+  //     }
+  //   })
+  // }
 
   test(){
     if(this.rootPage == this.tutorial1Page){
